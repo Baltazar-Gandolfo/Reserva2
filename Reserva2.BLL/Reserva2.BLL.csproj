@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Reserva2.BE\Reserva2.BE.csproj" />
+    <ProjectReference Include="..\Reserva2.DAL\Reserva2.DAL.csproj" />
+  </ItemGroup>
+
+</Project>
