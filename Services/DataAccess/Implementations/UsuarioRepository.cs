@@ -46,14 +46,22 @@ namespace Services.Dal.Implementations
 
         public void Add(Usuario usuario)
         {
-            usuario.IdUsuario = Guid.NewGuid(); //Habría que utilizar el modelo de INSERT con OUTPUT para obtener el IdUsuario generado por la base de datos
-            string commandText = "INSERT INTO Usuario (IdUsuario, Nombre, Password, Email, Habilitado) VALUES (@IdUsuario, @Nombre, @Password, @Email, @Habilitado)";
-            SqlHelper.ExecuteNonQuery(commandText, CommandType.Text, new SqlParameter("@IdUsuario", usuario.IdUsuario),
+            usuario.IdUsuario = Guid.NewGuid();
+            string commandText = @"INSERT INTO Usuario 
+        (IdUsuario, DNI, Nombre, Email, PasswordHash, Rol, Telefono, Estado, FechaRegistro) 
+        VALUES 
+        (@IdUsuario, @DNI, @Nombre, @Email, @PasswordHash, @Rol, @Telefono, @Estado, @FechaRegistro)";
+
+            SqlHelper.ExecuteNonQuery(commandText, CommandType.Text,
+                new SqlParameter("@IdUsuario", usuario.IdUsuario),
+                new SqlParameter("@DNI", usuario.DNI),
                 new SqlParameter("@Nombre", usuario.Nombre),
-                new SqlParameter("@Password", usuario.Password),
                 new SqlParameter("@Email", usuario.Email),
-                new SqlParameter("@Habilitado", usuario.Habilitado)
-            );
+                new SqlParameter("@PasswordHash", usuario.Password),
+                new SqlParameter("@Rol", usuario.Rol),
+                new SqlParameter("@Telefono", usuario.Telefono),
+                new SqlParameter("@Estado", usuario.Estado),
+                new SqlParameter("@FechaRegistro", usuario.FechaRegistro));
         }
 
         public void Update(Usuario entity)

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.DataAccess.Implementations.Adapters
+namespace Services.DAL.Implementations.Adapters
 {
     internal class UsuarioAdapter : IAdapter<Usuario>
     {
