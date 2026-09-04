@@ -25,8 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Elementos\" />
-    <Folder Include="Dispobilidad\" />
+    <Folder Include="Disponibilidad\" />
     <Folder Include="Pagos\" />
     <Folder Include="Reservas\" />
   </ItemGroup>
