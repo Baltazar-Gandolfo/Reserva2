@@ -25,13 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Comercios\" />
     <Folder Include="Elementos\" />
     <Folder Include="Dispobilidad\" />
-    <Folder Include="Auditoria\" />
     <Folder Include="Pagos\" />
     <Folder Include="Reservas\" />
-    <Folder Include="Usuarios\" />
   </ItemGroup>
 
   <ItemGroup>

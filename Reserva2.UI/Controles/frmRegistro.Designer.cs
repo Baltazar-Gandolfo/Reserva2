@@ -45,9 +45,9 @@
             txtPass = new TextBox();
             txtPass2 = new TextBox();
             grpRol = new GroupBox();
-            rdbCliente = new RadioButton();
-            rdbOwner = new RadioButton();
             label8 = new Label();
+            rdbOwner = new RadioButton();
+            rdbCliente = new RadioButton();
             button1 = new Button();
             button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
@@ -192,16 +192,14 @@
             grpRol.TabStop = false;
             grpRol.Text = "Tipo de cuenta";
             // 
-            // rdbCliente
+            // label8
             // 
-            rdbCliente.AutoSize = true;
-            rdbCliente.Location = new Point(17, 31);
-            rdbCliente.Name = "rdbCliente";
-            rdbCliente.Size = new Size(62, 19);
-            rdbCliente.TabIndex = 0;
-            rdbCliente.TabStop = true;
-            rdbCliente.Text = "Cliente";
-            rdbCliente.UseVisualStyleBackColor = true;
+            label8.AutoSize = true;
+            label8.Location = new Point(17, 62);
+            label8.Name = "label8";
+            label8.Size = new Size(351, 15);
+            label8.TabIndex = 2;
+            label8.Text = "Los perfiles de Admin se crean desde la base, no por autoregistro.";
             // 
             // rdbOwner
             // 
@@ -214,14 +212,16 @@
             rdbOwner.Text = "Owner (dueño de comercio)";
             rdbOwner.UseVisualStyleBackColor = true;
             // 
-            // label8
+            // rdbCliente
             // 
-            label8.AutoSize = true;
-            label8.Location = new Point(17, 62);
-            label8.Name = "label8";
-            label8.Size = new Size(351, 15);
-            label8.TabIndex = 2;
-            label8.Text = "Los perfiles de Admin se crean desde la base, no por autoregistro.";
+            rdbCliente.AutoSize = true;
+            rdbCliente.Location = new Point(17, 31);
+            rdbCliente.Name = "rdbCliente";
+            rdbCliente.Size = new Size(62, 19);
+            rdbCliente.TabIndex = 0;
+            rdbCliente.TabStop = true;
+            rdbCliente.Text = "Cliente";
+            rdbCliente.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -238,7 +238,7 @@
             button2.Cursor = Cursors.No;
             button2.ForeColor = Color.Firebrick;
             button2.Location = new Point(453, 476);
-            button2.Margin = new Padding(0, 0, 0, 0);
+            button2.Margin = new Padding(0);
             button2.Name = "button2";
             button2.Size = new Size(98, 29);
             button2.TabIndex = 16;
