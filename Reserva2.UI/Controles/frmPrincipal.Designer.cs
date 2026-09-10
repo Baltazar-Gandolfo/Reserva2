@@ -39,8 +39,9 @@
             toolStripLabel1 = new ToolStripLabel();
             toolStripSeparator1 = new ToolStripSeparator();
             toolStripLabel2 = new ToolStripLabel();
-            toolStripLabel3 = new ToolStripLabel();
             toolStripSeparator2 = new ToolStripSeparator();
+            toolStripLabel3 = new ToolStripLabel();
+            toolStripSeparator3 = new ToolStripSeparator();
             toolStripLabel4 = new ToolStripLabel();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
@@ -48,7 +49,6 @@
             toolStripStatusLabel3 = new ToolStripStatusLabel();
             toolStripStatusLabel4 = new ToolStripStatusLabel();
             toolStripStatusLabel5 = new ToolStripStatusLabel();
-            toolStripSeparator3 = new ToolStripSeparator();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -131,6 +131,11 @@
             toolStripLabel2.Text = "Reservas";
             toolStripLabel2.Click += toolStripLabel2_Click;
             // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 25);
+            // 
             // toolStripLabel3
             // 
             toolStripLabel3.ForeColor = Color.White;
@@ -138,10 +143,10 @@
             toolStripLabel3.Size = new Size(39, 22);
             toolStripLabel3.Text = "Pagos";
             // 
-            // toolStripSeparator2
+            // toolStripSeparator3
             // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 25);
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(6, 25);
             // 
             // toolStripLabel4
             // 
@@ -195,11 +200,6 @@
             toolStripStatusLabel5.Size = new Size(171, 17);
             toolStripStatusLabel5.Text = "Comercio: Complejo deportivo";
             // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(6, 25);
-            // 
             // frmPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -212,6 +212,7 @@
             MainMenuStrip = menuStrip1;
             Name = "frmPrincipal";
             Text = "frmPrincipal";
+            Load += frmPrincipal_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             toolStrip1.ResumeLayout(false);
