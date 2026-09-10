@@ -37,7 +37,18 @@ namespace Reserva2.UI
                 SessionManager.GetInstance().IniciarSesion(usuario);
 
                 frmPrincipal principal = new frmPrincipal();
-                principal.FormClosed += (s, args) => this.Close();
+                principal.FormClosed += (s, args) =>
+                {
+                    if (!SessionManager.GetInstance().EstaAutenticado())
+                    {
+                        txtPassword.Clear();
+                        this.Show();
+                    }
+                    else
+                    {
+                        this.Close();
+                    }
+                };
                 principal.Show();
                 this.Hide();
             }
@@ -69,6 +80,11 @@ namespace Reserva2.UI
         {
             frmRegistro frm = new frmRegistro();
             frm.ShowDialog();
+        }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

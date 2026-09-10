@@ -47,6 +47,13 @@ namespace Reserva2.UI.Controles
 
         private void ArmarMenus()
         {
+            archivoToolStripMenuItem.DropDownItems.Clear();
+            reservasToolStripMenuItem.DropDownItems.Clear();
+            comercioToolStripMenuItem.DropDownItems.Clear();
+            pagosToolStripMenuItem.DropDownItems.Clear();
+            plataformaToolStripMenuItem.DropDownItems.Clear();
+            ayudaToolStripMenuItem.DropDownItems.Clear();
+
             // --- Archivo ---
             var mnuCerrarSesion = new ToolStripMenuItem("Cerrar sesión");
             mnuCerrarSesion.Click += (s, e) => CerrarSesion();
@@ -159,9 +166,6 @@ namespace Reserva2.UI.Controles
         private void CerrarSesion()
         {
             SessionManager.GetInstance().CerrarSesion();
-
-            frmLogin login = new frmLogin();
-            login.Show();
             this.Close();
         }
 

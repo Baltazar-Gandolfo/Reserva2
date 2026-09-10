@@ -240,6 +240,7 @@
         private ToolStripLabel toolStripLabel2;
         private ToolStripLabel toolStripLabel3;
         private ToolStripSeparator toolStripSeparator2;
+
         private ToolStripLabel toolStripLabel4;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel toolStripStatusLabel1;
