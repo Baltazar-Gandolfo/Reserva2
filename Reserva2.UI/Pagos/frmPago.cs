@@ -8,16 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Reserva2.UI.Usuarios
+namespace Reserva2.UI.Pagos
 {
-    public partial class frmUsuarios : Form
+    public partial class frmPago : Form
     {
-        public frmUsuarios()
+        public frmPago()
         {
             InitializeComponent();
         }
 
-        private void frmUsuarios_Load(object sender, EventArgs e)
+        private void frmPago_Load(object sender, EventArgs e)
         {
 
         }

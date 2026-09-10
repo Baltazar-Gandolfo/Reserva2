@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Reserva2.UI.Usuarios
+namespace Reserva2.UI.Reservas
 {
-    public partial class frmUsuarios : Form
+    public partial class frmReservaDetalle : Form
     {
-        public frmUsuarios()
+        public frmReservaDetalle()
         {
             InitializeComponent();
-        }
-
-        private void frmUsuarios_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

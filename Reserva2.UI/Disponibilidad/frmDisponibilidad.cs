@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Reserva2.UI.Usuarios
+namespace Reserva2.UI.Disponibilidad
 {
-    public partial class frmUsuarios : Form
+    public partial class frmDisponibilidad : Form
     {
-        public frmUsuarios()
+        public frmDisponibilidad()
         {
             InitializeComponent();
-        }
-
-        private void frmUsuarios_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

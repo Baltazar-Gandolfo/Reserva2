@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             label1 = new Label();
             label2 = new Label();
             txtBuscar = new TextBox();
@@ -35,13 +36,18 @@
             chkSoloActivos = new CheckBox();
             btnExportar = new Button();
             dgvUsuarios = new DataGridView();
-            label3 = new Label();
             Nombre = new DataGridViewTextBoxColumn();
             DNI = new DataGridViewTextBoxColumn();
             Email = new DataGridViewTextBoxColumn();
             Rol = new DataGridViewTextBoxColumn();
             Activo = new DataGridViewCheckBoxColumn();
+            label3 = new Label();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            verFichaToolStripMenuItem = new ToolStripMenuItem();
+            resetearContraseñaToolStripMenuItem = new ToolStripMenuItem();
+            desactivarUsuarioToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).BeginInit();
+            contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -110,16 +116,6 @@
             dgvUsuarios.Size = new Size(698, 150);
             dgvUsuarios.TabIndex = 6;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(12, 229);
-            label3.Name = "label3";
-            label3.Size = new Size(148, 15);
-            label3.TabIndex = 11;
-            label3.Text = "312 usuarios - 4 mostrados";
-            // 
             // Nombre
             // 
             Nombre.HeaderText = "Nombre";
@@ -149,6 +145,40 @@
             Activo.Resizable = DataGridViewTriState.True;
             Activo.SortMode = DataGridViewColumnSortMode.Automatic;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(12, 229);
+            label3.Name = "label3";
+            label3.Size = new Size(148, 15);
+            label3.TabIndex = 11;
+            label3.Text = "312 usuarios - 4 mostrados";
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { verFichaToolStripMenuItem, resetearContraseñaToolStripMenuItem, desactivarUsuarioToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(180, 70);
+            // 
+            // verFichaToolStripMenuItem
+            // 
+            verFichaToolStripMenuItem.Name = "verFichaToolStripMenuItem";
+            verFichaToolStripMenuItem.Size = new Size(179, 22);
+            verFichaToolStripMenuItem.Text = "Ver Ficha";
+            // 
+            // resetearContraseñaToolStripMenuItem
+            // 
+            resetearContraseñaToolStripMenuItem.Name = "resetearContraseñaToolStripMenuItem";
+            resetearContraseñaToolStripMenuItem.Size = new Size(179, 22);
+            resetearContraseñaToolStripMenuItem.Text = "Resetear contraseña";
+            // 
+            // desactivarUsuarioToolStripMenuItem
+            // 
+            desactivarUsuarioToolStripMenuItem.Name = "desactivarUsuarioToolStripMenuItem";
+            desactivarUsuarioToolStripMenuItem.Size = new Size(179, 22);
+            desactivarUsuarioToolStripMenuItem.Text = "Desactivar usuario";
+            // 
             // frmUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -165,7 +195,9 @@
             Controls.Add(label1);
             Name = "frmUsuarios";
             Text = "frmUsuarios";
+            Load += frmUsuarios_Load;
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).EndInit();
+            contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -185,5 +217,9 @@
         private DataGridViewTextBoxColumn Email;
         private DataGridViewTextBoxColumn Rol;
         private DataGridViewCheckBoxColumn Activo;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem verFichaToolStripMenuItem;
+        private ToolStripMenuItem resetearContraseñaToolStripMenuItem;
+        private ToolStripMenuItem desactivarUsuarioToolStripMenuItem;
     }
 }
