@@ -23,6 +23,8 @@ namespace Reserva2.UI.Usuarios
             btnAsignarFamilia.Click += btnAsignarFamilia_Click;
             btnQuitarFamilia.Click += btnQuitarFamilia_Click;
             treeView1.AfterSelect += treeView1_AfterSelect;
+            btnEditarPatente.Click += btnEditarPatente_Click;
+            btnEliminarPatente.Click += btnEliminarPatente_Click;
         }
 
         private void frmPermisos_Load(object sender, EventArgs e)
@@ -249,6 +251,16 @@ namespace Reserva2.UI.Usuarios
         private void btnCrearFamilia_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnEditarPatente_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Funcionalidad pendiente de implementar.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnEliminarPatente_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Funcionalidad pendiente de implementar.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

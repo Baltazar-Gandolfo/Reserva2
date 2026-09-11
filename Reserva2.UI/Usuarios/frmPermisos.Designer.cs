@@ -160,6 +160,7 @@
             btnEliminarPatente.TabIndex = 15;
             btnEliminarPatente.Text = "Eliminar";
             btnEliminarPatente.UseVisualStyleBackColor = true;
+            btnEliminarPatente.Click += btnEliminarPatente_Click;
             // 
             // btnEditarPatente
             // 
@@ -170,6 +171,7 @@
             btnEditarPatente.TabIndex = 14;
             btnEditarPatente.Text = "Editar";
             btnEditarPatente.UseVisualStyleBackColor = true;
+            btnEditarPatente.Click += btnEditarPatente_Click;
             // 
             // btnCrearPatente
             // 
