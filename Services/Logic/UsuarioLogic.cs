@@ -52,5 +52,15 @@ namespace Services.Logic
         {
             new UsuarioPatenteRepository().Add(patente, usuario);
         }
+
+        public static List<Usuario> GetAll()
+        {
+            return _usuarioRepository.GetAll();
+        }
+
+        public static void QuitarFamilia(Familia familia, Usuario usuario)
+        {
+            new UsuarioFamiliaRepository().Delete(familia, usuario);
+        }
     }
 }

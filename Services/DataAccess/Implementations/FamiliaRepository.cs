@@ -20,14 +20,28 @@ namespace Services.Dal.Implementations
                 new SqlParameter("@Nombre", entity.Nombre));
         }
 
-        public void Delete(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Familia> GetAll()
         {
-            throw new NotImplementedException();
+            List<Familia> familias = new List<Familia>();
+            string commandText = "SELECT IdFamilia, Nombre FROM Familia";
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(commandText, CommandType.Text))
+            {
+                while (reader.Read())
+                {
+                    object[] data = new object[reader.FieldCount];
+                    reader.GetValues(data);
+                    familias.Add(FamiliaAdapter.Current.Get(data));
+                }
+            }
+            return familias;
+        }
+
+        public void Delete(Guid id)
+        {
+            SqlHelper.ExecuteNonQuery("DELETE FROM FamiliaPatente WHERE IdFamilia = @Id", CommandType.Text, new SqlParameter("@Id", id));
+            SqlHelper.ExecuteNonQuery("DELETE FROM FamiliaFamilia WHERE IdFamiliaPadre = @Id OR IdFamiliaHija = @Id", CommandType.Text, new SqlParameter("@Id", id));
+            SqlHelper.ExecuteNonQuery("DELETE FROM UsuarioFamilia WHERE IdFamilia = @Id", CommandType.Text, new SqlParameter("@Id", id));
+            SqlHelper.ExecuteNonQuery("DELETE FROM Familia WHERE IdFamilia = @Id", CommandType.Text, new SqlParameter("@Id", id));
         }
 
         public Familia GetById(Guid id)

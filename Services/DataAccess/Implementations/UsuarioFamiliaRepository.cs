@@ -50,5 +50,13 @@ namespace Services.Dal.Implementations
 
             return familias;
         }
+
+        public void Delete(Familia familia, Usuario usuario)
+        {
+            string commandText = "DELETE FROM UsuarioFamilia WHERE IdUsuario = @IdUsuario AND IdFamilia = @IdFamilia";
+            SqlHelper.ExecuteNonQuery(commandText, CommandType.Text,
+                new SqlParameter("@IdUsuario", usuario.IdUsuario),
+                new SqlParameter("@IdFamilia", familia.Id));
+        }
     }
 }

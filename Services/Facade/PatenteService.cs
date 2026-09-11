@@ -14,5 +14,10 @@ namespace Services.Facade
         {
             return Logic.PatenteLogic.GetById(id);
         }
+
+        public static List<Patente> GetAll()
+        {
+            return Logic.PatenteLogic.GetAll();
+        }
     }
 }

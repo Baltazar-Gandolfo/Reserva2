@@ -24,5 +24,15 @@ namespace Services.Facade
         {
             return Logic.FamiliaLogic.GetById(id);
         }
+
+        public static List<Familia> GetAll()
+        {
+            return Logic.FamiliaLogic.GetAll();
+        }
+
+        public static void Delete(Guid id)
+        {
+            Logic.FamiliaLogic.Delete(id);
+        }
     }
 }

@@ -18,5 +18,10 @@ namespace Services.Logic
         {
             return _repo.GetById(id);
         }
+
+        public static List<Patente> GetAll()
+        {
+            return _repo.GetAll();
+        }
     }
 }

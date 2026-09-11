@@ -13,5 +13,15 @@ namespace Services.Facade
         {
             Logic.UsuarioLogic.AgregarPatente(patente, usuario);
         }
+
+        public static List<Usuario> GetAll()
+        {
+            return Logic.UsuarioLogic.GetAll();
+        }
+
+        public static void QuitarFamilia(Familia familia, Usuario usuario)
+        {
+            Logic.UsuarioLogic.QuitarFamilia(familia, usuario);
+        }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using Services.Dal.Implementations.Adapters;
+using Services.DAL.Implementations.Adapters;
 using Services.DataAccess;
-using Services.DomainModel.Composite;
 using Services.DataAccess.Interfaces;
 using Services.DataAccess.Tools;
+using Services.DomainModel.Composite;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -80,7 +81,18 @@ namespace Services.Dal.Implementations
 
         public List<Usuario> GetAll()
         {
-            throw new NotImplementedException();
+            List<Usuario> usuarios = new List<Usuario>();
+            string commandText = "SELECT IdUsuario, DNI, Nombre, Email, PasswordHash, Rol, Telefono, Estado, FechaRegistro FROM Usuario WHERE Estado = 'Activo'";
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(commandText, CommandType.Text))
+            {
+                while (reader.Read())
+                {
+                    object[] data = new object[reader.FieldCount];
+                    reader.GetValues(data);
+                    usuarios.Add(UsuarioAdapter.Current.Get(data));
+                }
+            }
+            return usuarios;
         }
     }
 }

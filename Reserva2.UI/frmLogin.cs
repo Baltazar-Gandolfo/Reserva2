@@ -35,6 +35,7 @@ namespace Reserva2.UI
                 Usuario usuario = LoginService.ValidarCredenciales(txtEmail.Text.Trim(), txtPassword.Text);
 
                 SessionManager.GetInstance().IniciarSesion(usuario);
+                BitacoraService.Registrar("Login", "Usuario", $"Ingresó al sistema: {usuario.Email}");
 
                 frmPrincipal principal = new frmPrincipal();
                 principal.FormClosed += (s, args) =>

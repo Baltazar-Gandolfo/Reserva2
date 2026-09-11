@@ -7,6 +7,7 @@ using Reserva2.UI.Disponibilidad;
 using Reserva2.UI.Reservas;
 using Reserva2.UI.Pagos;
 using Reserva2.UI.Auditoria;
+using Reserva2.UI.Usuarios;
 using System;
 using System.Windows.Forms;
 
@@ -108,12 +109,15 @@ namespace Reserva2.UI.Controles
             mnuComercios.Click += (s, e) => AbrirForm(new frmComercios());
             var mnuUsuarios = new ToolStripMenuItem("Usuarios");
             mnuUsuarios.Click += (s, e) => AbrirForm(new frmUsuarios());
+            var mnuPermisos = new ToolStripMenuItem("Permisos");
+            mnuPermisos.Click += (s, e) => AbrirForm(new frmPermisos());
             var mnuBitacora = new ToolStripMenuItem("Auditoría");
             mnuBitacora.Click += (s, e) => AbrirForm(new frmAuditoria());
             plataformaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[]
             {
                 mnuComercios,
                 mnuUsuarios,
+                mnuPermisos,
                 new ToolStripSeparator(),
                 mnuBitacora
             });
@@ -166,6 +170,7 @@ namespace Reserva2.UI.Controles
         private void CerrarSesion()
         {
             SessionManager.GetInstance().CerrarSesion();
+            BitacoraService.Registrar("Logout", "Usuario", "Cerró sesión");
             this.Close();
         }
 

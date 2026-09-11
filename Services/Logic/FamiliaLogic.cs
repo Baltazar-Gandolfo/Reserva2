@@ -28,5 +28,15 @@ namespace Services.Logic
         {
             return _repo.GetById(id);
         }
+
+        public static List<Familia> GetAll()
+        {
+            return _repo.GetAll();
+        }
+
+        public static void Delete(Guid id)
+        {
+            _repo.Delete(id);
+        }
     }
 }

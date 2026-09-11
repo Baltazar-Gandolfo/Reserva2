@@ -21,14 +21,27 @@ namespace Services.Dal.Implementations
                 new SqlParameter("@TipoAcceso", (int)entity.TipoAcceso));
         }
 
-        public void Delete(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Patente> GetAll()
         {
-            throw new NotImplementedException();
+            List<Patente> patentes = new List<Patente>();
+            string commandText = "SELECT IdPatente, DataKey, TipoAcceso FROM Patente";
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(commandText, CommandType.Text))
+            {
+                while (reader.Read())
+                {
+                    object[] data = new object[reader.FieldCount];
+                    reader.GetValues(data);
+                    patentes.Add(PatenteAdapter.Current.Get(data));
+                }
+            }
+            return patentes;
+        }
+
+        public void Delete(Guid id)
+        {
+            SqlHelper.ExecuteNonQuery("DELETE FROM FamiliaPatente WHERE IdPatente = @Id", CommandType.Text, new SqlParameter("@Id", id));
+            SqlHelper.ExecuteNonQuery("DELETE FROM UsuarioPatente WHERE IdPatente = @Id", CommandType.Text, new SqlParameter("@Id", id));
+            SqlHelper.ExecuteNonQuery("DELETE FROM Patente WHERE IdPatente = @Id", CommandType.Text, new SqlParameter("@Id", id));
         }
 
         public Patente GetById(Guid id)

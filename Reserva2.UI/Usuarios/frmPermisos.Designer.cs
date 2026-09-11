@@ -46,10 +46,10 @@
             label3 = new Label();
             label4 = new Label();
             groupBox3 = new GroupBox();
-            label5 = new Label();
-            cboUsuarios = new ComboBox();
-            btnAsignarFamilia = new Button();
             btnQuitarFamilia = new Button();
+            btnAsignarFamilia = new Button();
+            cboUsuarios = new ComboBox();
+            label5 = new Label();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
             SuspendLayout();
@@ -104,6 +104,7 @@
             btnCrearFamilia.TabIndex = 5;
             btnCrearFamilia.Text = "Crear";
             btnCrearFamilia.UseVisualStyleBackColor = true;
+            btnCrearFamilia.Click += btnCrearFamilia_Click_1;
             // 
             // btnEditarFamilia
             // 
@@ -179,6 +180,7 @@
             btnCrearPatente.TabIndex = 13;
             btnCrearPatente.Text = "Crear";
             btnCrearPatente.UseVisualStyleBackColor = true;
+            btnCrearPatente.Click += btnCrearPatente_Click;
             // 
             // textBox1
             // 
@@ -226,22 +228,15 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Asignar a usuario";
             // 
-            // label5
+            // btnQuitarFamilia
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(6, 28);
-            label5.Name = "label5";
-            label5.Size = new Size(108, 15);
-            label5.TabIndex = 10;
-            label5.Text = "Nombre de Familia";
-            // 
-            // cboUsuarios
-            // 
-            cboUsuarios.FormattingEnabled = true;
-            cboUsuarios.Location = new Point(6, 46);
-            cboUsuarios.Name = "cboUsuarios";
-            cboUsuarios.Size = new Size(239, 23);
-            cboUsuarios.TabIndex = 11;
+            btnQuitarFamilia.ForeColor = Color.Black;
+            btnQuitarFamilia.Location = new Point(510, 43);
+            btnQuitarFamilia.Name = "btnQuitarFamilia";
+            btnQuitarFamilia.Size = new Size(158, 27);
+            btnQuitarFamilia.TabIndex = 13;
+            btnQuitarFamilia.Text = "Quitar familia al usuario";
+            btnQuitarFamilia.UseVisualStyleBackColor = true;
             // 
             // btnAsignarFamilia
             // 
@@ -253,15 +248,22 @@
             btnAsignarFamilia.Text = "Asignar familia seleccionada al usuario";
             btnAsignarFamilia.UseVisualStyleBackColor = true;
             // 
-            // btnQuitarFamilia
+            // cboUsuarios
             // 
-            btnQuitarFamilia.ForeColor = Color.Black;
-            btnQuitarFamilia.Location = new Point(510, 43);
-            btnQuitarFamilia.Name = "btnQuitarFamilia";
-            btnQuitarFamilia.Size = new Size(158, 27);
-            btnQuitarFamilia.TabIndex = 13;
-            btnQuitarFamilia.Text = "Quitar familia al usuario";
-            btnQuitarFamilia.UseVisualStyleBackColor = true;
+            cboUsuarios.FormattingEnabled = true;
+            cboUsuarios.Location = new Point(6, 46);
+            cboUsuarios.Name = "cboUsuarios";
+            cboUsuarios.Size = new Size(239, 23);
+            cboUsuarios.TabIndex = 11;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(6, 28);
+            label5.Name = "label5";
+            label5.Size = new Size(108, 15);
+            label5.TabIndex = 10;
+            label5.Text = "Nombre de Familia";
             // 
             // frmPermisos
             // 

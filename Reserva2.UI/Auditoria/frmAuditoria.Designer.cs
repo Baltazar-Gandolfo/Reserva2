@@ -69,7 +69,7 @@
             // 
             // cboUsuario
             // 
-            cboUsuario.ForeColor = Color.White;
+            cboUsuario.ForeColor = Color.Black;
             cboUsuario.FormattingEnabled = true;
             cboUsuario.Location = new Point(289, 27);
             cboUsuario.Name = "cboUsuario";
@@ -106,7 +106,7 @@
             // 
             // cboAccion
             // 
-            cboAccion.ForeColor = Color.White;
+            cboAccion.ForeColor = Color.Black;
             cboAccion.FormattingEnabled = true;
             cboAccion.Location = new Point(451, 27);
             cboAccion.Name = "cboAccion";
@@ -149,6 +149,7 @@
             dgvAuditoria.Name = "dgvAuditoria";
             dgvAuditoria.Size = new Size(876, 235);
             dgvAuditoria.TabIndex = 49;
+            dgvAuditoria.CellContentClick += dgvAuditoria_CellContentClick;
             // 
             // FechaHora
             // 
@@ -182,7 +183,7 @@
             // 
             // cmoEntidad
             // 
-            cmoEntidad.ForeColor = Color.White;
+            cmoEntidad.ForeColor = Color.Black;
             cmoEntidad.FormattingEnabled = true;
             cmoEntidad.Location = new Point(612, 27);
             cmoEntidad.Name = "cmoEntidad";

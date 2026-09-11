@@ -34,7 +34,7 @@ namespace Services.DataAccess.Implementations
                 }
 
                 //Si estoy acá, es porque la configuración permite a partir del minimalLogLevel registrar el mensaje, entonces creo una nueva entrada de log con la información correspondiente
-                LogEntry entry = new LogEntry();
+                FileLogEntry entry = new FileLogEntry();
                 entry.TimeStamp = DateTime.Now;
                 entry.LogLevel = logLevel;
                 entry.Message = message;
