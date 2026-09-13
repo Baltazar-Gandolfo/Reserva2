@@ -39,7 +39,7 @@ namespace Services.Dal.Implementations
         public void Delete(Guid id)
         {
             SqlHelper.ExecuteNonQuery("DELETE FROM FamiliaPatente WHERE IdFamilia = @Id", CommandType.Text, new SqlParameter("@Id", id));
-            SqlHelper.ExecuteNonQuery("DELETE FROM FamiliaFamilia WHERE IdFamiliaPadre = @Id OR IdFamiliaHija = @Id", CommandType.Text, new SqlParameter("@Id", id));
+            SqlHelper.ExecuteNonQuery("DELETE FROM FamiliaFamilia WHERE IdFamiliaPadre = @Id OR IdFamiliaHijo = @Id", CommandType.Text, new SqlParameter("@Id", id));
             SqlHelper.ExecuteNonQuery("DELETE FROM UsuarioFamilia WHERE IdFamilia = @Id", CommandType.Text, new SqlParameter("@Id", id));
             SqlHelper.ExecuteNonQuery("DELETE FROM Familia WHERE IdFamilia = @Id", CommandType.Text, new SqlParameter("@Id", id));
         }

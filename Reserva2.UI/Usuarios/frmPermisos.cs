@@ -24,6 +24,7 @@ namespace Reserva2.UI.Usuarios
             btnQuitarFamilia.Click += btnQuitarFamilia_Click;
             treeView1.AfterSelect += treeView1_AfterSelect;
             btnEditarPatente.Click += btnEditarPatente_Click;
+            //btnEditarPatente.Click += (s, ev) => throw new Exception("Error de prueba para validar LogError");
             btnEliminarPatente.Click += btnEliminarPatente_Click;
         }
 

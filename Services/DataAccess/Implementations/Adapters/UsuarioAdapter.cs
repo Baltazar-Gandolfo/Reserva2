@@ -1,7 +1,8 @@
-using Services.DomainModel.Composite;
+using Services.Dal.Implementations;
+using Services.Dal.Implementations;
 using Services.DataAccess.Interfaces;
-using Services.Dal.Implementations;
-using Services.Dal.Implementations;
+using Services.DomainModel.Composite;
+using Services.Facade;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace Services.DAL.Implementations.Adapters
             Usuario usuario = new Usuario
             {
                 IdUsuario = Guid.Parse(values[0].ToString()),
-                DNI = values[1].ToString(),
+                DNI = CryptographyService.Decrypt(values[1].ToString()),
                 Nombre = values[2].ToString(),
                 Email = values[3].ToString(),
                 Password = values[4].ToString(),

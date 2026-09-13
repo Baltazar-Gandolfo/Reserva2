@@ -4,6 +4,7 @@ using Services.DataAccess;
 using Services.DataAccess.Interfaces;
 using Services.DataAccess.Tools;
 using Services.DomainModel.Composite;
+using Services.Facade;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -47,6 +48,8 @@ namespace Services.Dal.Implementations
         public void Add(Usuario usuario)
         {
             usuario.IdUsuario = Guid.NewGuid();
+            string dniEncriptado = CryptographyService.Encrypt(usuario.DNI);
+
             string commandText = @"INSERT INTO Usuario 
         (IdUsuario, DNI, Nombre, Email, PasswordHash, Rol, Telefono, Estado, FechaRegistro) 
         VALUES 
@@ -54,7 +57,7 @@ namespace Services.Dal.Implementations
 
             SqlHelper.ExecuteNonQuery(commandText, CommandType.Text,
                 new SqlParameter("@IdUsuario", usuario.IdUsuario),
-                new SqlParameter("@DNI", usuario.DNI),
+                new SqlParameter("@DNI", dniEncriptado),
                 new SqlParameter("@Nombre", usuario.Nombre),
                 new SqlParameter("@Email", usuario.Email),
                 new SqlParameter("@PasswordHash", usuario.Password),

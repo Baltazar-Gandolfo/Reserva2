@@ -2,6 +2,7 @@ using Services.Dal.Implementations;
 using Services.DomainModel.Composite;
 using Services.DataAccess.Interfaces;
 using System;
+using Services.Facade;
 
 namespace Services.Logic
 {
@@ -16,7 +17,10 @@ namespace Services.Logic
 
         public static Usuario ValidarCredenciales(string user, string password)
         {
-            //password = CryptographyService.HashMd5(password);
+            password = CryptographyService.HashMd5(password);
+
+            //// TEMPORAL - borrar después
+            //throw new Exception("Hash generado: " + password);
 
             Usuario usuario = _usuarioRepository.GetByCredentials(user, password);
 

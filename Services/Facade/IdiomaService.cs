@@ -9,6 +9,11 @@ namespace Services.Facade
 {
     public static class IdiomaService
     {
+        public static string Traducir(string texto)
+        {
+            return Logic.IdiomaLogic.Traducir(texto);
+        }
+
         public static List<CultureInfo> ObtenerIdiomas()
         {
             return Logic.IdiomaLogic.ObtenerIdiomas();

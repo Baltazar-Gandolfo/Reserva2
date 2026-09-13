@@ -31,7 +31,7 @@
             label1 = new Label();
             txtRutaBackup = new TextBox();
             btnExaminar = new Button();
-            button2 = new Button();
+            btnCrearBackup = new Button();
             groupBox1 = new GroupBox();
             groupBox2 = new GroupBox();
             btnRestaurar = new Button();
@@ -78,19 +78,19 @@
             btnExaminar.Text = "Examinar...";
             btnExaminar.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnCrearBackup
             // 
-            button2.ForeColor = Color.Black;
-            button2.Location = new Point(648, 45);
-            button2.Name = "button2";
-            button2.Size = new Size(95, 24);
-            button2.TabIndex = 3;
-            button2.Text = "Crear backup";
-            button2.UseVisualStyleBackColor = true;
+            btnCrearBackup.ForeColor = Color.Black;
+            btnCrearBackup.Location = new Point(648, 45);
+            btnCrearBackup.Name = "btnCrearBackup";
+            btnCrearBackup.Size = new Size(95, 24);
+            btnCrearBackup.TabIndex = 3;
+            btnCrearBackup.Text = "Crear backup";
+            btnCrearBackup.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(button2);
+            groupBox1.Controls.Add(btnCrearBackup);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(btnExaminar);
             groupBox1.Controls.Add(txtRutaBackup);
@@ -240,7 +240,7 @@
         private Label label1;
         private TextBox txtRutaBackup;
         private Button btnExaminar;
-        private Button button2;
+        private Button btnCrearBackup;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
         private Button btnRestaurar;
