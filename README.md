@@ -199,7 +199,7 @@ Entities/
 - [x] Múltiples idiomas (es-AR, en-US) con cambio en caliente
 
 ### Negocio
-- [ ] Gestión de comercios
+- [x] Gestión de comercios
 - [ ] Gestión de elementos reservables
 - [ ] Configuración de disponibilidad
 - [ ] Flujo de reservas
