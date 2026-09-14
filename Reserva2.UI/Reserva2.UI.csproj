@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.31" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Reserva2.BE\Reserva2.BE.csproj" />
     <ProjectReference Include="..\Reserva2.BLL\Reserva2.BLL.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />

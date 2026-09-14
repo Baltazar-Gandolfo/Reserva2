@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Reserva2.BE\Reserva2.BE.csproj" />
     <ProjectReference Include="..\Reserva2.DAL\Reserva2.DAL.csproj" />
+    <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
 </Project>

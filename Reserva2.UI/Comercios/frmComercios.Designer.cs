@@ -36,13 +36,13 @@
             btnAlta = new Button();
             btnBaja = new Button();
             dataGridView1 = new DataGridView();
-            label3 = new Label();
-            label2 = new Label();
             Comercio = new DataGridViewTextBoxColumn();
             Rubro = new DataGridViewTextBoxColumn();
             Elementos = new DataGridViewTextBoxColumn();
             Recaudado_mes = new DataGridViewTextBoxColumn();
             Estado = new DataGridViewTextBoxColumn();
+            label3 = new Label();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -80,6 +80,7 @@
             btnBuscar.TabIndex = 3;
             btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // btnVer
             // 
@@ -122,26 +123,6 @@
             dataGridView1.TabIndex = 7;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(214, 9);
-            label3.Name = "label3";
-            label3.Size = new Size(42, 15);
-            label3.TabIndex = 9;
-            label3.Text = "Estado";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(12, 241);
-            label2.Name = "label2";
-            label2.Size = new Size(133, 15);
-            label2.TabIndex = 10;
-            label2.Text = "9 comercios - 1 inactivo";
-            // 
             // Comercio
             // 
             Comercio.HeaderText = "Comercio";
@@ -169,6 +150,26 @@
             // 
             Estado.HeaderText = "Estado";
             Estado.Name = "Estado";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(214, 9);
+            label3.Name = "label3";
+            label3.Size = new Size(42, 15);
+            label3.TabIndex = 9;
+            label3.Text = "Estado";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(12, 241);
+            label2.Name = "label2";
+            label2.Size = new Size(133, 15);
+            label2.TabIndex = 10;
+            label2.Text = "9 comercios - 1 inactivo";
             // 
             // frmComercios
             // 
