@@ -90,6 +90,7 @@ namespace Reserva2.UI.Auditoria
             }
             catch (Exception ex)
             {
+                ErrorService.Registrar(ex, "frmAuditoria");
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -130,6 +131,7 @@ namespace Reserva2.UI.Auditoria
                 }
                 catch (Exception ex)
                 {
+                    ErrorService.Registrar(ex, "frmAuditoria");
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }

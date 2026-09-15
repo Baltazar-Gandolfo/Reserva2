@@ -31,15 +31,21 @@ namespace Services.DAL.Implementations.Adapters
 
         public Usuario Get(object[] values)
         {
-            // Columnas esperadas del SELECT:
-            // [0] IdUsuario, [1] DNI, [2] Nombre, [3] Email,
-            // [4] PasswordHash, [5] Rol, [6] Telefono,
-            // [7] Estado, [8] FechaRegistro
+            string dniRaw = values[1].ToString();
+            string dniValor;
+            try
+            {
+                dniValor = CryptographyService.Decrypt(dniRaw);
+            }
+            catch
+            {
+                dniValor = dniRaw;
+            }
 
             Usuario usuario = new Usuario
             {
                 IdUsuario = Guid.Parse(values[0].ToString()),
-                DNI = CryptographyService.Decrypt(values[1].ToString()),
+                DNI = dniValor,
                 Nombre = values[2].ToString(),
                 Email = values[3].ToString(),
                 Password = values[4].ToString(),

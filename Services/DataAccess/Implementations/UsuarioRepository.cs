@@ -28,18 +28,9 @@ namespace Services.Dal.Implementations
             {
                 if (dataReader.Read())
                 {
-                    return new Usuario
-                    {
-                        IdUsuario = dataReader.GetGuid(dataReader.GetOrdinal("IdUsuario")),
-                        DNI = dataReader["DNI"].ToString(),
-                        Nombre = dataReader["Nombre"].ToString(),
-                        Email = dataReader["Email"].ToString(),
-                        Password = dataReader["PasswordHash"].ToString(),
-                        Rol = dataReader["Rol"].ToString(),
-                        Telefono = dataReader["Telefono"].ToString(),
-                        Estado = dataReader["Estado"].ToString(),
-                        FechaRegistro = Convert.ToDateTime(dataReader["FechaRegistro"])
-                    };
+                    object[] data = new object[dataReader.FieldCount];
+                    dataReader.GetValues(data);
+                    return UsuarioAdapter.Current.Get(data);
                 }
                 return null;
             }
@@ -85,7 +76,7 @@ namespace Services.Dal.Implementations
         public List<Usuario> GetAll()
         {
             List<Usuario> usuarios = new List<Usuario>();
-            string commandText = "SELECT IdUsuario, DNI, Nombre, Email, PasswordHash, Rol, Telefono, Estado, FechaRegistro FROM Usuario WHERE Estado = 'Activo'";
+            string commandText = "SELECT IdUsuario, DNI, Nombre, Email, PasswordHash, Rol, Telefono, Estado, FechaRegistro FROM Usuario";
             using (SqlDataReader reader = SqlHelper.ExecuteReader(commandText, CommandType.Text))
             {
                 while (reader.Read())
@@ -96,6 +87,38 @@ namespace Services.Dal.Implementations
                 }
             }
             return usuarios;
+        } 
+
+        public void CambiarPassword(Guid idUsuario, string nuevoHash)
+        {
+            string sql = "UPDATE Usuario SET PasswordHash = @Hash WHERE IdUsuario = @Id";
+            SqlHelper.ExecuteNonQuery(sql, CommandType.Text,
+                new SqlParameter("@Hash", nuevoHash),
+                new SqlParameter("@Id", idUsuario));
+        }
+
+        public void CambiarEstado(Guid idUsuario, string nuevoEstado)
+        {
+            string sql = "UPDATE Usuario SET Estado = @Estado WHERE IdUsuario = @Id";
+            SqlHelper.ExecuteNonQuery(sql, CommandType.Text,
+                new SqlParameter("@Estado", nuevoEstado),
+                new SqlParameter("@Id", idUsuario));
+        }
+
+        public Usuario GetByEmail(string email)
+        {
+            string sql = "SELECT IdUsuario, DNI, Nombre, Email, PasswordHash, Rol, Telefono, Estado, FechaRegistro FROM Usuario WHERE Email = @Email";
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(sql, CommandType.Text,
+                new SqlParameter("@Email", email)))
+            {
+                if (reader.Read())
+                {
+                    object[] data = new object[reader.FieldCount];
+                    reader.GetValues(data);
+                    return UsuarioAdapter.Current.Get(data);
+                }
+                return null;
+            }
         }
     }
 }

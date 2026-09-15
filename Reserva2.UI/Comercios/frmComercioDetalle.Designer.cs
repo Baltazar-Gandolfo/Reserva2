@@ -145,7 +145,6 @@
             lblReservas.Size = new Size(37, 21);
             lblReservas.TabIndex = 5;
             lblReservas.Text = "146";
-            //lblReservas.Click += label13_Click;
             // 
             // lblRecaudado
             // 
@@ -350,6 +349,7 @@
             btnCerrar.TabIndex = 1;
             btnCerrar.Text = "Cerrar";
             btnCerrar.UseVisualStyleBackColor = true;
+            btnCerrar.Click += btnCerrar_Click_1;
             // 
             // btnBaja
             // 
@@ -361,7 +361,6 @@
             btnBaja.TabIndex = 7;
             btnBaja.Text = "Dar de baja";
             btnBaja.UseVisualStyleBackColor = false;
-            //btnBaja.Click += btnBaja_Click;
             // 
             // frmComercioDetalle
             // 

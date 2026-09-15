@@ -55,6 +55,7 @@ namespace Reserva2.UI
             }
             catch (Exception ex)
             {
+                ErrorService.Registrar(ex, "frmLogin");
                 lblError.Text = ex.Message;
                 lblError.Visible = true;
                 txtPassword.Clear();
@@ -84,6 +85,11 @@ namespace Reserva2.UI
         }
 
         private void frmLogin_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnIngresar_Click_1(object sender, EventArgs e)
         {
 
         }

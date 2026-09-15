@@ -41,7 +41,7 @@ namespace Reserva2.UI.Controles
             this.Text = $"Reserva2 — {usuario.Nombre} ({usuario.Rol})";
 
             ArmarMenus();
-            FiltrarMenuPorRol(usuario.Rol);
+            FiltrarMenuPorPermisos();
         }
 
         private string T(string clave)
@@ -152,7 +152,7 @@ namespace Reserva2.UI.Controles
                         Thread.CurrentThread.CurrentUICulture = cultura;
                         BitacoraService.Registrar("Cambio idioma", "Sistema", $"Idioma cambiado a: {cultura.DisplayName}");
                         ArmarMenus();
-                        FiltrarMenuPorRol(SessionManager.GetInstance().UsuarioActual.Rol);
+                        FiltrarMenuPorPermisos();
                     };
                     mnuIdioma.DropDownItems.Add(item);
                 }
@@ -176,30 +176,42 @@ namespace Reserva2.UI.Controles
             toolStripLabel3.Click += (s, e) => AbrirForm(new frmPago());
         }
 
-        private void FiltrarMenuPorRol(string rol)
+        private void FiltrarMenuPorPermisos()
         {
-            comercioToolStripMenuItem.Visible = true;
-            pagosToolStripMenuItem.Visible = true;
-            plataformaToolStripMenuItem.Visible = true;
+            var usuario = SessionManager.GetInstance().UsuarioActual;
+            var patentes = usuario.Patentes;
 
-            switch (rol)
+            bool TienePermiso(string clave)
             {
-                case "Admin":
-                    comercioToolStripMenuItem.Visible = false;
-                    pagosToolStripMenuItem.Visible = false;
-                    break;
-                case "Comercio":
-                    plataformaToolStripMenuItem.Visible = false;
-                    break;
-                case "Cliente":
-                    comercioToolStripMenuItem.Visible = false;
-                    plataformaToolStripMenuItem.Visible = false;
-                    break;
-                default:
-                    plataformaToolStripMenuItem.Visible = false;
-                    comercioToolStripMenuItem.Visible = false;
-                    break;
+                foreach (var p in patentes)
+                {
+                    if (p.DataKey == clave) return true;
+                }
+                return false;
             }
+
+            // Comercio (Owner) — se muestra si tiene al menos una patente de este grupo
+            comercioToolStripMenuItem.Visible =
+                TienePermiso("frmElementos") ||
+                TienePermiso("frmElementoABM") ||
+                TienePermiso("frmDisponibilidad") ||
+                TienePermiso("frmCalendario");
+
+            // Pagos
+            pagosToolStripMenuItem.Visible = TienePermiso("frmPagoManual");
+
+            // Plataforma (Admin)
+            plataformaToolStripMenuItem.Visible =
+                TienePermiso("frmComercios") ||
+                TienePermiso("frmUsuarios") ||
+                TienePermiso("frmPermisos") ||
+                TienePermiso("frmBitacora") ||
+                TienePermiso("frmBackup");
+
+            // Reservas — visible para todos los que tengan alguna patente de reservas
+            reservasToolStripMenuItem.Visible =
+                TienePermiso("frmNuevaReserva") ||
+                TienePermiso("frmReservas");
         }
 
         private void AbrirForm(Form form)

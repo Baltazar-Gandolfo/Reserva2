@@ -83,8 +83,14 @@ namespace Reserva2.UI.Comercios
             }
             catch (Exception ex)
             {
+                ErrorService.Registrar(ex, "frmComercioDetalle");
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnCerrar_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

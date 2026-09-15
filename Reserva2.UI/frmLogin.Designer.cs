@@ -139,6 +139,7 @@
             btnIngresar.TabIndex = 9;
             btnIngresar.Text = "Ingresar";
             btnIngresar.UseVisualStyleBackColor = true;
+            btnIngresar.Click += btnIngresar_Click_1;
             // 
             // label6
             // 

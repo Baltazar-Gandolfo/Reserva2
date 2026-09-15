@@ -66,5 +66,20 @@ namespace Services.Logic
         {
             new UsuarioFamiliaRepository().Delete(familia, usuario);
         }
+
+        public static void CambiarPassword(Guid idUsuario, string nuevoHash)
+        {
+            _usuarioRepository.CambiarPassword(idUsuario, nuevoHash);
+        }
+
+        public static void CambiarEstado(Guid idUsuario, string nuevoEstado)
+        {
+            _usuarioRepository.CambiarEstado(idUsuario, nuevoEstado);
+        }
+
+        public static Usuario BuscarPorEmail(string email)
+        {
+            return _usuarioRepository.GetByEmail(email);
+        }
     }
 }

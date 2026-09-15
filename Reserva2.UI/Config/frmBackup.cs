@@ -78,6 +78,7 @@ namespace Reserva2.UI.Config
             {
                 progressBar1.Value = 0;
                 lblEstado.Text = "Error";
+                ErrorService.Registrar(ex, "frmBackup");
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -149,6 +150,7 @@ namespace Reserva2.UI.Config
                 {
                     progressBar1.Value = 0;
                     lblEstado.Text = "Error";
+                    ErrorService.Registrar(ex, "frmBackup");
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -184,6 +186,11 @@ namespace Reserva2.UI.Config
             }
         }
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCrearBackup_Click_1(object sender, EventArgs e)
         {
 
         }

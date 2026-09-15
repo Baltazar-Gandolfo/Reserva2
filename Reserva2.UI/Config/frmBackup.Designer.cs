@@ -40,12 +40,12 @@
             txtRutaStore = new TextBox();
             label3 = new Label();
             dgvBackups = new DataGridView();
-            progressBar1 = new ProgressBar();
-            lblEstado = new Label();
             Fecha = new DataGridViewTextBoxColumn();
             BaseDeDatos = new DataGridViewTextBoxColumn();
             Archivo = new DataGridViewTextBoxColumn();
             Tamaño = new DataGridViewTextBoxColumn();
+            progressBar1 = new ProgressBar();
+            lblEstado = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvBackups).BeginInit();
@@ -87,6 +87,7 @@
             btnCrearBackup.TabIndex = 3;
             btnCrearBackup.Text = "Crear backup";
             btnCrearBackup.UseVisualStyleBackColor = true;
+            btnCrearBackup.Click += btnCrearBackup_Click_1;
             // 
             // groupBox1
             // 
@@ -171,24 +172,6 @@
             dgvBackups.Size = new Size(770, 166);
             dgvBackups.TabIndex = 7;
             // 
-            // progressBar1
-            // 
-            progressBar1.ForeColor = Color.Lime;
-            progressBar1.Location = new Point(12, 458);
-            progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(598, 23);
-            progressBar1.TabIndex = 8;
-            // 
-            // lblEstado
-            // 
-            lblEstado.AutoSize = true;
-            lblEstado.ForeColor = Color.White;
-            lblEstado.Location = new Point(616, 466);
-            lblEstado.Name = "lblEstado";
-            lblEstado.Size = new Size(146, 15);
-            lblEstado.TabIndex = 9;
-            lblEstado.Text = "Backup en progreso... 62%";
-            // 
             // Fecha
             // 
             Fecha.HeaderText = "Fecha";
@@ -211,6 +194,24 @@
             // 
             Tamaño.HeaderText = "Tamaño";
             Tamaño.Name = "Tamaño";
+            // 
+            // progressBar1
+            // 
+            progressBar1.ForeColor = Color.Lime;
+            progressBar1.Location = new Point(12, 458);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(598, 23);
+            progressBar1.TabIndex = 8;
+            // 
+            // lblEstado
+            // 
+            lblEstado.AutoSize = true;
+            lblEstado.ForeColor = Color.White;
+            lblEstado.Location = new Point(616, 466);
+            lblEstado.Name = "lblEstado";
+            lblEstado.Size = new Size(146, 15);
+            lblEstado.TabIndex = 9;
+            lblEstado.Text = "Backup en progreso... 62%";
             // 
             // frmBackup
             // 

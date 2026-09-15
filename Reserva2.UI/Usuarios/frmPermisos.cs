@@ -129,6 +129,7 @@ namespace Reserva2.UI.Usuarios
             }
             catch (Exception ex)
             {
+                ErrorService.Registrar(ex, "frmPermisos");
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -164,6 +165,7 @@ namespace Reserva2.UI.Usuarios
                 }
                 catch (Exception ex)
                 {
+                    ErrorService.Registrar(ex, "frmPermisos");
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -191,6 +193,7 @@ namespace Reserva2.UI.Usuarios
             }
             catch (Exception ex)
             {
+                ErrorService.Registrar(ex, "frmPermisos");
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -218,6 +221,7 @@ namespace Reserva2.UI.Usuarios
             }
             catch (Exception ex)
             {
+                ErrorService.Registrar(ex, "frmPermisos");
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -245,6 +249,7 @@ namespace Reserva2.UI.Usuarios
             }
             catch (Exception ex)
             {
+                ErrorService.Registrar(ex, "frmPermisos");
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

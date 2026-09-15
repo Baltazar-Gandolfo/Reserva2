@@ -48,8 +48,8 @@
             label8 = new Label();
             rdbOwner = new RadioButton();
             rdbCliente = new RadioButton();
-            button1 = new Button();
-            button2 = new Button();
+            btnCrearCuenta = new Button();
+            btnCancelar = new Button();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             grpRol.SuspendLayout();
             SuspendLayout();
@@ -223,27 +223,28 @@
             rdbCliente.Text = "Cliente";
             rdbCliente.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnCrearCuenta
             // 
-            button1.Location = new Point(313, 476);
-            button1.Name = "button1";
-            button1.Size = new Size(134, 29);
-            button1.TabIndex = 15;
-            button1.Text = "Crear cuenta";
-            button1.UseVisualStyleBackColor = true;
+            btnCrearCuenta.Location = new Point(313, 476);
+            btnCrearCuenta.Name = "btnCrearCuenta";
+            btnCrearCuenta.Size = new Size(134, 29);
+            btnCrearCuenta.TabIndex = 15;
+            btnCrearCuenta.Text = "Crear cuenta";
+            btnCrearCuenta.UseVisualStyleBackColor = true;
+            btnCrearCuenta.Click += btnCrearCuenta_Click;
             // 
-            // button2
+            // btnCancelar
             // 
-            button2.BackColor = Color.RosyBrown;
-            button2.Cursor = Cursors.No;
-            button2.ForeColor = Color.Firebrick;
-            button2.Location = new Point(453, 476);
-            button2.Margin = new Padding(0);
-            button2.Name = "button2";
-            button2.Size = new Size(98, 29);
-            button2.TabIndex = 16;
-            button2.Text = "Cancelar";
-            button2.UseVisualStyleBackColor = false;
+            btnCancelar.BackColor = Color.RosyBrown;
+            btnCancelar.Cursor = Cursors.No;
+            btnCancelar.ForeColor = Color.Firebrick;
+            btnCancelar.Location = new Point(453, 476);
+            btnCancelar.Margin = new Padding(0);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(98, 29);
+            btnCancelar.TabIndex = 16;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = false;
             // 
             // frmRegistro
             // 
@@ -251,8 +252,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DarkSlateBlue;
             ClientSize = new Size(603, 517);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnCrearCuenta);
             Controls.Add(grpRol);
             Controls.Add(txtPass2);
             Controls.Add(txtPass);
@@ -293,8 +294,8 @@
         private TextBox txtEmail;
         private ErrorProvider errorProvider1;
         private TextBox txtPass;
-        private Button button2;
-        private Button button1;
+        private Button btnCancelar;
+        private Button btnCrearCuenta;
         private GroupBox grpRol;
         private Label label8;
         private RadioButton rdbOwner;
