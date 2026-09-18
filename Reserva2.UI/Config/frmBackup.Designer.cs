@@ -67,6 +67,7 @@
             txtRutaBackup.Name = "txtRutaBackup";
             txtRutaBackup.Size = new Size(491, 23);
             txtRutaBackup.TabIndex = 1;
+            txtRutaBackup.TextChanged += txtRutaBackup_TextChanged;
             // 
             // btnExaminar
             // 

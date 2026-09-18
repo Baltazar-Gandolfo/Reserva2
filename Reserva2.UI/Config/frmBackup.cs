@@ -194,5 +194,10 @@ namespace Reserva2.UI.Config
         {
 
         }
+
+        private void txtRutaBackup_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -72,7 +72,7 @@
             // 
             // txtBuscar
             // 
-            txtBuscar.ForeColor = Color.White;
+            txtBuscar.ForeColor = Color.Black;
             txtBuscar.Location = new Point(12, 27);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(201, 23);
@@ -80,7 +80,7 @@
             // 
             // cmbRol
             // 
-            cmbRol.ForeColor = Color.White;
+            cmbRol.ForeColor = Color.Black;
             cmbRol.FormattingEnabled = true;
             cmbRol.Location = new Point(231, 27);
             cmbRol.Name = "cmbRol";

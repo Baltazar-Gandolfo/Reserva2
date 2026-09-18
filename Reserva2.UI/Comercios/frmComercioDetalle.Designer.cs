@@ -194,7 +194,7 @@
             // 
             // txtTelefono
             // 
-            txtTelefono.ForeColor = Color.White;
+            txtTelefono.ForeColor = Color.Black;
             txtTelefono.Location = new Point(420, 41);
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(246, 23);
@@ -202,7 +202,7 @@
             // 
             // txtCUIT
             // 
-            txtCUIT.ForeColor = Color.White;
+            txtCUIT.ForeColor = Color.Black;
             txtCUIT.Location = new Point(420, 12);
             txtCUIT.Name = "txtCUIT";
             txtCUIT.Size = new Size(246, 23);
@@ -241,7 +241,7 @@
             // 
             // txtOwner
             // 
-            txtOwner.ForeColor = Color.White;
+            txtOwner.ForeColor = Color.Black;
             txtOwner.Location = new Point(93, 99);
             txtOwner.Name = "txtOwner";
             txtOwner.Size = new Size(573, 23);
@@ -249,7 +249,7 @@
             // 
             // txtDireccion
             // 
-            txtDireccion.ForeColor = Color.White;
+            txtDireccion.ForeColor = Color.Black;
             txtDireccion.Location = new Point(93, 70);
             txtDireccion.Name = "txtDireccion";
             txtDireccion.Size = new Size(573, 23);
@@ -257,7 +257,7 @@
             // 
             // txtRubro
             // 
-            txtRubro.ForeColor = Color.White;
+            txtRubro.ForeColor = Color.Black;
             txtRubro.Location = new Point(93, 41);
             txtRubro.Name = "txtRubro";
             txtRubro.Size = new Size(246, 23);
@@ -265,7 +265,7 @@
             // 
             // txtRazonSocial
             // 
-            txtRazonSocial.ForeColor = Color.White;
+            txtRazonSocial.ForeColor = Color.Black;
             txtRazonSocial.Location = new Point(93, 12);
             txtRazonSocial.Name = "txtRazonSocial";
             txtRazonSocial.Size = new Size(246, 23);

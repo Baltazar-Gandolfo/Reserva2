@@ -31,12 +31,13 @@ namespace Reserva2.DAL
                 e.Ignore("DVH");
             });
 
-            modelBuilder.Entity<ElementoReservable>(e =>
+            modelBuilder.Entity<ElementoReservable>(entity =>
             {
-                e.ToTable("ElementoReservable");
-                e.HasKey(el => el.IdElemento);
-                e.Property(el => el.Nombre).IsRequired().HasMaxLength(150);
-                e.Property(el => el.PrecioBase).HasColumnType("decimal(18,2)");
+                entity.ToTable("ElementoReservable");
+                entity.HasKey(e => e.IdElemento);
+                entity.Property(e => e.Nombre).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.PrecioBase).HasColumnType("decimal(18,2)");
+                entity.Property(e => e.PorcentajeSeña).HasColumnType("decimal(5,2)");
             });
         }
     }

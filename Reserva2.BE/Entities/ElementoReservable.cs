@@ -13,6 +13,9 @@ namespace Reserva2.BE.Entities
         public string Descripcion { get; set; }
         public string Tipo { get; set; }
         public decimal PrecioBase { get; set; }
+        public int Capacidad { get; set; }
+        public int DuracionSlot { get; set; }
+        public decimal PorcentajeSeña { get; set; }
         public string Estado { get; set; }
         public DateTime FechaCreacion { get; set; }
         public int IdComercio { get; set; }

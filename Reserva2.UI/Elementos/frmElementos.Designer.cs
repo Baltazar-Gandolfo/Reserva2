@@ -31,15 +31,15 @@
             btnEditar = new Button();
             btnDisponibilidad = new Button();
             dgvElementos = new DataGridView();
-            chkVerInactivos = new CheckBox();
-            btnBaja = new Button();
-            btnNuevo = new Button();
             Nombre = new DataGridViewTextBoxColumn();
             Tipo = new DataGridViewTextBoxColumn();
             Capacidad = new DataGridViewTextBoxColumn();
             Precio_hora = new DataGridViewTextBoxColumn();
             Seña = new DataGridViewTextBoxColumn();
             Activo = new DataGridViewTextBoxColumn();
+            chkVerInactivos = new CheckBox();
+            btnBaja = new Button();
+            btnNuevo = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvElementos).BeginInit();
             SuspendLayout();
             // 
@@ -67,41 +67,8 @@
             dgvElementos.Columns.AddRange(new DataGridViewColumn[] { Nombre, Tipo, Capacidad, Precio_hora, Seña, Activo });
             dgvElementos.Location = new Point(12, 40);
             dgvElementos.Name = "dgvElementos";
-            dgvElementos.Size = new Size(690, 150);
+            dgvElementos.Size = new Size(713, 394);
             dgvElementos.TabIndex = 4;
-            // 
-            // chkVerInactivos
-            // 
-            chkVerInactivos.AutoSize = true;
-            chkVerInactivos.ForeColor = Color.White;
-            chkVerInactivos.Location = new Point(608, 12);
-            chkVerInactivos.Name = "chkVerInactivos";
-            chkVerInactivos.Size = new Size(92, 19);
-            chkVerInactivos.TabIndex = 5;
-            chkVerInactivos.Text = "Ver inactivos";
-            chkVerInactivos.UseVisualStyleBackColor = true;
-            // 
-            // btnBaja
-            // 
-            btnBaja.BackColor = Color.RosyBrown;
-            btnBaja.ForeColor = Color.Firebrick;
-            btnBaja.Location = new Point(182, 5);
-            btnBaja.Name = "btnBaja";
-            btnBaja.Size = new Size(79, 29);
-            btnBaja.TabIndex = 8;
-            btnBaja.Text = "Dar de baja";
-            btnBaja.UseVisualStyleBackColor = false;
-            // 
-            // btnNuevo
-            // 
-            btnNuevo.BackColor = Color.LightGreen;
-            btnNuevo.ForeColor = Color.ForestGreen;
-            btnNuevo.Location = new Point(12, 6);
-            btnNuevo.Name = "btnNuevo";
-            btnNuevo.Size = new Size(79, 29);
-            btnNuevo.TabIndex = 7;
-            btnNuevo.Text = "Nuevo";
-            btnNuevo.UseVisualStyleBackColor = false;
             // 
             // Nombre
             // 
@@ -135,19 +102,52 @@
             Activo.HeaderText = "Activo";
             Activo.Name = "Activo";
             // 
+            // chkVerInactivos
+            // 
+            chkVerInactivos.AutoSize = true;
+            chkVerInactivos.ForeColor = Color.White;
+            chkVerInactivos.Location = new Point(608, 12);
+            chkVerInactivos.Name = "chkVerInactivos";
+            chkVerInactivos.Size = new Size(92, 19);
+            chkVerInactivos.TabIndex = 5;
+            chkVerInactivos.Text = "Ver inactivos";
+            chkVerInactivos.UseVisualStyleBackColor = true;
+            // 
+            // btnBaja
+            // 
+            btnBaja.BackColor = Color.RosyBrown;
+            btnBaja.ForeColor = Color.Firebrick;
+            btnBaja.Location = new Point(182, 5);
+            btnBaja.Name = "btnBaja";
+            btnBaja.Size = new Size(79, 29);
+            btnBaja.TabIndex = 8;
+            btnBaja.Text = "Dar de baja";
+            btnBaja.UseVisualStyleBackColor = false;
+            // 
+            // btnNuevo
+            // 
+            btnNuevo.BackColor = Color.LightGreen;
+            btnNuevo.ForeColor = Color.ForestGreen;
+            btnNuevo.Location = new Point(12, 6);
+            btnNuevo.Name = "btnNuevo";
+            btnNuevo.Size = new Size(79, 29);
+            btnNuevo.TabIndex = 7;
+            btnNuevo.Text = "Nuevo";
+            btnNuevo.UseVisualStyleBackColor = false;
+            btnNuevo.Click += btnNuevo_Click;
+            // 
             // frmElementos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DarkSlateBlue;
-            ClientSize = new Size(712, 204);
+            ClientSize = new Size(737, 446);
             Controls.Add(btnBaja);
             Controls.Add(btnNuevo);
             Controls.Add(chkVerInactivos);
             Controls.Add(dgvElementos);
             Controls.Add(btnDisponibilidad);
             Controls.Add(btnEditar);
-            Cursor = Cursors.Default;
             Name = "frmElementos";
             Text = "frmElementos";
             ((System.ComponentModel.ISupportInitialize)dgvElementos).EndInit();

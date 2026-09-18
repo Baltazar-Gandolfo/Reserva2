@@ -91,9 +91,52 @@ namespace Reserva2.UI.Controles
 
             // --- Comercio (Owner) ---
             var mnuElementos = new ToolStripMenuItem(T("elementos"));
-            mnuElementos.Click += (s, e) => AbrirForm(new frmElementos());
-            var mnuElementoNuevo = new ToolStripMenuItem(T("nuevo elemento"));
-            mnuElementoNuevo.Click += (s, e) => AbrirForm(new frmElementoABM());
+            mnuElementos.Click += (s, e) =>
+            {
+                var rol = Services.Facade.SessionManager.GetInstance().GetRol();
+
+                if (rol == "Admin")
+                {
+                    AbrirForm(new Reserva2.UI.Elementos.frmElementos(0));
+                }
+                else
+                {
+                    var comercioBll = new Reserva2.BLL.Logic.ComercioBLL();
+                    var comercios = comercioBll.ListarPorOwner();
+
+                    int idComercio;
+
+                    if (comercios.Count == 0)
+                    {
+                        // No tiene comercios, ofrecerle crear uno
+                        var resp = MessageBox.Show(
+                            "No tenés comercios registrados. ¿Querés crear uno ahora?",
+                            "Crear Comercio", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (resp != DialogResult.Yes)
+                            return;
+
+                        var frmNuevo = new frmComercioRapido();
+                        if (frmNuevo.ShowDialog() != DialogResult.OK)
+                            return;
+
+                        idComercio = frmNuevo.IdComercioCreado;
+                    }
+                    else if (comercios.Count == 1)
+                    {
+                        idComercio = comercios[0].IdComercio;
+                    }
+                    else
+                    {
+                        var sel = new frmSeleccionarComercio(comercios);
+                        if (sel.ShowDialog() != DialogResult.OK)
+                            return;
+                        idComercio = sel.IdComercioSeleccionado;
+                    }
+
+                    AbrirForm(new Reserva2.UI.Elementos.frmElementos(idComercio));
+                }
+            };
             var mnuDisponibilidad = new ToolStripMenuItem(T("disponibilidad"));
             mnuDisponibilidad.Click += (s, e) => AbrirForm(new frmDisponibilidad());
             var mnuCalendario = new ToolStripMenuItem(T("calendario"));
@@ -101,7 +144,6 @@ namespace Reserva2.UI.Controles
             comercioToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[]
             {
                 mnuElementos,
-                mnuElementoNuevo,
                 new ToolStripSeparator(),
                 mnuDisponibilidad,
                 mnuCalendario

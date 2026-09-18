@@ -122,7 +122,7 @@
             // 
             // txtNombre
             // 
-            txtNombre.ForeColor = Color.White;
+            txtNombre.ForeColor = Color.Black;
             txtNombre.Location = new Point(150, 12);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(313, 23);
@@ -130,7 +130,7 @@
             // 
             // cmbTipo
             // 
-            cmbTipo.ForeColor = Color.White;
+            cmbTipo.ForeColor = Color.Black;
             cmbTipo.FormattingEnabled = true;
             cmbTipo.Location = new Point(150, 52);
             cmbTipo.Name = "cmbTipo";
@@ -139,7 +139,7 @@
             // 
             // numCapacidad
             // 
-            numCapacidad.ForeColor = Color.White;
+            numCapacidad.ForeColor = Color.Black;
             numCapacidad.Location = new Point(150, 90);
             numCapacidad.Name = "numCapacidad";
             numCapacidad.Size = new Size(86, 23);
@@ -147,7 +147,7 @@
             // 
             // numPrecio
             // 
-            numPrecio.ForeColor = Color.White;
+            numPrecio.ForeColor = Color.Black;
             numPrecio.Location = new Point(150, 133);
             numPrecio.Name = "numPrecio";
             numPrecio.Size = new Size(119, 23);
@@ -155,7 +155,7 @@
             // 
             // numSena
             // 
-            numSena.ForeColor = Color.White;
+            numSena.ForeColor = Color.Black;
             numSena.Location = new Point(150, 173);
             numSena.Name = "numSena";
             numSena.Size = new Size(86, 23);
@@ -163,7 +163,7 @@
             // 
             // cboDuracion
             // 
-            cboDuracion.ForeColor = Color.White;
+            cboDuracion.ForeColor = Color.Black;
             cboDuracion.FormattingEnabled = true;
             cboDuracion.Location = new Point(150, 212);
             cboDuracion.Name = "cboDuracion";
@@ -172,7 +172,7 @@
             // 
             // txtObservaciones
             // 
-            txtObservaciones.ForeColor = Color.White;
+            txtObservaciones.ForeColor = Color.Black;
             txtObservaciones.Location = new Point(150, 264);
             txtObservaciones.Multiline = true;
             txtObservaciones.Name = "txtObservaciones";
@@ -198,6 +198,7 @@
             btnGuardar.TabIndex = 15;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
+            btnGuardar.Click += btnGuardar_Click;
             // 
             // btnCancelar
             // 
