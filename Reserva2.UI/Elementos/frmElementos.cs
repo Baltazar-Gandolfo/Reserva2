@@ -1,5 +1,6 @@
 ﻿using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic;
+using Reserva2.UI.Controles;
 using Services.Facade;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,8 @@ namespace Reserva2.UI.Elementos
     {
         private readonly ElementoReservableBLL _bll = new ElementoReservableBLL();
         private readonly ComercioBLL _comercioBll = new ComercioBLL();
-        private int _idComercio; // 0 = todos (modo Admin)
+        private readonly SucursalBLL _sucursalBll = new SucursalBLL();
+        private int _idComercio; // 0 = todos los comercios del usuario
 
         public frmElementos(int idComercio)
         {
@@ -20,11 +22,57 @@ namespace Reserva2.UI.Elementos
             _idComercio = idComercio;
             this.Load += frmElementos_Load;
             dgvElementos.SelectionChanged += dgvElementos_SelectionChanged;
-            btnNuevo.Click += btnNuevo_Click;
             btnEditar.Click += btnEditar_Click;
             btnBaja.Click += btnBaja_Click;
             btnDisponibilidad.Click += btnDisponibilidad_Click;
             chkVerInactivos.CheckedChanged += chkVerInactivos_CheckedChanged;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            comboBox2.SelectedIndexChanged += (s, e) => CargarGrilla();
+        }
+
+        // comboBox1 = filtro Comercio, comboBox2 = filtro Sucursal (valor 0 = todos)
+        private bool _armandoFiltros;
+
+        private void CargarFiltros()
+        {
+            _armandoFiltros = true;
+            var rol = SessionManager.GetInstance().GetRol();
+            var comercios = rol == "Admin" ? _comercioBll.ListarTodos() : _comercioBll.ListarPorOwner();
+            if (_idComercio > 0)
+                comercios = comercios.Where(c => c.IdComercio == _idComercio).ToList();
+
+            var items = new List<ItemCombo<int>>();
+            if (_idComercio == 0)
+                items.Add(new ItemCombo<int>(0, "(Todos)"));
+            items.AddRange(comercios.Select(c => new ItemCombo<int>(c.IdComercio, c.Nombre)));
+
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.DisplayMember = nameof(ItemCombo<int>.Texto);
+            comboBox1.DataSource = items;
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.DisplayMember = nameof(ItemCombo<int>.Texto);
+            _armandoFiltros = false;
+
+            CargarFiltroSucursales();
+        }
+
+        private void CargarFiltroSucursales()
+        {
+            _armandoFiltros = true;
+            var items = new List<ItemCombo<int>> { new ItemCombo<int>(0, "(Todas)") };
+            int idComercio = (comboBox1.SelectedItem as ItemCombo<int>)?.Valor ?? 0;
+            if (idComercio > 0)
+                items.AddRange(_sucursalBll.ListarPorComercio(idComercio)
+                    .Select(s => new ItemCombo<int>(s.IdSucursal, s.Nombre)));
+            comboBox2.DataSource = items;
+            _armandoFiltros = false;
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_armandoFiltros) return;
+            CargarFiltroSucursales();
+            CargarGrilla();
         }
 
         private void frmElementos_Load(object sender, EventArgs e)
@@ -37,9 +85,10 @@ namespace Reserva2.UI.Elementos
             }
             else
             {
-                this.Text = "Elementos — Todos los comercios";
+                this.Text = "Elementos";
             }
 
+            CargarFiltros();
             CargarGrilla();
 
             btnEditar.Enabled = false;
@@ -51,12 +100,16 @@ namespace Reserva2.UI.Elementos
         {
             try
             {
-                List<ElementoReservable> lista;
+                if (_armandoFiltros) return;
 
-                if (_idComercio > 0)
-                    lista = _bll.ListarPorComercio(_idComercio);
-                else
-                    lista = _bll.ListarTodos();
+                List<ElementoReservable> lista = _bll.ListarDelUsuarioActual();
+
+                int idComercioFiltro = (comboBox1.SelectedItem as ItemCombo<int>)?.Valor ?? _idComercio;
+                int idSucursalFiltro = (comboBox2.SelectedItem as ItemCombo<int>)?.Valor ?? 0;
+                if (idComercioFiltro > 0)
+                    lista = lista.Where(e => e.Sucursal.IdComercio == idComercioFiltro).ToList();
+                if (idSucursalFiltro > 0)
+                    lista = lista.Where(e => e.IdSucursal == idSucursalFiltro).ToList();
 
                 if (!chkVerInactivos.Checked)
                     lista = lista.Where(e => e.Estado == "Activo").ToList();
@@ -65,8 +118,10 @@ namespace Reserva2.UI.Elementos
 
                 foreach (var elem in lista)
                 {
+                    // Orden de columnas del Designer: Nombre, Sucursal, Tipo, Capacidad, Precio/hora, Seña, Activo
                     int rowIndex = dgvElementos.Rows.Add(
                         elem.Nombre ?? "",
+                        elem.Sucursal?.Nombre ?? "",
                         elem.Tipo ?? "",
                         elem.Capacidad,
                         elem.PrecioBase.ToString("N2"),
@@ -74,6 +129,8 @@ namespace Reserva2.UI.Elementos
                         elem.Estado ?? ""
                     );
                     dgvElementos.Rows[rowIndex].Tag = elem;
+                    if (elem.Estado != "Activo")
+                        dgvElementos.Rows[rowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.Gray;
                 }
             }
             catch (Exception ex)
@@ -101,25 +158,7 @@ namespace Reserva2.UI.Elementos
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            int idComercioParaAlta = _idComercio;
-
-            // Si es Admin viendo todos, tiene que elegir comercio
-            if (idComercioParaAlta == 0)
-            {
-                var comercios = _comercioBll.ListarTodos();
-                if (comercios.Count == 0)
-                {
-                    MessageBox.Show("No hay comercios registrados.",
-                        "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-                var sel = new frmSeleccionarComercio(comercios);
-                if (sel.ShowDialog() != DialogResult.OK)
-                    return;
-                idComercioParaAlta = sel.IdComercioSeleccionado;
-            }
-
-            var frm = new frmElementoABM(0, idComercioParaAlta);
+            var frm = new frmElementoABM(0, _idComercio);
             if (frm.ShowDialog() == DialogResult.OK)
                 CargarGrilla();
         }
@@ -128,7 +167,7 @@ namespace Reserva2.UI.Elementos
         {
             if (dgvElementos.CurrentRow?.Tag is ElementoReservable elem)
             {
-                var frm = new frmElementoABM(elem.IdElemento, elem.IdComercio);
+                var frm = new frmElementoABM(elem.IdElemento, elem.Sucursal.IdComercio);
                 if (frm.ShowDialog() == DialogResult.OK)
                     CargarGrilla();
             }
@@ -162,9 +201,11 @@ namespace Reserva2.UI.Elementos
 
         private void btnDisponibilidad_Click(object sender, EventArgs e)
         {
-            // TODO: Tarea 2
-            MessageBox.Show("Próximamente...", "Disponibilidad",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (dgvElementos.CurrentRow?.Tag is ElementoReservable elem)
+            {
+                var frm = new Reserva2.UI.Disponibilidad.frmDisponibilidad(elem.IdElemento);
+                frm.ShowDialog();
+            }
         }
 
         private void chkVerInactivos_CheckedChanged(object sender, EventArgs e)

@@ -18,6 +18,7 @@ namespace Reserva2.BE.Entities
         public decimal PorcentajeSeña { get; set; }
         public string Estado { get; set; }
         public DateTime FechaCreacion { get; set; }
-        public int IdComercio { get; set; }
+        public int IdSucursal { get; set; }
+        public Sucursal? Sucursal { get; set; }
     }
 }

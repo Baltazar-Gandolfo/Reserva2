@@ -1,6 +1,8 @@
 ﻿using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic;
+using Services.Facade;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Reserva2.UI.Elementos
@@ -8,6 +10,8 @@ namespace Reserva2.UI.Elementos
     public partial class frmElementoABM : Form
     {
         private readonly ElementoReservableBLL _bll = new ElementoReservableBLL();
+        private readonly ComercioBLL _comercioBll = new ComercioBLL();
+        private readonly SucursalBLL _sucursalBll = new SucursalBLL();
         private int _idElemento;
         private int _idComercio;
 
@@ -17,7 +21,6 @@ namespace Reserva2.UI.Elementos
             _idElemento = idElemento;
             _idComercio = idComercio;
             this.Load += frmElementoABM_Load;
-            btnGuardar.Click += btnGuardar_Click;
             btnCancelar.Click += btnCancelar_Click;
         }
 
@@ -65,6 +68,41 @@ namespace Reserva2.UI.Elementos
 
             chkActivo.Checked = true;
 
+            // comboBox1 = Comercio, comboBox2 = Sucursal
+            // Con comercio indicado queda fijo; en un alta sin comercio se elige acá.
+            var rol = SessionManager.GetInstance().GetRol();
+            var comercios = (rol == "Admin" ? _comercioBll.ListarTodos() : _comercioBll.ListarPorOwner())
+                .Where(c => c.Activo || c.IdComercio == _idComercio).ToList();
+
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.DisplayMember = nameof(Comercio.Nombre);
+            comboBox1.ValueMember = nameof(Comercio.IdComercio);
+            comboBox1.DataSource = comercios;
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.DisplayMember = nameof(Sucursal.Nombre);
+            comboBox2.ValueMember = nameof(Sucursal.IdSucursal);
+
+            if (_idComercio > 0)
+            {
+                comboBox1.SelectedValue = _idComercio;
+                comboBox1.Enabled = false;
+            }
+            else
+            {
+                comboBox1.SelectedIndexChanged += (s2, e2) => CargarSucursales();
+            }
+
+            if (comercios.Count == 0)
+            {
+                MessageBox.Show("No tenés comercios registrados. Creá uno desde 'Mis comercios'.",
+                    "Sin comercios", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btnGuardar.Enabled = false;
+            }
+            else
+            {
+                CargarSucursales();
+            }
+
             // Si es edición, cargar datos
             if (_idElemento > 0)
             {
@@ -74,6 +112,24 @@ namespace Reserva2.UI.Elementos
             else
             {
                 this.Text = "Nuevo Elemento";
+            }
+        }
+
+        private void CargarSucursales()
+        {
+            if (comboBox1.SelectedValue is not int idComercio)
+                return;
+
+            var sucursales = _sucursalBll.ListarPorComercio(idComercio)
+                .Where(x => x.Activo).ToList();
+            comboBox2.DataSource = sucursales;
+
+            bool hay = sucursales.Count > 0;
+            btnGuardar.Enabled = hay;
+            if (!hay)
+            {
+                MessageBox.Show("El comercio no tiene sucursales activas. Creá una sucursal antes de agregar elementos.",
+                    "Sin sucursales", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -91,6 +147,7 @@ namespace Reserva2.UI.Elementos
                 }
 
                 txtNombre.Text = elem.Nombre;
+                comboBox2.SelectedValue = elem.IdSucursal;
                 cmbTipo.SelectedItem = elem.Tipo;
                 numCapacidad.Value = elem.Capacidad;
                 numPrecio.Value = elem.PrecioBase;
@@ -123,6 +180,14 @@ namespace Reserva2.UI.Elementos
                     return;
                 }
 
+                if (comboBox2.SelectedValue == null)
+                {
+                    MessageBox.Show("Seleccione una sucursal.",
+                        "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    comboBox2.Focus();
+                    return;
+                }
+
                 if (cmbTipo.SelectedIndex < 0)
                 {
                     MessageBox.Show("Seleccione un tipo.",
@@ -150,7 +215,7 @@ namespace Reserva2.UI.Elementos
                     DuracionSlot = int.Parse(cboDuracion.SelectedItem.ToString()),
                     Descripcion = txtObservaciones.Text.Trim(),
                     Estado = chkActivo.Checked ? "Activo" : "Inactivo",
-                    IdComercio = _idComercio
+                    IdSucursal = (int)comboBox2.SelectedValue
                 };
 
                 if (_idElemento == 0)

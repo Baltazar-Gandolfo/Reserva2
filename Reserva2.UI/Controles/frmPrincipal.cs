@@ -1,15 +1,19 @@
 ﻿using Services.Facade;
 using Services.DomainModel.Composite;
 using Reserva2.UI.Comercios;
+using Reserva2.UI.Sucursales;
 using Reserva2.UI.Usuarios;
 using Reserva2.UI.Elementos;
 using Reserva2.UI.Disponibilidad;
 using Reserva2.UI.Reservas;
 using Reserva2.UI.Pagos;
 using Reserva2.UI.Auditoria;
+using Reserva2.BLL.Logic.Reservas;
 using Reserva2.UI.Config;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -42,6 +46,44 @@ namespace Reserva2.UI.Controles
 
             ArmarMenus();
             FiltrarMenuPorPermisos();
+            IniciarControlDeExpiracion();
+        }
+
+        // CU.Sis.004: el temporizador solo corre si hay reservas pendientes (también si quedaron de una sesión anterior).
+        private void IniciarControlDeExpiracion()
+        {
+            try
+            {
+                if (new ReservaBLL().HayPendientes())
+                    ExpiracionReservasService.Instancia.Iniciar();
+            }
+            catch (Exception ex)
+            {
+                ErrorService.Registrar(ex, "frmPrincipal.IniciarControlDeExpiracion");
+            }
+
+            ExpiracionReservasService.Instancia.ReservasExpiradas += OnReservasExpiradas;
+            this.FormClosed += (s, e) => ExpiracionReservasService.Instancia.ReservasExpiradas -= OnReservasExpiradas;
+        }
+
+        // Llega desde el hilo del temporizador: se pasa al hilo de la interfaz antes de mostrar nada.
+        private void OnReservasExpiradas(List<Reserva2.BE.Entities.Reserva> expiradas)
+        {
+            if (IsDisposed || !IsHandleCreated) return;
+
+            BeginInvoke(new Action(() =>
+            {
+                var actual = SessionManager.GetInstance().UsuarioActual;
+                if (actual == null) return;
+
+                int propias = expiradas.Count(r => r.IdUsuario == actual.IdUsuario);
+                if (propias > 0)
+                    MessageBox.Show(
+                        propias == 1
+                            ? "Tu reserva pendiente expiró por falta de pago y el turno fue liberado."
+                            : $"{propias} reservas pendientes expiraron por falta de pago.",
+                        "Reserva expirada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }));
         }
 
         private string T(string clave)
@@ -89,60 +131,23 @@ namespace Reserva2.UI.Controles
                 mnuListaReservas
             });
 
-            // --- Comercio (Owner) ---
+            // --- Comercio ---
+            var mnuMisComercios = new ToolStripMenuItem(T("mis comercios"));
+            mnuMisComercios.Click += (s, e) => AbrirForm(new frmComercios());
+            // El Admin accede desde Plataforma > Comercios (mismo formulario, ve todos)
+            mnuMisComercios.Visible = SessionManager.GetInstance().GetRol() != "Admin";
+
             var mnuElementos = new ToolStripMenuItem(T("elementos"));
-            mnuElementos.Click += (s, e) =>
-            {
-                var rol = Services.Facade.SessionManager.GetInstance().GetRol();
+            mnuElementos.Click += (s, e) => AbrirForm(new Reserva2.UI.Elementos.frmElementos(0));
 
-                if (rol == "Admin")
-                {
-                    AbrirForm(new Reserva2.UI.Elementos.frmElementos(0));
-                }
-                else
-                {
-                    var comercioBll = new Reserva2.BLL.Logic.ComercioBLL();
-                    var comercios = comercioBll.ListarPorOwner();
-
-                    int idComercio;
-
-                    if (comercios.Count == 0)
-                    {
-                        // No tiene comercios, ofrecerle crear uno
-                        var resp = MessageBox.Show(
-                            "No tenés comercios registrados. ¿Querés crear uno ahora?",
-                            "Crear Comercio", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                        if (resp != DialogResult.Yes)
-                            return;
-
-                        var frmNuevo = new frmComercioRapido();
-                        if (frmNuevo.ShowDialog() != DialogResult.OK)
-                            return;
-
-                        idComercio = frmNuevo.IdComercioCreado;
-                    }
-                    else if (comercios.Count == 1)
-                    {
-                        idComercio = comercios[0].IdComercio;
-                    }
-                    else
-                    {
-                        var sel = new frmSeleccionarComercio(comercios);
-                        if (sel.ShowDialog() != DialogResult.OK)
-                            return;
-                        idComercio = sel.IdComercioSeleccionado;
-                    }
-
-                    AbrirForm(new Reserva2.UI.Elementos.frmElementos(idComercio));
-                }
-            };
             var mnuDisponibilidad = new ToolStripMenuItem(T("disponibilidad"));
             mnuDisponibilidad.Click += (s, e) => AbrirForm(new frmDisponibilidad());
             var mnuCalendario = new ToolStripMenuItem(T("calendario"));
             mnuCalendario.Click += (s, e) => AbrirForm(new frmCalendarioSlots());
+
             comercioToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[]
             {
+                mnuMisComercios,
                 mnuElementos,
                 new ToolStripSeparator(),
                 mnuDisponibilidad,
@@ -151,7 +156,7 @@ namespace Reserva2.UI.Controles
 
             // --- Pagos ---
             var mnuRegistrarPago = new ToolStripMenuItem(T("registrar pago"));
-            mnuRegistrarPago.Click += (s, e) => AbrirForm(new frmPago());
+            mnuRegistrarPago.Click += (s, e) => AbrirForm(new frmReservas(soloPendientes: true));
             pagosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[]
             {
                 mnuRegistrarPago
@@ -215,7 +220,7 @@ namespace Reserva2.UI.Controles
             toolStripLabel1.Click += (s, e) => AbrirForm(new frmNuevaReserva());
             toolStripLabel2.Click -= toolStripLabel2_Click;
             toolStripLabel2.Click += (s, e) => AbrirForm(new frmReservas());
-            toolStripLabel3.Click += (s, e) => AbrirForm(new frmPago());
+            toolStripLabel3.Click += (s, e) => AbrirForm(new frmReservas(soloPendientes: true));
         }
 
         private void FiltrarMenuPorPermisos()
@@ -232,8 +237,10 @@ namespace Reserva2.UI.Controles
                 return false;
             }
 
-            // Comercio (Owner) — se muestra si tiene al menos una patente de este grupo
+            // Comercio — se muestra si tiene al menos una patente de este grupo
             comercioToolStripMenuItem.Visible =
+                TienePermiso("frmComercios") ||
+                TienePermiso("frmSucursales") ||
                 TienePermiso("frmElementos") ||
                 TienePermiso("frmElementoABM") ||
                 TienePermiso("frmDisponibilidad") ||
@@ -250,7 +257,7 @@ namespace Reserva2.UI.Controles
                 TienePermiso("frmBitacora") ||
                 TienePermiso("frmBackup");
 
-            // Reservas — visible para todos los que tengan alguna patente de reservas
+            // Reservas
             reservasToolStripMenuItem.Visible =
                 TienePermiso("frmNuevaReserva") ||
                 TienePermiso("frmReservas");

@@ -13,7 +13,7 @@ namespace Reserva2.BE.Entities
         public DateTime FechaCreacion { get; set; }
         public DateTime? NotificadoEn { get; set; }
         public int Posicion { get; set; }
-        public int IdUsuario { get; set; }
+        public Guid IdUsuario { get; set; }
         public int IdDisponibilidad { get; set; }
     }
 }

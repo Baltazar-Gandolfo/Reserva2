@@ -45,6 +45,11 @@
             chkActivo = new CheckBox();
             btnGuardar = new Button();
             btnCancelar = new Button();
+            label8 = new Label();
+            lblSucursal = new Label();
+            lblComercio = new Label();
+            comboBox2 = new ComboBox();
+            comboBox1 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)numCapacidad).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numPrecio).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numSena).BeginInit();
@@ -54,7 +59,7 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = Color.White;
-            label1.Location = new Point(21, 15);
+            label1.Location = new Point(12, 150);
             label1.Name = "label1";
             label1.Size = new Size(59, 15);
             label1.TabIndex = 0;
@@ -64,7 +69,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = Color.White;
-            label2.Location = new Point(21, 55);
+            label2.Location = new Point(12, 190);
             label2.Name = "label2";
             label2.Size = new Size(39, 15);
             label2.TabIndex = 1;
@@ -74,7 +79,7 @@
             // 
             label3.AutoSize = true;
             label3.ForeColor = Color.White;
-            label3.Location = new Point(21, 98);
+            label3.Location = new Point(12, 233);
             label3.Name = "label3";
             label3.Size = new Size(63, 15);
             label3.TabIndex = 2;
@@ -84,7 +89,7 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = Color.White;
-            label4.Location = new Point(21, 135);
+            label4.Location = new Point(12, 270);
             label4.Name = "label4";
             label4.Size = new Size(96, 15);
             label4.TabIndex = 3;
@@ -94,7 +99,7 @@
             // 
             label5.AutoSize = true;
             label5.ForeColor = Color.White;
-            label5.Location = new Point(21, 175);
+            label5.Location = new Point(12, 310);
             label5.Name = "label5";
             label5.Size = new Size(50, 15);
             label5.TabIndex = 4;
@@ -104,7 +109,7 @@
             // 
             label6.AutoSize = true;
             label6.ForeColor = Color.White;
-            label6.Location = new Point(21, 215);
+            label6.Location = new Point(12, 350);
             label6.Name = "label6";
             label6.Size = new Size(90, 15);
             label6.TabIndex = 5;
@@ -114,7 +119,7 @@
             // 
             label7.AutoSize = true;
             label7.ForeColor = Color.White;
-            label7.Location = new Point(21, 267);
+            label7.Location = new Point(12, 402);
             label7.Name = "label7";
             label7.Size = new Size(84, 15);
             label7.TabIndex = 6;
@@ -123,7 +128,7 @@
             // txtNombre
             // 
             txtNombre.ForeColor = Color.Black;
-            txtNombre.Location = new Point(150, 12);
+            txtNombre.Location = new Point(141, 147);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(313, 23);
             txtNombre.TabIndex = 7;
@@ -132,7 +137,7 @@
             // 
             cmbTipo.ForeColor = Color.Black;
             cmbTipo.FormattingEnabled = true;
-            cmbTipo.Location = new Point(150, 52);
+            cmbTipo.Location = new Point(141, 187);
             cmbTipo.Name = "cmbTipo";
             cmbTipo.Size = new Size(313, 23);
             cmbTipo.TabIndex = 8;
@@ -140,7 +145,7 @@
             // numCapacidad
             // 
             numCapacidad.ForeColor = Color.Black;
-            numCapacidad.Location = new Point(150, 90);
+            numCapacidad.Location = new Point(141, 225);
             numCapacidad.Name = "numCapacidad";
             numCapacidad.Size = new Size(86, 23);
             numCapacidad.TabIndex = 9;
@@ -148,7 +153,7 @@
             // numPrecio
             // 
             numPrecio.ForeColor = Color.Black;
-            numPrecio.Location = new Point(150, 133);
+            numPrecio.Location = new Point(141, 268);
             numPrecio.Name = "numPrecio";
             numPrecio.Size = new Size(119, 23);
             numPrecio.TabIndex = 10;
@@ -156,7 +161,7 @@
             // numSena
             // 
             numSena.ForeColor = Color.Black;
-            numSena.Location = new Point(150, 173);
+            numSena.Location = new Point(141, 308);
             numSena.Name = "numSena";
             numSena.Size = new Size(86, 23);
             numSena.TabIndex = 11;
@@ -165,7 +170,7 @@
             // 
             cboDuracion.ForeColor = Color.Black;
             cboDuracion.FormattingEnabled = true;
-            cboDuracion.Location = new Point(150, 212);
+            cboDuracion.Location = new Point(141, 347);
             cboDuracion.Name = "cboDuracion";
             cboDuracion.Size = new Size(119, 23);
             cboDuracion.TabIndex = 12;
@@ -173,7 +178,7 @@
             // txtObservaciones
             // 
             txtObservaciones.ForeColor = Color.Black;
-            txtObservaciones.Location = new Point(150, 264);
+            txtObservaciones.Location = new Point(141, 399);
             txtObservaciones.Multiline = true;
             txtObservaciones.Name = "txtObservaciones";
             txtObservaciones.Size = new Size(313, 54);
@@ -183,7 +188,7 @@
             // 
             chkActivo.AutoSize = true;
             chkActivo.ForeColor = Color.White;
-            chkActivo.Location = new Point(150, 324);
+            chkActivo.Location = new Point(141, 459);
             chkActivo.Name = "chkActivo";
             chkActivo.Size = new Size(60, 19);
             chkActivo.TabIndex = 14;
@@ -192,7 +197,7 @@
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(305, 344);
+            btnGuardar.Location = new Point(296, 479);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(76, 27);
             btnGuardar.TabIndex = 15;
@@ -202,19 +207,70 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(387, 344);
+            btnCancelar.Location = new Point(378, 479);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(76, 27);
             btnCancelar.TabIndex = 16;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.ForeColor = Color.White;
+            label8.Location = new Point(12, 119);
+            label8.Name = "label8";
+            label8.Size = new Size(442, 15);
+            label8.TabIndex = 17;
+            label8.Text = "---------------------------------------------------------------------------------------";
+            // 
+            // lblSucursal
+            // 
+            lblSucursal.AutoSize = true;
+            lblSucursal.ForeColor = Color.White;
+            lblSucursal.Location = new Point(12, 67);
+            lblSucursal.Name = "lblSucursal";
+            lblSucursal.Size = new Size(51, 15);
+            lblSucursal.TabIndex = 21;
+            lblSucursal.Text = "Sucursal";
+            // 
+            // lblComercio
+            // 
+            lblComercio.AutoSize = true;
+            lblComercio.ForeColor = Color.White;
+            lblComercio.Location = new Point(12, 9);
+            lblComercio.Name = "lblComercio";
+            lblComercio.Size = new Size(59, 15);
+            lblComercio.TabIndex = 20;
+            lblComercio.Text = "Comercio";
+            // 
+            // comboBox2
+            // 
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Location = new Point(13, 85);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(438, 23);
+            comboBox2.TabIndex = 19;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(13, 30);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(202, 23);
+            comboBox1.TabIndex = 18;
+            // 
             // frmElementoABM
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DarkSlateBlue;
-            ClientSize = new Size(475, 383);
+            ClientSize = new Size(472, 519);
+            Controls.Add(lblSucursal);
+            Controls.Add(lblComercio);
+            Controls.Add(comboBox2);
+            Controls.Add(comboBox1);
+            Controls.Add(label8);
             Controls.Add(btnCancelar);
             Controls.Add(btnGuardar);
             Controls.Add(chkActivo);
@@ -260,5 +316,10 @@
         private CheckBox chkActivo;
         private Button btnGuardar;
         private Button btnCancelar;
+        private Label label8;
+        private Label lblSucursal;
+        private Label lblComercio;
+        private ComboBox comboBox2;
+        private ComboBox comboBox1;
     }
 }
