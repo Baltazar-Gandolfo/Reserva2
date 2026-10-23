@@ -81,6 +81,7 @@ CREATE TABLE Reserva (
     IdReserva       INT IDENTITY(1,1) PRIMARY KEY,
     Estado          VARCHAR(20) NOT NULL DEFAULT 'Pendiente',
     FechaReserva    DATETIME NOT NULL DEFAULT GETDATE(),
+    NombreCliente NVARCHAR(200) NULL,
     ConfirmadaEn    DATETIME,
     CanceladaEn     DATETIME,
     ExpiraEn        DATETIME,

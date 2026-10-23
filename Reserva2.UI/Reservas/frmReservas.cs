@@ -26,6 +26,7 @@ namespace Reserva2.UI.Reservas
         private Dictionary<Guid, string> _nombres = new Dictionary<Guid, string>();
         private bool _placeholderActivo = true;
         private bool _cargando;
+        private bool _modoConfirmar;
 
         public frmReservas(bool soloPendientes = false)
         {
@@ -161,6 +162,8 @@ namespace Reserva2.UI.Reservas
 
         private string NombreCliente(Reserva r)
         {
+            if (!string.IsNullOrWhiteSpace(r.NombreCliente))
+                return r.NombreCliente;
             return _nombres.TryGetValue(r.IdUsuario, out var n) ? n : r.IdUsuario.ToString();
         }
 
@@ -175,10 +178,27 @@ namespace Reserva2.UI.Reservas
         {
             var r = Seleccionada();
             btnDetalle.Enabled = r != null;
-            btnRegistrarPago.Enabled = r != null && r.Estado == EstadoReserva.Pendiente;
-            // Cancela el cliente (sus reservas confirmadas) o el Admin
-            btnCancelar.Enabled = r != null && r.Estado == EstadoReserva.Confirmada
-                && (_esCliente || SessionManager.GetInstance().GetRol() == "Admin");
+
+            bool pendiente = r != null && r.Estado == EstadoReserva.Pendiente;
+            bool tienePago = false;
+            if (r != null && _pagos.TryGetValue(r.IdReserva, out var pp))
+                tienePago = pp.Any(p => p.Estado == EstadoPago.Aprobado);
+
+            if (pendiente && tienePago && !_esCliente)
+            {
+                btnRegistrarPago.Enabled = true;
+                btnRegistrarPago.Text = "Confirmar";
+                _modoConfirmar = true;
+            }
+            else
+            {
+                btnRegistrarPago.Enabled = pendiente && !tienePago;
+                btnRegistrarPago.Text = "Registrar pago";
+                _modoConfirmar = false;
+            }
+
+            btnCancelar.Enabled = r != null
+                && (r.Estado == EstadoReserva.Pendiente || r.Estado == EstadoReserva.Confirmada);
         }
 
         private void btnDetalle_Click(object sender, EventArgs e)
@@ -195,6 +215,22 @@ namespace Reserva2.UI.Reservas
         {
             var r = Seleccionada();
             if (r == null) return;
+
+            if (_modoConfirmar)
+            {
+                try
+                {
+                    new ReservaBLL().Confirmar(r.IdReserva);
+                    MessageBox.Show("Reserva confirmada.", "Confirmación",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Recargar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return;
+            }
 
             using (var frm = new frmPago(r.IdReserva))
                 if (frm.ShowDialog(this) == DialogResult.OK)

@@ -14,7 +14,8 @@ namespace Reserva2.BE.Entities
         public DateTime? ConfirmadaEn { get; set; }
         public DateTime? CanceladaEn { get; set; }
         public DateTime? ExpiraEn { get; set; }
-        public string MotivoCancelacion { get; set; }
+        public string? MotivoCancelacion { get; set; }
+        public string? NombreCliente { get; set; }
         public Guid IdUsuario { get; set; }
         public int IdDisponibilidad { get; set; }
         public Disponibilidad? Disponibilidad { get; set; }

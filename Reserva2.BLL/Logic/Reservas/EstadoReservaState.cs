@@ -34,6 +34,7 @@ namespace Reserva2.BLL.Logic.Reservas
     {
         public override string Nombre => EstadoReserva.Pendiente;
         public override void ValidarConfirmar() { }
+        public override void ValidarCancelar() { }
         public override void ValidarExpirar() { }
     }
 

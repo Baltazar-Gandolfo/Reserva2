@@ -38,9 +38,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
-        // Asienta el pago y confirma la reserva Pendiente en una sola transacción.
-        // Devuelve false si la reserva ya no está Pendiente.
-        public bool RegistrarAprobadoYConfirmar(Pago pago)
+        // Asienta el pago y desactiva la expiración de la reserva Pendiente.
+        // La confirmación queda a cargo del comercio. Devuelve false si la reserva ya no está Pendiente.
+        public bool RegistrarAprobado(Pago pago)
         {
             using (var ctx = NegocioContextFactory.Crear())
             using (var tx = ctx.Database.BeginTransaction())
@@ -53,8 +53,7 @@ namespace Reserva2.DAL.Repositories
                     return false;
                 }
 
-                reserva.Estado = EstadoReserva.Confirmada;
-                reserva.ConfirmadaEn = DateTime.Now;
+                reserva.ExpiraEn = null;
 
                 pago.Reserva = null;
                 ctx.Pagos.Add(pago);

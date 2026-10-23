@@ -12,6 +12,17 @@ namespace Reserva2.BLL.Logic
 
         private readonly DisponibilidadRepository _dispRepo = new DisponibilidadRepository();
         private readonly ElementoReservableRepository _elementoRepo = new ElementoReservableRepository();
+        private readonly ReglaDisponibilidadRepository _reglaRepo = new ReglaDisponibilidadRepository();
+
+        // Completa los slots faltantes de todas las reglas activas del elemento (idempotente).
+        // Mantiene el horizonte de DiasHorizonte días siempre cubierto y cubre reglas cargadas fuera de la app.
+        public int GenerarFaltantes(int idElemento)
+        {
+            int creados = 0;
+            foreach (var regla in _reglaRepo.GetByElemento(idElemento))
+                creados += Generar(regla);
+            return creados;
+        }
 
         public int Generar(ReglaDisponibilidad regla)
         {

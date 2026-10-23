@@ -19,6 +19,7 @@ namespace Reserva2.BLL.Logic
     public class DisponibilidadBLL
     {
         private readonly DisponibilidadRepository _repo = new DisponibilidadRepository();
+        private readonly GeneradorSlotsBLL _generador = new GeneradorSlotsBLL();
 
         public List<Disponibilidad> ListarPorElemento(int idElemento, DateTime desde, DateTime hasta)
         {
@@ -33,6 +34,7 @@ namespace Reserva2.BLL.Logic
 
         public List<Disponibilidad> ListarLibres(int idElemento)
         {
+            _generador.GenerarFaltantes(idElemento);
             var ahora = DateTime.Now;
             return ListarProximosDias(idElemento)
                 .Where(d => d.Estado == EstadoSlot.Libre && d.Fecha + d.HoraInicio > ahora)
@@ -42,6 +44,7 @@ namespace Reserva2.BLL.Logic
         public List<SlotCalendario> ObtenerCalendario(int idElemento, DateTime desde, DateTime hasta)
         {
             new Reservas.ReservaBLL().ExpirarVencidas();
+            _generador.GenerarFaltantes(idElemento);
 
             var reservas = _repo.GetReservasVigentes(idElemento, desde, hasta);
             var resultado = new List<SlotCalendario>();

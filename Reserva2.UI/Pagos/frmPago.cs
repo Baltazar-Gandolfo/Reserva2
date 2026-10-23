@@ -16,7 +16,6 @@ namespace Reserva2.UI.Pagos
         {
             InitializeComponent();
             _idReserva = idReserva;
-            this.Load += frmPago_Load;
             btnRegistrar.Click += btnRegistrar_Click;
             btnCancelar.Click += (s, e) => this.Close();
         }

@@ -15,6 +15,7 @@ namespace Reserva2.UI.Reservas
         private readonly ReservaBLL _reservaBll = new ReservaBLL();
         private readonly PagoBLL _pagoBll = new PagoBLL();
         private Reserva _reserva;
+        private bool _modoConfirmar;
 
         public frmReservaDetalle(int idReserva)
         {
@@ -44,10 +45,15 @@ namespace Reserva2.UI.Reservas
                 bool vigente = _reserva.Estado == EstadoReserva.Pendiente || _reserva.Estado == EstadoReserva.Confirmada;
 
                 var cliente = UsuarioService.GetAll().FirstOrDefault(u => u.IdUsuario == _reserva.IdUsuario);
+                string nombreCliente = !string.IsNullOrWhiteSpace(_reserva.NombreCliente)
+                    ? _reserva.NombreCliente
+                    : cliente?.Nombre ?? _reserva.IdUsuario.ToString();
 
                 this.Text = $"Reserva RES-{_reserva.IdReserva:00000}";
                 lblElemento.Text = $"{elemento.Nombre} — {elemento.Sucursal.Nombre}";
-                lblCliente.Text = cliente == null ? _reserva.IdUsuario.ToString() : $"{cliente.Nombre} — {cliente.DNI}";
+                lblCliente.Text = cliente == null
+                    ? nombreCliente
+                    : $"{nombreCliente} — {cliente.DNI}";
                 lblTurno.Text = $"{slot.Fecha:dd/MM/yyyy} {slot.HoraInicio:hh\\:mm} – {slot.HoraFin:hh\\:mm}";
                 lblTotal.Text = slot.Precio.ToString("C2");
                 lblPagado.Text = pagado.ToString("C2");
@@ -78,9 +84,23 @@ namespace Reserva2.UI.Reservas
                     lstActividad.Items.Add($"{_reserva.ExpiraEn:dd/MM HH:mm} — Reserva expirada por falta de pago");
 
                 var rol = SessionManager.GetInstance().GetRol();
-                btnRegistrarPago.Enabled = _reserva.Estado == EstadoReserva.Pendiente;
-                btnCancelarReserva.Enabled = _reserva.Estado == EstadoReserva.Confirmada
-                    && (rol == "Cliente" || rol == "Admin");
+                bool tienePagoAprobado = pagos.Any(p => p.Estado == EstadoPago.Aprobado);
+
+                if (_reserva.Estado == EstadoReserva.Pendiente && tienePagoAprobado && rol != "Cliente")
+                {
+                    btnRegistrarPago.Enabled = true;
+                    btnRegistrarPago.Text = "Confirmar reserva";
+                    _modoConfirmar = true;
+                }
+                else
+                {
+                    btnRegistrarPago.Enabled = _reserva.Estado == EstadoReserva.Pendiente && !tienePagoAprobado;
+                    btnRegistrarPago.Text = "Registrar pago";
+                    _modoConfirmar = false;
+                }
+
+                btnCancelarReserva.Enabled =
+                    _reserva.Estado == EstadoReserva.Pendiente || _reserva.Estado == EstadoReserva.Confirmada;
             }
             catch (Exception ex)
             {
@@ -91,6 +111,22 @@ namespace Reserva2.UI.Reservas
 
         private void btnRegistrarPago_Click(object sender, EventArgs e)
         {
+            if (_modoConfirmar)
+            {
+                try
+                {
+                    _reservaBll.Confirmar(_idReserva);
+                    MessageBox.Show("Reserva confirmada.", "Confirmación",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Cargar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return;
+            }
+
             using (var frm = new frmPago(_idReserva))
                 if (frm.ShowDialog(this) == DialogResult.OK)
                     Cargar();

@@ -7,8 +7,9 @@ using System.Linq;
 
 namespace Reserva2.BLL.Logic.Reservas
 {
-    // CU.Sis.002 — Registrar Pago Aprobado y CU.Sis.001 — Confirmar Reserva.
+    // CU.Sis.002 — Registrar Pago Aprobado.
     // En el MVP no hay pasarela externa: el pago se asienta directamente como aprobado.
+    // La confirmación queda a cargo del comercio (ReservaBLL.Confirmar).
     public class PagoBLL
     {
         private readonly ReservaRepository _reservaRepo = new ReservaRepository();
@@ -66,9 +67,10 @@ namespace Reserva2.BLL.Logic.Reservas
             if (!ReservaBLL.PuedeGestionar(usuario, reserva))
                 throw new Exception("No tiene permisos sobre esta reserva.");
 
-            EstadoReservaState.De(reserva.Estado).ValidarConfirmar();
+            if (reserva.Estado != EstadoReserva.Pendiente)
+                throw new Exception("La reserva ya no está pendiente.");
 
-            if (reserva.ExpiraEn < DateTime.Now)
+            if (reserva.ExpiraEn.HasValue && reserva.ExpiraEn < DateTime.Now)
                 throw new Exception("La reserva expiró. Realizá una nueva reserva.");
 
             var pago = new Pago
@@ -80,13 +82,11 @@ namespace Reserva2.BLL.Logic.Reservas
                 IdReserva = idReserva
             };
 
-            if (!_pagoRepo.RegistrarAprobadoYConfirmar(pago))
+            if (!_pagoRepo.RegistrarAprobado(pago))
                 throw new Exception("La reserva ya no está pendiente.");
 
             BitacoraService.Registrar("Alta", "Pago",
                 $"Pago aprobado de ${pago.Monto:N2} ({metodoPago}) para la reserva ID {idReserva}", pago.IdPago);
-            BitacoraService.Registrar("Modificación", "Reserva",
-                $"Reserva ID {idReserva} confirmada", idReserva);
 
             return pago;
         }

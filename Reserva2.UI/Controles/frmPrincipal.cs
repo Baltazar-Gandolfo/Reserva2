@@ -8,6 +8,8 @@ using Reserva2.UI.Disponibilidad;
 using Reserva2.UI.Reservas;
 using Reserva2.UI.Pagos;
 using Reserva2.UI.Auditoria;
+using Reserva2.UI.Errores;
+using Reserva2.UI.Reportes;
 using Reserva2.BLL.Logic.Reservas;
 using Reserva2.UI.Config;
 using System;
@@ -24,7 +26,6 @@ namespace Reserva2.UI.Controles
         public frmPrincipal()
         {
             InitializeComponent();
-            this.Load += frmPrincipal_Load;
             this.IsMdiContainer = true;
         }
 
@@ -44,9 +45,11 @@ namespace Reserva2.UI.Controles
             toolStripStatusLabel5.Text = $"Sesión: {SessionManager.GetInstance().FechaLogin:HH:mm}";
             this.Text = $"Reserva2 — {usuario.Nombre} ({usuario.Rol})";
 
+            toolStrip1.Visible = false; // sus accesos repetían el menú Reservas
             ArmarMenus();
             FiltrarMenuPorPermisos();
             IniciarControlDeExpiracion();
+            AbrirPantallaInicial(usuario);
         }
 
         // CU.Sis.004: el temporizador solo corre si hay reservas pendientes (también si quedaron de una sesión anterior).
@@ -162,7 +165,9 @@ namespace Reserva2.UI.Controles
                 mnuRegistrarPago
             });
 
-            // --- Plataforma (Admin) ---
+            // --- Plataforma (Admin/Comercio) ---
+            var mnuReportes = new ToolStripMenuItem(T("estadisticas"));
+            mnuReportes.Click += (s, e) => AbrirForm(new frmReportes());
             var mnuComercios = new ToolStripMenuItem(T("comercios"));
             mnuComercios.Click += (s, e) => AbrirForm(new frmComercios());
             var mnuUsuarios = new ToolStripMenuItem(T("usuarios"));
@@ -171,15 +176,20 @@ namespace Reserva2.UI.Controles
             mnuPermisos.Click += (s, e) => AbrirForm(new frmPermisos());
             var mnuBackup = new ToolStripMenuItem(T("backup"));
             mnuBackup.Click += (s, e) => AbrirForm(new frmBackup());
+            var mnuErrores = new ToolStripMenuItem(T("errores"));
+            mnuErrores.Click += (s, e) => AbrirForm(new frmErrores());
             var mnuBitacora = new ToolStripMenuItem(T("auditoria"));
             mnuBitacora.Click += (s, e) => AbrirForm(new frmAuditoria());
             plataformaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[]
             {
+                mnuReportes,
+                new ToolStripSeparator(),
                 mnuComercios,
                 mnuUsuarios,
                 mnuPermisos,
                 new ToolStripSeparator(),
                 mnuBackup,
+                mnuErrores,
                 mnuBitacora
             });
 
@@ -214,13 +224,6 @@ namespace Reserva2.UI.Controles
                 new ToolStripSeparator(),
                 mnuAcerca
             });
-
-            // --- ToolStrip accesos rápidos ---
-            toolStripLabel1.Click -= toolStripLabel1_Click_1;
-            toolStripLabel1.Click += (s, e) => AbrirForm(new frmNuevaReserva());
-            toolStripLabel2.Click -= toolStripLabel2_Click;
-            toolStripLabel2.Click += (s, e) => AbrirForm(new frmReservas());
-            toolStripLabel3.Click += (s, e) => AbrirForm(new frmReservas(soloPendientes: true));
         }
 
         private void FiltrarMenuPorPermisos()
@@ -249,18 +252,28 @@ namespace Reserva2.UI.Controles
             // Pagos
             pagosToolStripMenuItem.Visible = TienePermiso("frmPagoManual");
 
-            // Plataforma (Admin)
+            // Plataforma (Admin + Comercio para reportes)
             plataformaToolStripMenuItem.Visible =
                 TienePermiso("frmComercios") ||
                 TienePermiso("frmUsuarios") ||
                 TienePermiso("frmPermisos") ||
                 TienePermiso("frmBitacora") ||
-                TienePermiso("frmBackup");
+                TienePermiso("frmBackup") ||
+                TienePermiso("frmReportes") ||
+                TienePermiso("frmErrores");
 
             // Reservas
             reservasToolStripMenuItem.Visible =
                 TienePermiso("frmNuevaReserva") ||
                 TienePermiso("frmReservas");
+        }
+
+        private void AbrirPantallaInicial(Usuario usuario)
+        {
+            if (usuario.Rol == "Cliente")
+                AbrirForm(new frmReservas());
+            else
+                AbrirForm(new frmReportes());
         }
 
         private void AbrirForm(Form form)
@@ -280,5 +293,10 @@ namespace Reserva2.UI.Controles
         private void toolStripLabel1_Click_1(object sender, EventArgs e) { }
         private void toolStripLabel2_Click(object sender, EventArgs e) { }
         private void ayudaToolStripMenuItem_Click(object sender, EventArgs e) { }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }

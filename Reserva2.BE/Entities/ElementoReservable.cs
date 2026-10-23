@@ -10,7 +10,7 @@ namespace Reserva2.BE.Entities
     {
         public int IdElemento { get; set; }
         public string Nombre { get; set; }
-        public string Descripcion { get; set; }
+        public string? Descripcion { get; set; }
         public string Tipo { get; set; }
         public decimal PrecioBase { get; set; }
         public int Capacidad { get; set; }

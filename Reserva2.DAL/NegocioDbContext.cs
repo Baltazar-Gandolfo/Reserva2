@@ -87,6 +87,7 @@ namespace Reserva2.DAL
                 e.HasKey(r => r.IdReserva);
                 e.Property(r => r.Estado).IsRequired().HasMaxLength(20);
                 e.Property(r => r.MotivoCancelacion).HasMaxLength(500);
+                e.Property(r => r.NombreCliente).HasMaxLength(200);
                 e.HasOne(r => r.Disponibilidad).WithMany().HasForeignKey(r => r.IdDisponibilidad);
             });
 

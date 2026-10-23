@@ -29,7 +29,7 @@ namespace Reserva2.BLL.Logic.Reservas
         }
 
         // CU.Cli.001 — Realizar Reserva
-        public Reserva Reservar(int idDisponibilidad)
+        public Reserva Reservar(int idDisponibilidad, string? nombreCliente = null)
         {
             var usuario = UsuarioActual();
 
@@ -59,7 +59,8 @@ namespace Reserva2.BLL.Logic.Reservas
                 FechaReserva = ahora,
                 ExpiraEn = ahora.AddMinutes(minutos),
                 IdUsuario = usuario.IdUsuario,
-                IdDisponibilidad = idDisponibilidad
+                IdDisponibilidad = idDisponibilidad,
+                NombreCliente = string.IsNullOrWhiteSpace(nombreCliente) ? null : nombreCliente.Trim()
             };
 
             // FA 7.1: el slot lo tomó otro cliente
@@ -136,6 +137,28 @@ namespace Reserva2.BLL.Logic.Reservas
             return _repo.GetByComercio(idComercio, estado, fecha, idElemento);
         }
 
+        // CU.Sis.001 — Confirmar Reserva (solo Comercio o Admin después de que el cliente pagó)
+        public void Confirmar(int idReserva)
+        {
+            var usuario = UsuarioActual();
+            if (usuario.Rol == "Cliente")
+                throw new Exception("Solo el comercio o un administrador puede confirmar una reserva.");
+
+            var reserva = _repo.GetById(idReserva)
+                ?? throw new Exception("La reserva no existe.");
+            if (!PuedeGestionar(usuario, reserva))
+                throw new Exception("No tiene permisos sobre esta reserva.");
+
+            EstadoReservaState.De(reserva.Estado).ValidarConfirmar();
+
+            if (!_repo.CambiarEstado(idReserva, EstadoReserva.Pendiente, EstadoReserva.Confirmada,
+                    liberarSlot: false))
+                throw new Exception("La reserva cambió de estado. Intentá de nuevo.");
+
+            BitacoraService.Registrar("Confirmación", "Reserva",
+                $"Reserva ID {idReserva} confirmada por {usuario.Nombre}", idReserva);
+        }
+
         // CU.Cli.004 — Cancelar Reserva
         public ResultadoCancelacion Cancelar(int idReserva, string motivo)
         {
@@ -146,8 +169,8 @@ namespace Reserva2.BLL.Logic.Reservas
             var reserva = _repo.GetById(idReserva)
                 ?? throw new Exception("La reserva no existe.");
 
-            if (usuario.Rol != "Admin" && reserva.IdUsuario != usuario.IdUsuario)
-                throw new Exception("No puede cancelar una reserva de otro cliente.");
+            if (!PuedeGestionar(usuario, reserva))
+                throw new Exception("No tiene permisos sobre esta reserva.");
 
             EstadoReservaState.De(reserva.Estado).ValidarCancelar();
 
@@ -158,16 +181,16 @@ namespace Reserva2.BLL.Logic.Reservas
 
             bool reembolso = politica.CorrespondeReembolso(slot.Fecha + slot.HoraInicio, DateTime.Now);
 
-            if (!_repo.CambiarEstado(idReserva, EstadoReserva.Confirmada, EstadoReserva.Cancelada,
+            if (!_repo.CambiarEstado(idReserva, reserva.Estado, EstadoReserva.Cancelada,
                     liberarSlot: true, motivo: motivo.Trim()))
-                throw new Exception("La reserva ya no está confirmada.");
+                throw new Exception("La reserva cambió de estado. Intentá de nuevo.");
 
             var resultado = new ResultadoCancelacion();
             var pago = _pagoRepo.GetAprobadoPorReserva(idReserva);
             if (pago != null)
             {
                 resultado.TeniaPago = true;
-                resultado.Reembolsado = reembolso; // FA 6.1 reembolso total / FA 6.2 se retiene
+                resultado.Reembolsado = reembolso;
                 _pagoRepo.CambiarEstado(pago.IdPago, reembolso ? EstadoPago.Reembolsado : EstadoPago.Retenido);
             }
 

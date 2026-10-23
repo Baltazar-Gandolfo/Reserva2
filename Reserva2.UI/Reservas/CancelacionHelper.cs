@@ -16,7 +16,11 @@ namespace Reserva2.UI.Reservas
                 "Ingresá el motivo de la cancelación:", "Cancelar reserva");
 
             if (string.IsNullOrWhiteSpace(motivo))
-                return false; // el usuario cerró el cuadro o no escribió nada
+            {
+                MessageBox.Show(owner, "Debe ingresar el motivo de la cancelación.",
+                    "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
 
             try
             {

@@ -45,11 +45,13 @@ namespace Reserva2.UI.Reservas
 
         private void frmNuevaReserva_Load(object sender, EventArgs e)
         {
-            // La reserva la hace el propio usuario logueado
             var usuario = SessionManager.GetInstance().UsuarioActual;
+            bool esCliente = usuario.Rol == "Cliente";
             textBox1.Text = usuario.Nombre;
-            textBox1.ReadOnly = true;
+            textBox1.ReadOnly = esCliente;
             button1.Visible = false;
+            if (!esCliente)
+                textBox1.PlaceholderText = "Nombre del cliente (presencial)";
 
             foreach (var combo in new[] { comboBox1, comboBox2, comboBox3 })
                 combo.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -175,7 +177,8 @@ namespace Reserva2.UI.Reservas
 
             try
             {
-                _reserva = _reservaBll.Reservar(_slot.IdDisponibilidad);
+                string nombre = textBox1.ReadOnly ? null : textBox1.Text.Trim();
+                _reserva = _reservaBll.Reservar(_slot.IdDisponibilidad, nombre);
                 IniciarCuentaRegresiva();
             }
             catch (SlotNoDisponibleException ex)
@@ -218,7 +221,7 @@ namespace Reserva2.UI.Reservas
                 return;
             }
 
-            label12.Text = $"Reserva Pendiente. Vence en {restante:mm\\:ss}.\r\nRegistrá el pago para confirmarla.";
+            label12.Text = $"Reserva Pendiente. Vence en {restante:mm\\:ss}.\r\nRegistrá el pago de seña.";
         }
 
         private void IrAPagar()
@@ -228,8 +231,8 @@ namespace Reserva2.UI.Reservas
                 if (frm.ShowDialog(this) == DialogResult.OK)
                 {
                     _timerCuenta.Stop();
-                    MessageBox.Show("¡Reserva confirmada!", "Reservas",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("¡Pago registrado!\r\nLa reserva queda pendiente de confirmación por el comercio.",
+                        "Reservas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
             }

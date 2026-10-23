@@ -11,7 +11,7 @@ namespace Reserva2.BE.Entities
         public int IdNotificacion { get; set; }
         public string Canal { get; set; }
         public string Estado { get; set; }
-        public string Tipo { get; set; }
+        public string? Tipo { get; set; }
         public DateTime? EnviadaEn { get; set; }
         public DateTime FechaCreacion { get; set; }
         public Guid IdUsuario { get; set; }
