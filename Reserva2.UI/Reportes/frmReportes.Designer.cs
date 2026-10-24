@@ -39,35 +39,35 @@
             lblSucursal = new Label();
             cboSucursal = new ComboBox();
             pnlIngresos = new Panel();
+            lblCompIngresos = new Label();
+            lblValorIngresos = new Label();
+            lblTituloIngresos = new Label();
             pnlOcupacion = new Panel();
+            lblCompOcupacion = new Label();
+            lblValorOcupacion = new Label();
+            lblTituloOcupacion = new Label();
             pnlCancelacion = new Panel();
+            lblCompCancelacion = new Label();
+            lblValorCancelacion = new Label();
+            lblTituloCancelacion = new Label();
             pnlRecurrentes = new Panel();
+            lblCompRecurrentes = new Label();
+            lblValorRecurrentes = new Label();
+            lblTituloRecurrentes = new Label();
             lblPeriodoAnterior = new Label();
             label3 = new Label();
-            dataGridView1 = new DataGridView();
+            dgvDetalle = new DataGridView();
             Elemento = new DataGridViewTextBoxColumn();
             Sucursal = new DataGridViewTextBoxColumn();
             Reservas = new DataGridViewTextBoxColumn();
             Ocupacion = new DataGridViewTextBoxColumn();
             Ingresos = new DataGridViewTextBoxColumn();
             Cancelacion = new DataGridViewTextBoxColumn();
-            label4 = new Label();
-            lblIngresosValor = new Label();
-            lblIngresosVar = new Label();
-            lblOcupacionVar = new Label();
-            lblOcupacionValor = new Label();
-            label9 = new Label();
-            lblCancelacionVar = new Label();
-            lblCancelacionValor = new Label();
-            label12 = new Label();
-            lblRecurrentesVar = new Label();
-            lblRecurrentesValor = new Label();
-            label15 = new Label();
             pnlIngresos.SuspendLayout();
             pnlOcupacion.SuspendLayout();
             pnlCancelacion.SuspendLayout();
             pnlRecurrentes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDetalle).BeginInit();
             SuspendLayout();
             // 
             // btnExportar
@@ -162,43 +162,167 @@
             // 
             // pnlIngresos
             // 
-            pnlIngresos.Controls.Add(lblIngresosVar);
-            pnlIngresos.Controls.Add(lblIngresosValor);
-            pnlIngresos.Controls.Add(label4);
+            pnlIngresos.Controls.Add(lblCompIngresos);
+            pnlIngresos.Controls.Add(lblValorIngresos);
+            pnlIngresos.Controls.Add(lblTituloIngresos);
             pnlIngresos.Location = new Point(12, 79);
             pnlIngresos.Name = "pnlIngresos";
             pnlIngresos.Size = new Size(178, 100);
             pnlIngresos.TabIndex = 18;
             // 
+            // lblCompIngresos
+            // 
+            lblCompIngresos.AutoSize = true;
+            lblCompIngresos.ForeColor = Color.White;
+            lblCompIngresos.Location = new Point(13, 79);
+            lblCompIngresos.Name = "lblCompIngresos";
+            lblCompIngresos.Size = new Size(38, 15);
+            lblCompIngresos.TabIndex = 26;
+            lblCompIngresos.Text = "label6";
+            // 
+            // lblValorIngresos
+            // 
+            lblValorIngresos.AutoSize = true;
+            lblValorIngresos.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblValorIngresos.ForeColor = Color.White;
+            lblValorIngresos.Location = new Point(13, 36);
+            lblValorIngresos.Name = "lblValorIngresos";
+            lblValorIngresos.Size = new Size(78, 32);
+            lblValorIngresos.TabIndex = 25;
+            lblValorIngresos.Text = "label5";
+            // 
+            // lblTituloIngresos
+            // 
+            lblTituloIngresos.AutoSize = true;
+            lblTituloIngresos.ForeColor = Color.White;
+            lblTituloIngresos.Location = new Point(13, 8);
+            lblTituloIngresos.Name = "lblTituloIngresos";
+            lblTituloIngresos.Size = new Size(103, 15);
+            lblTituloIngresos.TabIndex = 24;
+            lblTituloIngresos.Text = "Ingresos cobrados";
+            // 
             // pnlOcupacion
             // 
-            pnlOcupacion.Controls.Add(lblOcupacionVar);
-            pnlOcupacion.Controls.Add(lblOcupacionValor);
-            pnlOcupacion.Controls.Add(label9);
+            pnlOcupacion.Controls.Add(lblCompOcupacion);
+            pnlOcupacion.Controls.Add(lblValorOcupacion);
+            pnlOcupacion.Controls.Add(lblTituloOcupacion);
             pnlOcupacion.Location = new Point(205, 79);
             pnlOcupacion.Name = "pnlOcupacion";
             pnlOcupacion.Size = new Size(178, 100);
             pnlOcupacion.TabIndex = 19;
             // 
+            // lblCompOcupacion
+            // 
+            lblCompOcupacion.AutoSize = true;
+            lblCompOcupacion.ForeColor = Color.White;
+            lblCompOcupacion.Location = new Point(17, 77);
+            lblCompOcupacion.Name = "lblCompOcupacion";
+            lblCompOcupacion.Size = new Size(38, 15);
+            lblCompOcupacion.TabIndex = 29;
+            lblCompOcupacion.Text = "label7";
+            // 
+            // lblValorOcupacion
+            // 
+            lblValorOcupacion.AutoSize = true;
+            lblValorOcupacion.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblValorOcupacion.ForeColor = Color.White;
+            lblValorOcupacion.Location = new Point(17, 34);
+            lblValorOcupacion.Name = "lblValorOcupacion";
+            lblValorOcupacion.Size = new Size(78, 32);
+            lblValorOcupacion.TabIndex = 28;
+            lblValorOcupacion.Text = "label8";
+            // 
+            // lblTituloOcupacion
+            // 
+            lblTituloOcupacion.AutoSize = true;
+            lblTituloOcupacion.ForeColor = Color.White;
+            lblTituloOcupacion.Location = new Point(17, 8);
+            lblTituloOcupacion.Name = "lblTituloOcupacion";
+            lblTituloOcupacion.Size = new Size(118, 15);
+            lblTituloOcupacion.TabIndex = 27;
+            lblTituloOcupacion.Text = "Ocupación de turnos";
+            // 
             // pnlCancelacion
             // 
-            pnlCancelacion.Controls.Add(lblCancelacionVar);
-            pnlCancelacion.Controls.Add(lblCancelacionValor);
-            pnlCancelacion.Controls.Add(label12);
+            pnlCancelacion.Controls.Add(lblCompCancelacion);
+            pnlCancelacion.Controls.Add(lblValorCancelacion);
+            pnlCancelacion.Controls.Add(lblTituloCancelacion);
             pnlCancelacion.Location = new Point(399, 79);
             pnlCancelacion.Name = "pnlCancelacion";
             pnlCancelacion.Size = new Size(178, 100);
             pnlCancelacion.TabIndex = 19;
             // 
+            // lblCompCancelacion
+            // 
+            lblCompCancelacion.AutoSize = true;
+            lblCompCancelacion.ForeColor = Color.White;
+            lblCompCancelacion.Location = new Point(21, 77);
+            lblCompCancelacion.Name = "lblCompCancelacion";
+            lblCompCancelacion.Size = new Size(44, 15);
+            lblCompCancelacion.TabIndex = 29;
+            lblCompCancelacion.Text = "label10";
+            // 
+            // lblValorCancelacion
+            // 
+            lblValorCancelacion.AutoSize = true;
+            lblValorCancelacion.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblValorCancelacion.ForeColor = Color.White;
+            lblValorCancelacion.Location = new Point(17, 34);
+            lblValorCancelacion.Name = "lblValorCancelacion";
+            lblValorCancelacion.Size = new Size(91, 32);
+            lblValorCancelacion.TabIndex = 28;
+            lblValorCancelacion.Text = "label11";
+            // 
+            // lblTituloCancelacion
+            // 
+            lblTituloCancelacion.AutoSize = true;
+            lblTituloCancelacion.ForeColor = Color.White;
+            lblTituloCancelacion.Location = new Point(21, 8);
+            lblTituloCancelacion.Name = "lblTituloCancelacion";
+            lblTituloCancelacion.Size = new Size(144, 15);
+            lblTituloCancelacion.TabIndex = 27;
+            lblTituloCancelacion.Text = "Cancelaciones y expiradas";
+            // 
             // pnlRecurrentes
             // 
-            pnlRecurrentes.Controls.Add(lblRecurrentesVar);
-            pnlRecurrentes.Controls.Add(lblRecurrentesValor);
-            pnlRecurrentes.Controls.Add(label15);
+            pnlRecurrentes.Controls.Add(lblCompRecurrentes);
+            pnlRecurrentes.Controls.Add(lblValorRecurrentes);
+            pnlRecurrentes.Controls.Add(lblTituloRecurrentes);
             pnlRecurrentes.Location = new Point(592, 79);
             pnlRecurrentes.Name = "pnlRecurrentes";
             pnlRecurrentes.Size = new Size(178, 100);
             pnlRecurrentes.TabIndex = 20;
+            // 
+            // lblCompRecurrentes
+            // 
+            lblCompRecurrentes.AutoSize = true;
+            lblCompRecurrentes.ForeColor = Color.White;
+            lblCompRecurrentes.Location = new Point(24, 77);
+            lblCompRecurrentes.Name = "lblCompRecurrentes";
+            lblCompRecurrentes.Size = new Size(44, 15);
+            lblCompRecurrentes.TabIndex = 29;
+            lblCompRecurrentes.Text = "label13";
+            // 
+            // lblValorRecurrentes
+            // 
+            lblValorRecurrentes.AutoSize = true;
+            lblValorRecurrentes.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblValorRecurrentes.ForeColor = Color.White;
+            lblValorRecurrentes.Location = new Point(24, 34);
+            lblValorRecurrentes.Name = "lblValorRecurrentes";
+            lblValorRecurrentes.Size = new Size(91, 32);
+            lblValorRecurrentes.TabIndex = 28;
+            lblValorRecurrentes.Text = "label14";
+            // 
+            // lblTituloRecurrentes
+            // 
+            lblTituloRecurrentes.AutoSize = true;
+            lblTituloRecurrentes.ForeColor = Color.White;
+            lblTituloRecurrentes.Location = new Point(24, 8);
+            lblTituloRecurrentes.Name = "lblTituloRecurrentes";
+            lblTituloRecurrentes.Size = new Size(111, 15);
+            lblTituloRecurrentes.TabIndex = 27;
+            lblTituloRecurrentes.Text = "Clientes recurrentes";
             // 
             // lblPeriodoAnterior
             // 
@@ -220,14 +344,14 @@
             label3.TabIndex = 22;
             label3.Text = "Detalle por elemento";
             // 
-            // dataGridView1
+            // dgvDetalle
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Elemento, Sucursal, Reservas, Ocupacion, Ingresos, Cancelacion });
-            dataGridView1.Location = new Point(12, 262);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(766, 165);
-            dataGridView1.TabIndex = 23;
+            dgvDetalle.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDetalle.Columns.AddRange(new DataGridViewColumn[] { Elemento, Sucursal, Reservas, Ocupacion, Ingresos, Cancelacion });
+            dgvDetalle.Location = new Point(12, 262);
+            dgvDetalle.Name = "dgvDetalle";
+            dgvDetalle.Size = new Size(766, 165);
+            dgvDetalle.TabIndex = 23;
             // 
             // Elemento
             // 
@@ -264,137 +388,13 @@
             Cancelacion.Name = "Cancelacion";
             Cancelacion.Width = 95;
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.ForeColor = Color.White;
-            label4.Location = new Point(13, 8);
-            label4.Name = "label4";
-            label4.Size = new Size(103, 15);
-            label4.TabIndex = 24;
-            label4.Text = "Ingresos cobrados";
-            // 
-            // lblIngresosValor
-            // 
-            lblIngresosValor.AutoSize = true;
-            lblIngresosValor.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblIngresosValor.ForeColor = Color.White;
-            lblIngresosValor.Location = new Point(13, 36);
-            lblIngresosValor.Name = "lblIngresosValor";
-            lblIngresosValor.Size = new Size(78, 32);
-            lblIngresosValor.TabIndex = 25;
-            lblIngresosValor.Text = "label5";
-            // 
-            // lblIngresosVar
-            // 
-            lblIngresosVar.AutoSize = true;
-            lblIngresosVar.ForeColor = Color.White;
-            lblIngresosVar.Location = new Point(13, 79);
-            lblIngresosVar.Name = "lblIngresosVar";
-            lblIngresosVar.Size = new Size(38, 15);
-            lblIngresosVar.TabIndex = 26;
-            lblIngresosVar.Text = "label6";
-            // 
-            // lblOcupacionVar
-            // 
-            lblOcupacionVar.AutoSize = true;
-            lblOcupacionVar.ForeColor = Color.White;
-            lblOcupacionVar.Location = new Point(17, 77);
-            lblOcupacionVar.Name = "lblOcupacionVar";
-            lblOcupacionVar.Size = new Size(38, 15);
-            lblOcupacionVar.TabIndex = 29;
-            lblOcupacionVar.Text = "label7";
-            // 
-            // lblOcupacionValor
-            // 
-            lblOcupacionValor.AutoSize = true;
-            lblOcupacionValor.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblOcupacionValor.ForeColor = Color.White;
-            lblOcupacionValor.Location = new Point(17, 34);
-            lblOcupacionValor.Name = "lblOcupacionValor";
-            lblOcupacionValor.Size = new Size(78, 32);
-            lblOcupacionValor.TabIndex = 28;
-            lblOcupacionValor.Text = "label8";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.ForeColor = Color.White;
-            label9.Location = new Point(17, 8);
-            label9.Name = "label9";
-            label9.Size = new Size(118, 15);
-            label9.TabIndex = 27;
-            label9.Text = "Ocupación de turnos";
-            // 
-            // lblCancelacionVar
-            // 
-            lblCancelacionVar.AutoSize = true;
-            lblCancelacionVar.ForeColor = Color.White;
-            lblCancelacionVar.Location = new Point(21, 77);
-            lblCancelacionVar.Name = "lblCancelacionVar";
-            lblCancelacionVar.Size = new Size(44, 15);
-            lblCancelacionVar.TabIndex = 29;
-            lblCancelacionVar.Text = "label10";
-            // 
-            // lblCancelacionValor
-            // 
-            lblCancelacionValor.AutoSize = true;
-            lblCancelacionValor.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblCancelacionValor.ForeColor = Color.White;
-            lblCancelacionValor.Location = new Point(17, 34);
-            lblCancelacionValor.Name = "lblCancelacionValor";
-            lblCancelacionValor.Size = new Size(91, 32);
-            lblCancelacionValor.TabIndex = 28;
-            lblCancelacionValor.Text = "label11";
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.ForeColor = Color.White;
-            label12.Location = new Point(21, 8);
-            label12.Name = "label12";
-            label12.Size = new Size(144, 15);
-            label12.TabIndex = 27;
-            label12.Text = "Cancelaciones y expiradas";
-            // 
-            // lblRecurrentesVar
-            // 
-            lblRecurrentesVar.AutoSize = true;
-            lblRecurrentesVar.ForeColor = Color.White;
-            lblRecurrentesVar.Location = new Point(24, 77);
-            lblRecurrentesVar.Name = "lblRecurrentesVar";
-            lblRecurrentesVar.Size = new Size(44, 15);
-            lblRecurrentesVar.TabIndex = 29;
-            lblRecurrentesVar.Text = "label13";
-            // 
-            // lblRecurrentesValor
-            // 
-            lblRecurrentesValor.AutoSize = true;
-            lblRecurrentesValor.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblRecurrentesValor.ForeColor = Color.White;
-            lblRecurrentesValor.Location = new Point(24, 34);
-            lblRecurrentesValor.Name = "lblRecurrentesValor";
-            lblRecurrentesValor.Size = new Size(91, 32);
-            lblRecurrentesValor.TabIndex = 28;
-            lblRecurrentesValor.Text = "label14";
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.ForeColor = Color.White;
-            label15.Location = new Point(24, 8);
-            label15.Name = "label15";
-            label15.Size = new Size(111, 15);
-            label15.TabIndex = 27;
-            label15.Text = "Clientes recurrentes";
-            // 
             // frmReportes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DarkSlateBlue;
             ClientSize = new Size(797, 450);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvDetalle);
             Controls.Add(label3);
             Controls.Add(lblPeriodoAnterior);
             Controls.Add(pnlRecurrentes);
@@ -422,7 +422,7 @@
             pnlCancelacion.PerformLayout();
             pnlRecurrentes.ResumeLayout(false);
             pnlRecurrentes.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDetalle).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -445,24 +445,24 @@
         private Panel pnlRecurrentes;
         private Label lblPeriodoAnterior;
         private Label label3;
-        private DataGridView dataGridView1;
+        private DataGridView dgvDetalle;
         private DataGridViewTextBoxColumn Elemento;
         private DataGridViewTextBoxColumn Sucursal;
         private DataGridViewTextBoxColumn Reservas;
         private DataGridViewTextBoxColumn Ocupacion;
         private DataGridViewTextBoxColumn Ingresos;
         private DataGridViewTextBoxColumn Cancelacion;
-        private Label label4;
-        private Label lblIngresosValor;
-        private Label lblIngresosVar;
-        private Label lblOcupacionVar;
-        private Label lblOcupacionValor;
-        private Label label9;
-        private Label lblCancelacionVar;
-        private Label lblCancelacionValor;
-        private Label label12;
-        private Label lblRecurrentesVar;
-        private Label lblRecurrentesValor;
-        private Label label15;
+        private Label lblTituloIngresos;
+        private Label lblValorIngresos;
+        private Label lblCompIngresos;
+        private Label lblCompOcupacion;
+        private Label lblValorOcupacion;
+        private Label lblTituloOcupacion;
+        private Label lblCompCancelacion;
+        private Label lblValorCancelacion;
+        private Label lblTituloCancelacion;
+        private Label lblCompRecurrentes;
+        private Label lblValorRecurrentes;
+        private Label lblTituloRecurrentes;
     }
 }

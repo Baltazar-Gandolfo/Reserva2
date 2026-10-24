@@ -36,24 +36,23 @@
             dtpDesde = new DateTimePicker();
             label3 = new Label();
             btnCopiar = new Button();
-            dataGridView1 = new DataGridView();
-            cboNivel = new ComboBox();
+            dgvErrores = new DataGridView();
             FechaHora = new DataGridViewTextBoxColumn();
             Nivel = new DataGridViewTextBoxColumn();
             Usuario = new DataGridViewTextBoxColumn();
             Pantalla = new DataGridViewTextBoxColumn();
             Mensaje = new DataGridViewTextBoxColumn();
-            textBox1 = new TextBox();
+            cboNivel = new ComboBox();
+            txtDetalle = new TextBox();
             label4 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvErrores).BeginInit();
             SuspendLayout();
             // 
             // btnExportar
             // 
-            btnExportar.Location = new Point(794, 53);
-            btnExportar.Margin = new Padding(3, 4, 3, 4);
+            btnExportar.Location = new Point(695, 40);
             btnExportar.Name = "btnExportar";
-            btnExportar.Size = new Size(110, 31);
+            btnExportar.Size = new Size(96, 23);
             btnExportar.TabIndex = 21;
             btnExportar.Text = "Exportar CSV";
             btnExportar.UseVisualStyleBackColor = true;
@@ -62,9 +61,9 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = Color.White;
-            label2.Location = new Point(158, 21);
+            label2.Location = new Point(138, 16);
             label2.Name = "label2";
-            label2.Size = new Size(47, 20);
+            label2.Size = new Size(37, 15);
             label2.TabIndex = 20;
             label2.Text = "Hasta";
             // 
@@ -72,18 +71,17 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = Color.White;
-            label1.Location = new Point(16, 21);
+            label1.Location = new Point(14, 16);
             label1.Name = "label1";
-            label1.Size = new Size(51, 20);
+            label1.Size = new Size(39, 15);
             label1.TabIndex = 19;
             label1.Text = "Desde";
             // 
             // btnFiltrar
             // 
-            btnFiltrar.Location = new Point(482, 49);
-            btnFiltrar.Margin = new Padding(3, 4, 3, 4);
+            btnFiltrar.Location = new Point(422, 37);
             btnFiltrar.Name = "btnFiltrar";
-            btnFiltrar.Size = new Size(86, 31);
+            btnFiltrar.Size = new Size(75, 23);
             btnFiltrar.TabIndex = 18;
             btnFiltrar.Text = "Filtrar";
             btnFiltrar.UseVisualStyleBackColor = true;
@@ -91,58 +89,48 @@
             // dtpHasta
             // 
             dtpHasta.Format = DateTimePickerFormat.Short;
-            dtpHasta.Location = new Point(158, 53);
-            dtpHasta.Margin = new Padding(3, 4, 3, 4);
+            dtpHasta.Location = new Point(138, 40);
             dtpHasta.Name = "dtpHasta";
-            dtpHasta.Size = new Size(134, 27);
+            dtpHasta.Size = new Size(118, 23);
             dtpHasta.TabIndex = 17;
             // 
             // dtpDesde
             // 
             dtpDesde.Format = DateTimePickerFormat.Short;
-            dtpDesde.Location = new Point(17, 53);
-            dtpDesde.Margin = new Padding(3, 4, 3, 4);
+            dtpDesde.Location = new Point(15, 40);
             dtpDesde.Name = "dtpDesde";
-            dtpDesde.Size = new Size(134, 27);
+            dtpDesde.Size = new Size(118, 23);
             dtpDesde.TabIndex = 16;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.ForeColor = Color.White;
-            label3.Location = new Point(306, 21);
+            label3.Location = new Point(268, 16);
             label3.Name = "label3";
-            label3.Size = new Size(43, 20);
+            label3.Size = new Size(34, 15);
             label3.TabIndex = 22;
             label3.Text = "Nivel";
             // 
             // btnCopiar
             // 
-            btnCopiar.Location = new Point(16, 519);
-            btnCopiar.Margin = new Padding(3, 4, 3, 4);
+            btnCopiar.Location = new Point(14, 389);
             btnCopiar.Name = "btnCopiar";
-            btnCopiar.Size = new Size(161, 31);
+            btnCopiar.Size = new Size(141, 23);
             btnCopiar.TabIndex = 23;
             btnCopiar.Text = "Copiar detalle";
             btnCopiar.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dgvErrores
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { FechaHora, Nivel, Usuario, Pantalla, Mensaje });
-            dataGridView1.Location = new Point(17, 100);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(887, 201);
-            dataGridView1.TabIndex = 24;
-            // 
-            // cboNivel
-            // 
-            cboNivel.FormattingEnabled = true;
-            cboNivel.Location = new Point(306, 51);
-            cboNivel.Name = "cboNivel";
-            cboNivel.Size = new Size(151, 28);
-            cboNivel.TabIndex = 25;
+            dgvErrores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvErrores.Columns.AddRange(new DataGridViewColumn[] { FechaHora, Nivel, Usuario, Pantalla, Mensaje });
+            dgvErrores.Location = new Point(15, 75);
+            dgvErrores.Margin = new Padding(3, 2, 3, 2);
+            dgvErrores.Name = "dgvErrores";
+            dgvErrores.RowHeadersWidth = 51;
+            dgvErrores.Size = new Size(776, 151);
+            dgvErrores.TabIndex = 24;
             // 
             // FechaHora
             // 
@@ -179,34 +167,44 @@
             Mensaje.Name = "Mensaje";
             Mensaje.Width = 228;
             // 
-            // textBox1
+            // cboNivel
             // 
-            textBox1.Location = new Point(16, 345);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(888, 167);
-            textBox1.TabIndex = 26;
+            cboNivel.FormattingEnabled = true;
+            cboNivel.Location = new Point(268, 38);
+            cboNivel.Margin = new Padding(3, 2, 3, 2);
+            cboNivel.Name = "cboNivel";
+            cboNivel.Size = new Size(133, 23);
+            cboNivel.TabIndex = 25;
+            // 
+            // txtDetalle
+            // 
+            txtDetalle.Location = new Point(14, 259);
+            txtDetalle.Margin = new Padding(3, 2, 3, 2);
+            txtDetalle.Multiline = true;
+            txtDetalle.Name = "txtDetalle";
+            txtDetalle.Size = new Size(778, 126);
+            txtDetalle.TabIndex = 26;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.ForeColor = Color.White;
-            label4.Location = new Point(17, 322);
+            label4.Location = new Point(15, 242);
             label4.Name = "label4";
-            label4.Size = new Size(139, 20);
+            label4.Size = new Size(108, 15);
             label4.TabIndex = 27;
             label4.Text = "Detalle / StrakTrace";
             // 
             // frmErrores
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DarkSlateBlue;
-            ClientSize = new Size(916, 563);
+            ClientSize = new Size(802, 422);
             Controls.Add(label4);
-            Controls.Add(textBox1);
+            Controls.Add(txtDetalle);
             Controls.Add(cboNivel);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvErrores);
             Controls.Add(btnCopiar);
             Controls.Add(label3);
             Controls.Add(btnExportar);
@@ -215,9 +213,10 @@
             Controls.Add(btnFiltrar);
             Controls.Add(dtpHasta);
             Controls.Add(dtpDesde);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "frmErrores";
             Text = "Errores del sistema";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvErrores).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -232,14 +231,14 @@
         private DateTimePicker dtpDesde;
         private Label label3;
         private Button btnCopiar;
-        private DataGridView dataGridView1;
+        private DataGridView dgvErrores;
         private DataGridViewTextBoxColumn FechaHora;
         private DataGridViewTextBoxColumn Nivel;
         private DataGridViewTextBoxColumn Usuario;
         private DataGridViewTextBoxColumn Pantalla;
         private DataGridViewTextBoxColumn Mensaje;
         private ComboBox cboNivel;
-        private TextBox textBox1;
+        private TextBox txtDetalle;
         private Label label4;
     }
 }
