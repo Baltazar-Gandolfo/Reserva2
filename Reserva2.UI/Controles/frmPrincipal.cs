@@ -166,7 +166,7 @@ namespace Reserva2.UI.Controles
             });
 
             // --- Plataforma (Admin/Comercio) ---
-            var mnuReportes = new ToolStripMenuItem(T("estadisticas"));
+            var mnuReportes = new ToolStripMenuItem(T("Estadísticas"));
             mnuReportes.Click += (s, e) => AbrirForm(new frmReportes());
             var mnuComercios = new ToolStripMenuItem(T("comercios"));
             mnuComercios.Click += (s, e) => AbrirForm(new frmComercios());
@@ -176,7 +176,7 @@ namespace Reserva2.UI.Controles
             mnuPermisos.Click += (s, e) => AbrirForm(new frmPermisos());
             var mnuBackup = new ToolStripMenuItem(T("backup"));
             mnuBackup.Click += (s, e) => AbrirForm(new frmBackup());
-            var mnuErrores = new ToolStripMenuItem(T("errores"));
+            var mnuErrores = new ToolStripMenuItem(T("Errores"));
             mnuErrores.Click += (s, e) => AbrirForm(new frmErrores());
             var mnuBitacora = new ToolStripMenuItem(T("auditoria"));
             mnuBitacora.Click += (s, e) => AbrirForm(new frmAuditoria());
@@ -295,6 +295,11 @@ namespace Reserva2.UI.Controles
         private void ayudaToolStripMenuItem_Click(object sender, EventArgs e) { }
 
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void pagosToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }

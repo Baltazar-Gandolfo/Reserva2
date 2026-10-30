@@ -89,6 +89,7 @@
             pagosToolStripMenuItem.Name = "pagosToolStripMenuItem";
             pagosToolStripMenuItem.Size = new Size(51, 20);
             pagosToolStripMenuItem.Text = "Pagos";
+            pagosToolStripMenuItem.Click += pagosToolStripMenuItem_Click;
             // 
             // plataformaToolStripMenuItem
             // 
