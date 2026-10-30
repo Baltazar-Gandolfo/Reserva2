@@ -10,11 +10,10 @@ namespace Reserva2.BE.Entities
     {
         public int IdPago { get; set; }
         public string Estado { get; set; }
-        public DateTime? FechaAcreditacion { get; set; }
         public DateTime? FechaPago { get; set; }
         public decimal Monto { get; set; }
-        public string MpPaymentId { get; set; }
-        public string MpPreferenceId { get; set; }
+        public string MetodoPago { get; set; }
         public int IdReserva { get; set; }
+        public Reserva? Reserva { get; set; }
     }
 }

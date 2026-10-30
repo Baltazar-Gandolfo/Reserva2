@@ -1,20 +1,216 @@
-﻿using System;
+﻿using Reserva2.BE.Entities;
+using Reserva2.BLL.Logic;
+using Reserva2.UI.Controles;
+using Services.Facade;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Reserva2.UI.Elementos
 {
     public partial class frmElementos : Form
     {
-        public frmElementos()
+        private readonly ElementoReservableBLL _bll = new ElementoReservableBLL();
+        private readonly ComercioBLL _comercioBll = new ComercioBLL();
+        private readonly SucursalBLL _sucursalBll = new SucursalBLL();
+        private int _idComercio; // 0 = todos los comercios del usuario
+
+        public frmElementos(int idComercio)
         {
             InitializeComponent();
+            _idComercio = idComercio;
+            this.Load += frmElementos_Load;
+            dgvElementos.SelectionChanged += dgvElementos_SelectionChanged;
+            btnEditar.Click += btnEditar_Click;
+            btnBaja.Click += btnBaja_Click;
+            btnDisponibilidad.Click += btnDisponibilidad_Click;
+            chkVerInactivos.CheckedChanged += chkVerInactivos_CheckedChanged;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            comboBox2.SelectedIndexChanged += (s, e) => CargarGrilla();
+        }
+
+        // comboBox1 = filtro Comercio, comboBox2 = filtro Sucursal (valor 0 = todos)
+        private bool _armandoFiltros;
+
+        private void CargarFiltros()
+        {
+            _armandoFiltros = true;
+            var rol = SessionManager.GetInstance().GetRol();
+            var comercios = rol == "Admin" ? _comercioBll.ListarTodos() : _comercioBll.ListarPorOwner();
+            if (_idComercio > 0)
+                comercios = comercios.Where(c => c.IdComercio == _idComercio).ToList();
+
+            var items = new List<ItemCombo<int>>();
+            if (_idComercio == 0)
+                items.Add(new ItemCombo<int>(0, "(Todos)"));
+            items.AddRange(comercios.Select(c => new ItemCombo<int>(c.IdComercio, c.Nombre)));
+
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.DisplayMember = nameof(ItemCombo<int>.Texto);
+            comboBox1.DataSource = items;
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.DisplayMember = nameof(ItemCombo<int>.Texto);
+            _armandoFiltros = false;
+
+            CargarFiltroSucursales();
+        }
+
+        private void CargarFiltroSucursales()
+        {
+            _armandoFiltros = true;
+            var items = new List<ItemCombo<int>> { new ItemCombo<int>(0, "(Todas)") };
+            int idComercio = (comboBox1.SelectedItem as ItemCombo<int>)?.Valor ?? 0;
+            if (idComercio > 0)
+                items.AddRange(_sucursalBll.ListarPorComercio(idComercio)
+                    .Select(s => new ItemCombo<int>(s.IdSucursal, s.Nombre)));
+            comboBox2.DataSource = items;
+            _armandoFiltros = false;
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_armandoFiltros) return;
+            CargarFiltroSucursales();
+            CargarGrilla();
+        }
+
+        private void frmElementos_Load(object sender, EventArgs e)
+        {
+            if (_idComercio > 0)
+            {
+                var comercio = _comercioBll.ObtenerPorId(_idComercio);
+                if (comercio != null)
+                    this.Text = $"Elementos — {comercio.Nombre}";
+            }
+            else
+            {
+                this.Text = "Elementos";
+            }
+
+            CargarFiltros();
+            CargarGrilla();
+
+            btnEditar.Enabled = false;
+            btnBaja.Enabled = false;
+            btnDisponibilidad.Enabled = false;
+        }
+
+        private void CargarGrilla()
+        {
+            try
+            {
+                if (_armandoFiltros) return;
+
+                List<ElementoReservable> lista = _bll.ListarDelUsuarioActual();
+
+                int idComercioFiltro = (comboBox1.SelectedItem as ItemCombo<int>)?.Valor ?? _idComercio;
+                int idSucursalFiltro = (comboBox2.SelectedItem as ItemCombo<int>)?.Valor ?? 0;
+                if (idComercioFiltro > 0)
+                    lista = lista.Where(e => e.Sucursal.IdComercio == idComercioFiltro).ToList();
+                if (idSucursalFiltro > 0)
+                    lista = lista.Where(e => e.IdSucursal == idSucursalFiltro).ToList();
+
+                if (!chkVerInactivos.Checked)
+                    lista = lista.Where(e => e.Estado == "Activo").ToList();
+
+                dgvElementos.Rows.Clear();
+
+                foreach (var elem in lista)
+                {
+                    // Orden de columnas del Designer: Nombre, Sucursal, Tipo, Capacidad, Precio/hora, Seña, Activo
+                    int rowIndex = dgvElementos.Rows.Add(
+                        elem.Nombre ?? "",
+                        elem.Sucursal?.Nombre ?? "",
+                        elem.Tipo ?? "",
+                        elem.Capacidad,
+                        elem.PrecioBase.ToString("N2"),
+                        elem.PorcentajeSeña.ToString("N0") + "%",
+                        elem.Estado ?? ""
+                    );
+                    dgvElementos.Rows[rowIndex].Tag = elem;
+                    if (elem.Estado != "Activo")
+                        dgvElementos.Rows[rowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.Gray;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar elementos: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvElementos_SelectionChanged(object sender, EventArgs e)
+        {
+            bool haySeleccion = dgvElementos.CurrentRow != null
+                && dgvElementos.CurrentRow.Tag is ElementoReservable;
+
+            btnEditar.Enabled = haySeleccion;
+            btnBaja.Enabled = haySeleccion;
+            btnDisponibilidad.Enabled = haySeleccion;
+
+            if (haySeleccion)
+            {
+                var elem = (ElementoReservable)dgvElementos.CurrentRow.Tag;
+                btnBaja.Text = elem.Estado == "Activo" ? "Dar de baja" : "Reactivar";
+            }
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            var frm = new frmElementoABM(0, _idComercio);
+            if (frm.ShowDialog() == DialogResult.OK)
+                CargarGrilla();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (dgvElementos.CurrentRow?.Tag is ElementoReservable elem)
+            {
+                var frm = new frmElementoABM(elem.IdElemento, elem.Sucursal.IdComercio);
+                if (frm.ShowDialog() == DialogResult.OK)
+                    CargarGrilla();
+            }
+        }
+
+        private void btnBaja_Click(object sender, EventArgs e)
+        {
+            if (dgvElementos.CurrentRow?.Tag is ElementoReservable elem)
+            {
+                string accion = elem.Estado == "Activo" ? "dar de baja" : "reactivar";
+                var resp = MessageBox.Show(
+                    $"¿Está seguro que desea {accion} \"{elem.Nombre}\"?",
+                    "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (resp == DialogResult.Yes)
+                {
+                    try
+                    {
+                        string nuevoEstado = elem.Estado == "Activo" ? "Inactivo" : "Activo";
+                        _bll.CambiarEstado(elem.IdElemento, nuevoEstado);
+                        CargarGrilla();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void btnDisponibilidad_Click(object sender, EventArgs e)
+        {
+            if (dgvElementos.CurrentRow?.Tag is ElementoReservable elem)
+            {
+                var frm = new Reserva2.UI.Disponibilidad.frmDisponibilidad(elem.IdElemento);
+                frm.ShowDialog();
+            }
+        }
+
+        private void chkVerInactivos_CheckedChanged(object sender, EventArgs e)
+        {
+            CargarGrilla();
         }
     }
 }

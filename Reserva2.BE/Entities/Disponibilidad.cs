@@ -15,5 +15,6 @@ namespace Reserva2.BE.Entities
         public decimal Precio { get; set; }
         public string Estado { get; set; }
         public int IdElemento { get; set; }
+        public ElementoReservable? Elemento { get; set; }
     }
 }

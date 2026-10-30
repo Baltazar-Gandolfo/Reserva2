@@ -1,8 +1,10 @@
 ﻿using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic;
+using Reserva2.UI.Sucursales;
 using Services.Facade;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -17,21 +19,39 @@ namespace Reserva2.UI.Comercios
         {
             InitializeComponent();
             this.Load += frmComercios_Load;
-            btnBuscar.Click += btnBuscar_Click;
             btnAlta.Click += btnAlta_Click;
-            btnVer.Click += btnVer_Click;
+            btnEditar.Click += btnEditar_Click;
             btnBaja.Click += btnBaja_Click;
+            btnSucursales.Click += btnSucursales_Click;
+            chkVerInactivos.CheckedChanged += chkVerInactivos_CheckedChanged;
+            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
+            dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
+        }
+
+        // Doble clic: el Admin ve el detalle (CU.Adm.002); el dueño edita su comercio.
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var com = ObtenerSeleccionado();
+            if (e.RowIndex < 0 || com == null) return;
+
+            if (SessionManager.GetInstance().GetRol() == "Admin")
+            {
+                using (var frm = new frmComercioDetalle(com.IdComercio))
+                    frm.ShowDialog(this);
+                CargarGrilla();
+            }
+            else
+            {
+                btnEditar_Click(sender, e);
+            }
         }
 
         private void frmComercios_Load(object sender, EventArgs e)
         {
-            comboBox1.Items.Clear();
-            comboBox1.Items.Add("Todos");
-            comboBox1.Items.Add("Activo");
-            comboBox1.Items.Add("Inactivo");
-            comboBox1.SelectedIndex = 0;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.ReadOnly = true;
+            dataGridView1.MultiSelect = false;
             CargarGrilla();
         }
 
@@ -45,71 +65,90 @@ namespace Reserva2.UI.Comercios
             else
                 _comercios = _bll.ListarPorOwner();
 
-            var filtrados = _comercios.AsEnumerable();
+            bool verInactivos = chkVerInactivos.Checked;
+            int total = _comercios.Count;
+            int inactivos = _comercios.Count(c => !c.Activo);
 
-            if (!string.IsNullOrWhiteSpace(txtBuscar.Text))
-                filtrados = filtrados.Where(c => c.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()));
-
-            string filtroEstado = comboBox1.SelectedItem?.ToString();
-            if (filtroEstado == "Activo")
-                filtrados = filtrados.Where(c => c.Activo);
-            else if (filtroEstado == "Inactivo")
-                filtrados = filtrados.Where(c => !c.Activo);
+            var filtrados = verInactivos
+                ? _comercios
+                : _comercios.Where(c => c.Activo).ToList();
 
             foreach (var c in filtrados)
             {
-                dataGridView1.Rows.Add(
+                int rowIndex = dataGridView1.Rows.Add(
                     c.Nombre,
                     c.Ubicacion ?? "",
-                    "",
-                    "",
                     c.Activo ? "Activo" : "Inactivo"
                 );
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].Tag = c;
+                dataGridView1.Rows[rowIndex].Tag = c;
+
+                if (!c.Activo)
+                    dataGridView1.Rows[rowIndex].DefaultCellStyle.ForeColor = Color.Gray;
             }
+
+            label2.Text = inactivos > 0
+                ? $"{total} comercios · {inactivos} inactivo{(inactivos > 1 ? "s" : "")}"
+                : $"{total} comercios";
+
+            ActualizarBotones();
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private void ActualizarBotones()
         {
-            CargarGrilla();
+            bool hay = dataGridView1.CurrentRow != null
+                    && dataGridView1.CurrentRow.Tag is Comercio;
+            btnEditar.Enabled = hay;
+            btnBaja.Enabled = hay;
+            btnSucursales.Enabled = hay;
+        }
+
+        private Comercio ObtenerSeleccionado()
+        {
+            if (dataGridView1.CurrentRow?.Tag is Comercio com)
+                return com;
+            return null;
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            ActualizarBotones();
         }
 
         private void btnAlta_Click(object sender, EventArgs e)
         {
-            frmComercioDetalle frm = new frmComercioDetalle(null);
-            frm.MdiParent = this.MdiParent;
-            frm.FormClosed += (s, args) => CargarGrilla();
-            frm.Show();
+            var frm = new frmComercioABM(0);
+            if (frm.ShowDialog() == DialogResult.OK)
+                CargarGrilla();
         }
 
-        private void btnVer_Click(object sender, EventArgs e)
+        private void btnEditar_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow == null || dataGridView1.CurrentRow.Tag == null)
+            var com = ObtenerSeleccionado();
+            if (com == null)
             {
-                MessageBox.Show("Seleccioná un comercio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Seleccioná un comercio.", "Advertencia",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            Comercio seleccionado = (Comercio)dataGridView1.CurrentRow.Tag;
-            frmComercioDetalle frm = new frmComercioDetalle(seleccionado);
-            frm.MdiParent = this.MdiParent;
-            frm.FormClosed += (s, args) => CargarGrilla();
-            frm.Show();
+            var frm = new frmComercioABM(com.IdComercio);
+            if (frm.ShowDialog() == DialogResult.OK)
+                CargarGrilla();
         }
 
         private void btnBaja_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow == null || dataGridView1.CurrentRow.Tag == null)
+            var com = ObtenerSeleccionado();
+            if (com == null)
             {
-                MessageBox.Show("Seleccioná un comercio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Seleccioná un comercio.", "Advertencia",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            Comercio seleccionado = (Comercio)dataGridView1.CurrentRow.Tag;
-            string accion = seleccionado.Activo ? "deshabilitar" : "habilitar";
-
+            string accion = com.Activo ? "dar de baja" : "reactivar";
             var result = MessageBox.Show(
-                $"¿{accion.ToUpper()} el comercio '{seleccionado.Nombre}'?",
+                $"¿Está seguro que desea {accion} el comercio \"{com.Nombre}\"?",
                 "Confirmar",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
@@ -118,19 +157,34 @@ namespace Reserva2.UI.Comercios
             {
                 try
                 {
-                    _bll.CambiarEstado(seleccionado.IdComercio, !seleccionado.Activo);
-                    MessageBox.Show($"Comercio {accion}do.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _bll.CambiarEstado(com.IdComercio, !com.Activo);
                     CargarGrilla();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
+        private void btnSucursales_Click(object sender, EventArgs e)
+        {
+            var com = ObtenerSeleccionado();
+            if (com == null)
+            {
+                MessageBox.Show("Seleccioná un comercio.", "Advertencia",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var frm = new frmSucursales(com.IdComercio, com.Nombre);
+            frm.ShowDialog();
+        }
+
+        private void chkVerInactivos_CheckedChanged(object sender, EventArgs e)
+        {
+            CargarGrilla();
         }
     }
 }

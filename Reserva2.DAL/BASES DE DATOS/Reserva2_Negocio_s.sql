@@ -12,26 +12,44 @@ GO
 CREATE TABLE Comercio (
     IdComercio      INT IDENTITY(1,1) PRIMARY KEY,
     Nombre          VARCHAR(150) NOT NULL,
-    Slug            VARCHAR(150),
-    Ubicacion       VARCHAR(300),
+    Slug            VARCHAR(200),
+    Ubicacion       VARCHAR(200),
     LogoUrl         VARCHAR(500),
     Activo          BIT NOT NULL DEFAULT 1,
     FechaCreacion   DATETIME NOT NULL DEFAULT GETDATE(),
     IdUsuario       UNIQUEIDENTIFIER NOT NULL,
-    DVH             VARCHAR(500)
+    DVH             VARCHAR(500),
+    CONSTRAINT UQ_Comercio_Slug UNIQUE (Slug)
 );
 
+-- Un comercio tiene N sucursales; cada sucursal tiene N elementos reservables.
+CREATE TABLE Sucursal (
+    IdSucursal      INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre          VARCHAR(100) NOT NULL,
+    Ubicacion       VARCHAR(200),
+    Activo          BIT NOT NULL DEFAULT 1,
+    FechaCreacion   DATETIME NOT NULL DEFAULT GETDATE(),
+    IdComercio      INT NOT NULL,
+    CONSTRAINT FK_Sucursal_Comercio FOREIGN KEY (IdComercio) REFERENCES Comercio(IdComercio),
+    CONSTRAINT UQ_Sucursal_Nombre UNIQUE (IdComercio, Nombre)
+);
+
+-- El comercio de un elemento se obtiene a traves de su sucursal (3FN).
 CREATE TABLE ElementoReservable (
     IdElemento      INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre          VARCHAR(150) NOT NULL,
+    Nombre          VARCHAR(100) NOT NULL,
     Descripcion     VARCHAR(500),
     Tipo            VARCHAR(50) NOT NULL,
     PrecioBase      DECIMAL(18,2) NOT NULL,
+    Capacidad       INT NOT NULL DEFAULT 1,
+    DuracionSlot    INT NOT NULL DEFAULT 60,
+    PorcentajeSena  DECIMAL(5,2) NOT NULL DEFAULT 0,
     Estado          VARCHAR(20) NOT NULL DEFAULT 'Activo',
     FechaCreacion   DATETIME NOT NULL DEFAULT GETDATE(),
-    IdComercio      INT NOT NULL,
+    IdSucursal      INT NOT NULL,
     DVH             VARCHAR(500),
-    CONSTRAINT FK_Elemento_Comercio FOREIGN KEY (IdComercio) REFERENCES Comercio(IdComercio)
+    CONSTRAINT FK_Elemento_Sucursal FOREIGN KEY (IdSucursal) REFERENCES Sucursal(IdSucursal),
+    CONSTRAINT UQ_Elemento_Nombre UNIQUE (IdSucursal, Nombre)
 );
 
 CREATE TABLE ReglaDisponibilidad (
@@ -55,13 +73,15 @@ CREATE TABLE Disponibilidad (
     Estado          VARCHAR(20) NOT NULL DEFAULT 'Libre',
     IdElemento      INT NOT NULL,
     DVH             VARCHAR(500),
-    CONSTRAINT FK_Disp_Elemento FOREIGN KEY (IdElemento) REFERENCES ElementoReservable(IdElemento)
+    CONSTRAINT FK_Disp_Elemento FOREIGN KEY (IdElemento) REFERENCES ElementoReservable(IdElemento),
+    CONSTRAINT UQ_Disp_Slot UNIQUE (IdElemento, Fecha, HoraInicio)
 );
 
 CREATE TABLE Reserva (
     IdReserva       INT IDENTITY(1,1) PRIMARY KEY,
     Estado          VARCHAR(20) NOT NULL DEFAULT 'Pendiente',
     FechaReserva    DATETIME NOT NULL DEFAULT GETDATE(),
+    NombreCliente NVARCHAR(200) NULL,
     ConfirmadaEn    DATETIME,
     CanceladaEn     DATETIME,
     ExpiraEn        DATETIME,
@@ -75,11 +95,9 @@ CREATE TABLE Reserva (
 CREATE TABLE Pago (
     IdPago          INT IDENTITY(1,1) PRIMARY KEY,
     Estado          VARCHAR(30) NOT NULL DEFAULT 'Pendiente',
-    FechaAcreditacion DATETIME,
     FechaPago       DATETIME,
     Monto           DECIMAL(18,2) NOT NULL,
-    MpPaymentId     VARCHAR(100),
-    MpPreferenceId  VARCHAR(100),
+    MetodoPago      VARCHAR(30) NOT NULL DEFAULT 'Efectivo',
     IdReserva       INT NOT NULL,
     DVH             VARCHAR(500),
     CONSTRAINT FK_Pago_Reserva FOREIGN KEY (IdReserva) REFERENCES Reserva(IdReserva)
@@ -109,7 +127,8 @@ CREATE TABLE ReglaNegocio (
     Descripcion     VARCHAR(500),
     Valor           VARCHAR(200) NOT NULL,
     IdComercio      INT NOT NULL,
-    CONSTRAINT FK_ReglaNeg_Comercio FOREIGN KEY (IdComercio) REFERENCES Comercio(IdComercio)
+    CONSTRAINT FK_ReglaNeg_Comercio FOREIGN KEY (IdComercio) REFERENCES Comercio(IdComercio),
+    CONSTRAINT UQ_ReglaNeg_Clave UNIQUE (IdComercio, Clave)
 );
 
 CREATE TABLE ListaEspera (
@@ -169,14 +188,20 @@ VALUES ('Complejo Deportivo Sur', 'complejo-deportivo-sur', 'Av. Rivadavia 4820'
 INSERT INTO Comercio (Nombre, Slug, Ubicacion, Activo, IdUsuario)
 VALUES ('Padel Norte', 'padel-norte', 'Belgrano 1102', 1, @AdminId);
 
-INSERT INTO ElementoReservable (Nombre, Descripcion, Tipo, PrecioBase, Estado, IdComercio)
-VALUES ('Futbol 5 - Cancha A', 'Cesped sintetico, 10 jugadores', 'Futbol5', 18000, 'Activo', 1);
+INSERT INTO Sucursal (Nombre, Ubicacion, IdComercio)
+VALUES ('Sede Central', 'Av. Rivadavia 4820', 1);
 
-INSERT INTO ElementoReservable (Nombre, Descripcion, Tipo, PrecioBase, Estado, IdComercio)
-VALUES ('Padel - Cancha 1', 'Cristal, 4 jugadores', 'Padel', 12500, 'Activo', 1);
+INSERT INTO Sucursal (Nombre, Ubicacion, IdComercio)
+VALUES ('Sede Norte', 'Belgrano 1102', 2);
 
-INSERT INTO ElementoReservable (Nombre, Descripcion, Tipo, PrecioBase, Estado, IdComercio)
-VALUES ('Padel - Cancha 2', 'Cristal, 4 jugadores', 'Padel', 12500, 'Activo', 1);
+INSERT INTO ElementoReservable (Nombre, Descripcion, Tipo, PrecioBase, Capacidad, DuracionSlot, PorcentajeSena, Estado, IdSucursal)
+VALUES ('Futbol 5 - Cancha A', 'Cesped sintetico, 10 jugadores', 'Cancha de fútbol', 18000, 10, 60, 30, 'Activo', 1);
+
+INSERT INTO ElementoReservable (Nombre, Descripcion, Tipo, PrecioBase, Capacidad, DuracionSlot, PorcentajeSena, Estado, IdSucursal)
+VALUES ('Padel - Cancha 1', 'Cristal, 4 jugadores', 'Cancha de pádel', 12500, 4, 90, 30, 'Activo', 1);
+
+INSERT INTO ElementoReservable (Nombre, Descripcion, Tipo, PrecioBase, Capacidad, DuracionSlot, PorcentajeSena, Estado, IdSucursal)
+VALUES ('Padel - Cancha 2', 'Cristal, 4 jugadores', 'Cancha de pádel', 12500, 4, 90, 30, 'Activo', 1);
 
 INSERT INTO ReglaDisponibilidad (DiaSemana, HoraInicio, HoraFin, DuracionSlot, Activo, IdElemento)
 VALUES
@@ -186,6 +211,16 @@ VALUES
 ('Jueves',    '18:00', '22:00', 60, 1, 1),
 ('Viernes',   '18:00', '22:00', 60, 1, 1),
 ('Sabado',    '10:00', '22:00', 60, 1, 1);
+
+-- Reglas de negocio por defecto de cada comercio
+INSERT INTO ReglaNegocio (Clave, Descripcion, Valor, IdComercio)
+SELECT r.Clave, r.Descripcion, r.Valor, c.IdComercio
+FROM Comercio c
+CROSS JOIN (VALUES
+    ('minutos_expiracion',   'Minutos que se bloquea un slot hasta que se paga la reserva', '10'),
+    ('max_reservas_semana',  'Maximo de reservas pendientes/confirmadas por cliente por semana', '3'),
+    ('cancelacion_gratis_hs','Horas de anticipacion para cancelar sin perder el pago', '24')
+) AS r(Clave, Descripcion, Valor);
 
 PRINT 'Base Reserva2_Negocio creada OK.';
 GO

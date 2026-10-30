@@ -78,7 +78,7 @@
             // 
             // txtObservaciones
             // 
-            txtObservaciones.ForeColor = Color.White;
+            txtObservaciones.ForeColor = Color.Black;
             txtObservaciones.Location = new Point(158, 310);
             txtObservaciones.Multiline = true;
             txtObservaciones.Name = "txtObservaciones";
@@ -87,7 +87,7 @@
             // 
             // numMonto
             // 
-            numMonto.ForeColor = Color.White;
+            numMonto.ForeColor = Color.Black;
             numMonto.Location = new Point(158, 104);
             numMonto.Name = "numMonto";
             numMonto.Size = new Size(119, 23);
@@ -95,7 +95,7 @@
             // 
             // cmbTipo
             // 
-            cmbTipo.ForeColor = Color.White;
+            cmbTipo.ForeColor = Color.Black;
             cmbTipo.FormattingEnabled = true;
             cmbTipo.Location = new Point(158, 56);
             cmbTipo.Name = "cmbTipo";
@@ -104,7 +104,7 @@
             // 
             // txtComprobante
             // 
-            txtComprobante.ForeColor = Color.White;
+            txtComprobante.ForeColor = Color.Black;
             txtComprobante.Location = new Point(158, 248);
             txtComprobante.Name = "txtComprobante";
             txtComprobante.Size = new Size(313, 23);
@@ -163,7 +163,7 @@
             // 
             // cmbMetodo
             // 
-            cmbMetodo.ForeColor = Color.White;
+            cmbMetodo.ForeColor = Color.Black;
             cmbMetodo.FormattingEnabled = true;
             cmbMetodo.Location = new Point(158, 153);
             cmbMetodo.Name = "cmbMetodo";
