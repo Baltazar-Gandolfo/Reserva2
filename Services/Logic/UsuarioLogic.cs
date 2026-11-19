@@ -19,9 +19,6 @@ namespace Services.Logic
         {
             password = CryptographyService.HashMd5(password);
 
-            //// TEMPORAL - borrar después
-            //throw new Exception("Hash generado: " + password);
-
             Usuario usuario = _usuarioRepository.GetByCredentials(user, password);
 
             if (usuario == null)
@@ -41,10 +38,16 @@ namespace Services.Logic
             if (usuario == null)
                 throw new ArgumentNullException(nameof(usuario), "El usuario no puede ser nulo.");
 
+            string dniParaBD = CryptographyService.Encrypt(usuario.DNI);
+            if (DigitoVerificadorLogic.ExisteDNI(dniParaBD))
+                throw new Exception("Ya existe un usuario registrado con ese DNI.");
+
             _usuarioRepository.Add(usuario);
 
             if (usuario.IdUsuario == Guid.Empty)
                 throw new Exception("El usuario no pudo ser registrado.");
+
+            DigitoVerificadorLogic.RecalcularTodo();
         }
 
         public static void AgregarFamilia(Familia familia, Usuario usuario)
@@ -70,11 +73,13 @@ namespace Services.Logic
         public static void CambiarPassword(Guid idUsuario, string nuevoHash)
         {
             _usuarioRepository.CambiarPassword(idUsuario, nuevoHash);
+            DigitoVerificadorLogic.RecalcularTodo();
         }
 
         public static void CambiarEstado(Guid idUsuario, string nuevoEstado)
         {
             _usuarioRepository.CambiarEstado(idUsuario, nuevoEstado);
+            DigitoVerificadorLogic.RecalcularTodo();
         }
 
         public static Usuario BuscarPorEmail(string email)

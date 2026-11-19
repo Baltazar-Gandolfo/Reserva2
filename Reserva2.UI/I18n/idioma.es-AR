@@ -1,4 +1,4 @@
-﻿archivo:Archivo
+archivo:Archivo
 cerrar sesion:Cerrar sesión
 salir:Salir
 reservas:Reservas
@@ -295,3 +295,7 @@ Código:Código
 Método:Método
 Monto:Monto
 Registro:Registro
+Estadísticas:Estadísticas
+El sistema no está disponible, contacte con un Administrador.:El sistema no está disponible, contacte con un Administrador.
+Error de integridad:Error de integridad
+Ya existe un usuario registrado con ese DNI.:Ya existe un usuario registrado con ese DNI.

@@ -1,10 +1,7 @@
-﻿using Services.DomainModel.Composite;
+﻿using Services.DomainModel;
+using Services.DomainModel.Composite;
 using Services.Logic;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Facade
 {
@@ -18,6 +15,11 @@ namespace Services.Facade
         public static void RegistrarUsuario(Usuario usuario)
         {
             UsuarioLogic.RegistrarUsuario(usuario);
+        }
+
+        public static ResultadoIntegridad VerificarIntegridad()
+        {
+            return DigitoVerificadorLogic.Verificar();
         }
     }
 }

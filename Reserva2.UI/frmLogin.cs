@@ -1,6 +1,8 @@
 using Services.Facade;
+using Services.DomainModel;
 using Services.DomainModel.Composite;
 using Reserva2.UI.Controles;
+using Reserva2.UI.Config;
 using System;
 using System.Windows.Forms;
 using static Reserva2.UI.I18n.TraducirHelper;
@@ -34,6 +36,28 @@ namespace Reserva2.UI
             try
             {
                 Usuario usuario = LoginService.ValidarCredenciales(txtEmail.Text.Trim(), txtPassword.Text);
+
+                ResultadoIntegridad integridad = LoginService.VerificarIntegridad();
+
+                if (!integridad.EsValido)
+                {
+                    if (usuario.Rol == "Admin")
+                    {
+                        var frm = new frmIntegridadDVH(integridad);
+                        DialogResult resultado = frm.ShowDialog();
+
+                        if (resultado == DialogResult.Cancel)
+                            return;
+                    }
+                    else
+                    {
+                        MessageBox.Show(
+                            T("El sistema no está disponible, contacte con un Administrador."),
+                            T("Error de integridad"),
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
                 SessionManager.GetInstance().IniciarSesion(usuario);
                 BitacoraService.Registrar("Login", "Usuario", $"Ingresó al sistema: {usuario.Email}");

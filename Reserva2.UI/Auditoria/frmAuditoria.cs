@@ -11,6 +11,8 @@ namespace Reserva2.UI.Auditoria
 {
     public partial class frmAuditoria : Form
     {
+        private List<Services.DomainModel.Composite.Usuario> _usuarios = new List<Services.DomainModel.Composite.Usuario>();
+
         public frmAuditoria()
         {
             InitializeComponent();
@@ -48,8 +50,8 @@ namespace Reserva2.UI.Auditoria
             cboUsuario.Items.Add("");
             try
             {
-                var usuarios = UsuarioService.GetAll();
-                foreach (var u in usuarios)
+                _usuarios = UsuarioService.GetAll();
+                foreach (var u in _usuarios)
                     cboUsuario.Items.Add(u.Nombre);
             }
             catch { }
@@ -79,8 +81,14 @@ namespace Reserva2.UI.Auditoria
 
                 dgvAuditoria.Rows.Clear();
 
+                Guid? idUsuario = cboUsuario.SelectedIndex > 0 && cboUsuario.SelectedIndex <= _usuarios.Count
+                    ? _usuarios[cboUsuario.SelectedIndex - 1].IdUsuario
+                    : (Guid?)null;
+
                 foreach (var r in registros)
                 {
+                    if (idUsuario.HasValue && r.IdUsuario != idUsuario) continue;
+
                     dgvAuditoria.Rows.Add(
                         r.FechaCreacion.ToString("dd/MM/yyyy HH:mm:ss"),
                         r.NombreUsuario ?? "Sistema",

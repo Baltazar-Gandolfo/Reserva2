@@ -41,9 +41,9 @@ namespace Services.Dal.Implementations
             usuario.IdUsuario = Guid.NewGuid();
             string dniEncriptado = CryptographyService.Encrypt(usuario.DNI);
 
-            string commandText = @"INSERT INTO Usuario 
-        (IdUsuario, DNI, Nombre, Email, PasswordHash, Rol, Telefono, Estado, FechaRegistro) 
-        VALUES 
+            string commandText = @"INSERT INTO Usuario
+        (IdUsuario, DNI, Nombre, Email, PasswordHash, Rol, Telefono, Estado, FechaRegistro)
+        VALUES
         (@IdUsuario, @DNI, @Nombre, @Email, @PasswordHash, @Rol, @Telefono, @Estado, @FechaRegistro)";
 
             SqlHelper.ExecuteNonQuery(commandText, CommandType.Text,

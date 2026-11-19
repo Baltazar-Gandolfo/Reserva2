@@ -1,4 +1,4 @@
-﻿archivo:File
+archivo:File
 cerrar sesion:Logout
 salir:Exit
 reservas:Reservations
@@ -295,3 +295,7 @@ Código:Code
 Método:Method
 Monto:Amount
 Registro:Record
+Estadísticas:Statistics
+El sistema no está disponible, contacte con un Administrador.:The system is not available, contact an Administrator.
+Error de integridad:Integrity error
+Ya existe un usuario registrado con ese DNI.:A user with that ID number already exists.

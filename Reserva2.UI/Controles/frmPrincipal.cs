@@ -181,14 +181,24 @@ namespace Reserva2.UI.Controles
             mnuErrores.Click += (s, e) => AbrirForm(new frmErrores());
             var mnuBitacora = new ToolStripMenuItem(T("auditoria"));
             mnuBitacora.Click += (s, e) => AbrirForm(new frmAuditoria());
+            // Usuarios, permisos, errores y auditoría son solo del Admin;
+            // el Comercio ve en Plataforma Estadísticas, Comercios y Backup.
+            bool esAdmin = SessionManager.GetInstance().GetRol() == "Admin";
+            mnuUsuarios.Visible = esAdmin;
+            mnuPermisos.Visible = esAdmin;
+            mnuErrores.Visible = esAdmin;
+            mnuBitacora.Visible = esAdmin;
+            var sepAdmin1 = new ToolStripSeparator();
+            var sepAdmin2 = new ToolStripSeparator { Visible = esAdmin };
+
             plataformaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[]
             {
                 mnuReportes,
-                new ToolStripSeparator(),
+                sepAdmin1,
                 mnuComercios,
                 mnuUsuarios,
                 mnuPermisos,
-                new ToolStripSeparator(),
+                sepAdmin2,
                 mnuBackup,
                 mnuErrores,
                 mnuBitacora

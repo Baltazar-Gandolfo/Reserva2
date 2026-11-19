@@ -85,6 +85,8 @@ namespace Reserva2.UI.Errores
             }
 
             txtDetalle.Clear();
+            if (dgvErrores.Rows.Count > 0)
+                dgvErrores_SelectionChanged(dgvErrores, EventArgs.Empty);
         }
 
         private static string ClasificarNivel(Dictionary<string, string> err)

@@ -23,7 +23,12 @@ namespace Reserva2.UI.Config
         private void frmBackup_Load(object sender, EventArgs e)
         {
             TraducirControles(this);
-            txtRutaBackup.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Reserva2_Backups");
+            string carpetaServidor = null;
+            try { carpetaServidor = BackupService.ObtenerCarpetaPorDefecto(); }
+            catch { }
+            txtRutaBackup.Text = !string.IsNullOrWhiteSpace(carpetaServidor)
+                ? carpetaServidor
+                : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Reserva2_Backups");
             lblEstado.Text = "";
             progressBar1.Value = 0;
             CargarBackupsExistentes();
@@ -163,9 +168,16 @@ namespace Reserva2.UI.Config
             dgvBackups.Rows.Clear();
             string carpeta = txtRutaBackup.Text.Trim();
 
-            if (!Directory.Exists(carpeta)) return;
-
-            string[] archivos = Directory.GetFiles(carpeta, "*.bak");
+            string[] archivos;
+            try
+            {
+                if (!Directory.Exists(carpeta)) return;
+                archivos = Directory.GetFiles(carpeta, "*.bak");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return;
+            }
             foreach (string archivo in archivos)
             {
                 FileInfo fi = new FileInfo(archivo);

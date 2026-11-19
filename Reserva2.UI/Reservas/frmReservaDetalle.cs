@@ -23,7 +23,7 @@ namespace Reserva2.UI.Reservas
         {
             InitializeComponent();
             _idReserva = idReserva;
-            this.Load += (s, e) => Cargar();
+            this.Load += (s, e) => { TraducirControles(this); Cargar(); };
             btnCerrar.Click += (s, e) => this.Close();
             btnRegistrarPago.Click += btnRegistrarPago_Click;
             btnCancelarReserva.Click += btnCancelarReserva_Click;
@@ -31,7 +31,6 @@ namespace Reserva2.UI.Reservas
 
         private void Cargar()
         {
-            TraducirControles(this);
             btnImprimir.Visible = false;
             dgvPagos.AllowUserToAddRows = false;
             dgvPagos.ReadOnly = true;
@@ -54,9 +53,13 @@ namespace Reserva2.UI.Reservas
 
                 this.Text = $"Reserva RES-{_reserva.IdReserva:00000}";
                 lblElemento.Text = $"{elemento.Nombre} — {elemento.Sucursal.Nombre}";
-                lblCliente.Text = cliente == null
-                    ? nombreCliente
-                    : $"{nombreCliente} — {cliente.DNI}";
+                string dni = null;
+                if (cliente != null)
+                {
+                    try { dni = CryptographyService.Decrypt(cliente.DNI); }
+                    catch { dni = cliente.DNI; }
+                }
+                lblCliente.Text = dni == null ? nombreCliente : $"{nombreCliente} — {dni}";
                 lblTurno.Text = $"{slot.Fecha:dd/MM/yyyy} {slot.HoraInicio:hh\\:mm} – {slot.HoraFin:hh\\:mm}";
                 lblTotal.Text = slot.Precio.ToString("C2");
                 lblPagado.Text = pagado.ToString("C2");

@@ -16,7 +16,8 @@ namespace Services.Logic
         {
             try
             {
-                return IdiomaDal.Traducir(texto);
+                string traduccion = IdiomaDal.Traducir(texto);
+                return string.IsNullOrWhiteSpace(traduccion) ? texto : traduccion;
             }
             catch (PalabraNoEncontradaException ex)
             {

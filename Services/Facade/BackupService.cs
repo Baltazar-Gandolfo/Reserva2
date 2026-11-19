@@ -7,6 +7,11 @@ namespace Services.Facade
     {
         private static readonly BackupRepository _repo = new BackupRepository();
 
+        public static string ObtenerCarpetaPorDefecto()
+        {
+            return _repo.ObtenerCarpetaPorDefecto();
+        }
+
         public static void CrearBackup(string nombreBD, string rutaArchivo)
         {
             _repo.CrearBackup(nombreBD, rutaArchivo);
