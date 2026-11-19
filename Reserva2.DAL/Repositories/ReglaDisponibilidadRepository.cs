@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Reserva2.BE.Auxiliares;
 using Reserva2.BE.Entities;
 using System.Collections.Generic;
 using System.Linq;

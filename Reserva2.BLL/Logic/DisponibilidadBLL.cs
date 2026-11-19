@@ -1,3 +1,4 @@
+using Reserva2.BE.Auxiliares;
 using Reserva2.BE.Entities;
 using Reserva2.DAL.Repositories;
 using System;
@@ -6,15 +7,6 @@ using System.Linq;
 
 namespace Reserva2.BLL.Logic
 {
-    public class SlotCalendario
-    {
-        public Disponibilidad Slot { get; set; }
-        public Reserva Reserva { get; set; }
-
-        // Libre, Pendiente de seña, Confirmada o Bloqueada
-        public string EstadoVisual { get; set; }
-    }
-
     // CU.Com.012 — Ver Calendario de Disponibilidad (y consulta de slots para el cliente)
     public class DisponibilidadBLL
     {

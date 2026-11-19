@@ -31,12 +31,12 @@
             chkVerInactivos = new CheckBox();
             label2 = new Label();
             dataGridView1 = new DataGridView();
-            btnBaja = new Button();
-            btnAlta = new Button();
-            btnEditar = new Button();
             Comercio = new DataGridViewTextBoxColumn();
             Ubicacion = new DataGridViewTextBoxColumn();
             Estado = new DataGridViewTextBoxColumn();
+            btnBaja = new Button();
+            btnAlta = new Button();
+            btnEditar = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -70,6 +70,23 @@
             dataGridView1.Size = new Size(708, 150);
             dataGridView1.TabIndex = 16;
             // 
+            // Comercio
+            // 
+            Comercio.HeaderText = "Nombre de Comercio";
+            Comercio.Name = "Comercio";
+            Comercio.Width = 245;
+            // 
+            // Ubicacion
+            // 
+            Ubicacion.HeaderText = "Ubicación";
+            Ubicacion.Name = "Ubicacion";
+            Ubicacion.Width = 320;
+            // 
+            // Estado
+            // 
+            Estado.HeaderText = "Estado";
+            Estado.Name = "Estado";
+            // 
             // btnBaja
             // 
             btnBaja.BackColor = Color.RosyBrown;
@@ -101,23 +118,6 @@
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = true;
             // 
-            // Comercio
-            // 
-            Comercio.HeaderText = "Nombre de Comercio";
-            Comercio.Name = "Comercio";
-            Comercio.Width = 245;
-            // 
-            // Ubicacion
-            // 
-            Ubicacion.HeaderText = "Ubicación";
-            Ubicacion.Name = "Ubicacion";
-            Ubicacion.Width = 320;
-            // 
-            // Estado
-            // 
-            Estado.HeaderText = "Estado";
-            Estado.Name = "Estado";
-            // 
             // frmSucursales
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -131,7 +131,8 @@
             Controls.Add(btnAlta);
             Controls.Add(btnEditar);
             Name = "frmSucursales";
-            Text = "frmSucursales";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Sucursales";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();

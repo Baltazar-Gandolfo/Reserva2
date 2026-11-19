@@ -1,4 +1,5 @@
-﻿using Reserva2.BE.Entities;
+using Reserva2.BE.Auxiliares;
+using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic;
 using Reserva2.UI.Sucursales;
 using Services.Facade;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Comercios
 {
@@ -48,6 +50,7 @@ namespace Reserva2.UI.Comercios
 
         private void frmComercios_Load(object sender, EventArgs e)
         {
+            TraducirControles(this);
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.ReadOnly = true;
@@ -126,7 +129,7 @@ namespace Reserva2.UI.Comercios
             var com = ObtenerSeleccionado();
             if (com == null)
             {
-                MessageBox.Show("Seleccioná un comercio.", "Advertencia",
+                MessageBox.Show(T("Seleccioná un comercio."), T("Advertencia"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -141,15 +144,15 @@ namespace Reserva2.UI.Comercios
             var com = ObtenerSeleccionado();
             if (com == null)
             {
-                MessageBox.Show("Seleccioná un comercio.", "Advertencia",
+                MessageBox.Show(T("Seleccioná un comercio."), T("Advertencia"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            string accion = com.Activo ? "dar de baja" : "reactivar";
+            string accion = com.Activo ? T("dar de baja") : T("reactivar");
             var result = MessageBox.Show(
-                $"¿Está seguro que desea {accion} el comercio \"{com.Nombre}\"?",
-                "Confirmar",
+                $"{T("¿Está seguro que desea")} {accion} {T("el comercio")} \"{com.Nombre}\"?",
+                T("Confirmar"),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
@@ -173,7 +176,7 @@ namespace Reserva2.UI.Comercios
             var com = ObtenerSeleccionado();
             if (com == null)
             {
-                MessageBox.Show("Seleccioná un comercio.", "Advertencia",
+                MessageBox.Show(T("Seleccioná un comercio."), T("Advertencia"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }

@@ -47,17 +47,17 @@
             label4 = new Label();
             label5 = new Label();
             dgvPagos = new DataGridView();
+            Fecha = new DataGridViewTextBoxColumn();
+            Tipo = new DataGridViewTextBoxColumn();
+            Metodo = new DataGridViewTextBoxColumn();
+            Monto = new DataGridViewTextBoxColumn();
+            Registro = new DataGridViewTextBoxColumn();
             label12 = new Label();
             btnRegistrarPago = new Button();
             btnCancelarReserva = new Button();
             btnCerrar = new Button();
             btnImprimir = new Button();
             lstActividad = new ListView();
-            Fecha = new DataGridViewTextBoxColumn();
-            Tipo = new DataGridViewTextBoxColumn();
-            Metodo = new DataGridViewTextBoxColumn();
-            Monto = new DataGridViewTextBoxColumn();
-            Registro = new DataGridViewTextBoxColumn();
             grpDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPagos).BeginInit();
             SuspendLayout();
@@ -267,6 +267,36 @@
             dgvPagos.Size = new Size(705, 73);
             dgvPagos.TabIndex = 50;
             // 
+            // Fecha
+            // 
+            Fecha.HeaderText = "Fecha";
+            Fecha.Name = "Fecha";
+            Fecha.Width = 137;
+            // 
+            // Tipo
+            // 
+            Tipo.HeaderText = "Tipo";
+            Tipo.Name = "Tipo";
+            Tipo.Width = 125;
+            // 
+            // Metodo
+            // 
+            Metodo.HeaderText = "Método";
+            Metodo.Name = "Metodo";
+            Metodo.Width = 125;
+            // 
+            // Monto
+            // 
+            Monto.HeaderText = "Monto";
+            Monto.Name = "Monto";
+            Monto.Width = 125;
+            // 
+            // Registro
+            // 
+            Registro.HeaderText = "Registro";
+            Registro.Name = "Registro";
+            Registro.Width = 150;
+            // 
             // label12
             // 
             label12.AutoSize = true;
@@ -321,36 +351,6 @@
             lstActividad.TabIndex = 57;
             lstActividad.UseCompatibleStateImageBehavior = false;
             // 
-            // Fecha
-            // 
-            Fecha.HeaderText = "Fecha";
-            Fecha.Name = "Fecha";
-            Fecha.Width = 137;
-            // 
-            // Tipo
-            // 
-            Tipo.HeaderText = "Tipo";
-            Tipo.Name = "Tipo";
-            Tipo.Width = 125;
-            // 
-            // Metodo
-            // 
-            Metodo.HeaderText = "Método";
-            Metodo.Name = "Metodo";
-            Metodo.Width = 125;
-            // 
-            // Monto
-            // 
-            Monto.HeaderText = "Monto";
-            Monto.Name = "Monto";
-            Monto.Width = 125;
-            // 
-            // Registro
-            // 
-            Registro.HeaderText = "Registro";
-            Registro.Name = "Registro";
-            Registro.Width = 150;
-            // 
             // frmReservaDetalle
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -367,7 +367,8 @@
             Controls.Add(label5);
             Controls.Add(grpDatos);
             Name = "frmReservaDetalle";
-            Text = "frmReservaDetalle";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Detalle de Reserva";
             grpDatos.ResumeLayout(false);
             grpDatos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPagos).EndInit();

@@ -128,8 +128,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "frmSucursalABM";
-            Text = "frmSucursalABM";
-            //Load += frmSucursalABM_Load;
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Alta/Modificación de Sucursal";
             ResumeLayout(false);
             PerformLayout();
         }

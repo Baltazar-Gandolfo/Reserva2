@@ -1,3 +1,4 @@
+using Reserva2.BE.Auxiliares;
 using Reserva2.BE.Entities;
 using Reserva2.DAL.Repositories;
 using Services.Facade;
@@ -7,12 +8,6 @@ using System.Linq;
 
 namespace Reserva2.BLL.Logic.Reservas
 {
-    public class ResultadoCancelacion
-    {
-        public bool TeniaPago { get; set; }
-        public bool Reembolsado { get; set; }
-    }
-
     public class ReservaBLL
     {
         private readonly ReservaRepository _repo = new ReservaRepository();

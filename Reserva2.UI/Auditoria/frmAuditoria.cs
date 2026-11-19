@@ -1,10 +1,11 @@
-﻿using Services.Facade;
+using Services.Facade;
 using Services.DomainModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Auditoria
 {
@@ -20,6 +21,7 @@ namespace Reserva2.UI.Auditoria
 
         private void frmAuditoria_Load(object sender, EventArgs e)
         {
+            TraducirControles(this);
             dtpDesde.Value = DateTime.Today.AddDays(-30);
             dtpHasta.Value = DateTime.Today;
 
@@ -99,7 +101,7 @@ namespace Reserva2.UI.Auditoria
         {
             if (dgvAuditoria.Rows.Count == 0)
             {
-                MessageBox.Show("No hay datos para exportar.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(T("No hay datos para exportar."), T("Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -127,7 +129,7 @@ namespace Reserva2.UI.Auditoria
                     }
 
                     File.WriteAllText(sfd.FileName, sb.ToString(), Encoding.UTF8);
-                    MessageBox.Show("Exportado correctamente.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(T("Exportado correctamente."), T("OK"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {

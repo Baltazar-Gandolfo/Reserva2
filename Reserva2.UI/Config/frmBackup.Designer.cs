@@ -227,7 +227,8 @@
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "frmBackup";
-            Text = "frmBackup";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Backup";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);

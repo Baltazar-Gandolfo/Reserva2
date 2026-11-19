@@ -289,7 +289,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "frmElementoABM";
-            Text = "frmElementoABM";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Alta/Modificación de Elementos";
             ((System.ComponentModel.ISupportInitialize)numCapacidad).EndInit();
             ((System.ComponentModel.ISupportInitialize)numPrecio).EndInit();
             ((System.ComponentModel.ISupportInitialize)numSena).EndInit();

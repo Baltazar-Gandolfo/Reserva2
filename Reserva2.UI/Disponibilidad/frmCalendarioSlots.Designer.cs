@@ -32,7 +32,6 @@
             mcSemana = new MonthCalendar();
             cboElemento = new ComboBox();
             dvgSlots = new DataGridView();
-            label1 = new Label();
             Hora = new DataGridViewTextBoxColumn();
             Lun = new DataGridViewTextBoxColumn();
             Mar = new DataGridViewTextBoxColumn();
@@ -41,15 +40,16 @@
             Vie = new DataGridViewTextBoxColumn();
             Sáb = new DataGridViewTextBoxColumn();
             Dom = new DataGridViewTextBoxColumn();
+            label1 = new Label();
             contextMenuStrip1 = new ContextMenuStrip(components);
             reservarEsteTurnoToolStripMenuItem = new ToolStripMenuItem();
             verReservaToolStripMenuItem = new ToolStripMenuItem();
             bloquearTurnoToolStripMenuItem = new ToolStripMenuItem();
             groupBox1 = new GroupBox();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
             label5 = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
             label6 = new Label();
             ((System.ComponentModel.ISupportInitialize)dvgSlots).BeginInit();
             contextMenuStrip1.SuspendLayout();
@@ -78,16 +78,6 @@
             dvgSlots.Name = "dvgSlots";
             dvgSlots.Size = new Size(843, 205);
             dvgSlots.TabIndex = 2;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(9, 186);
-            label1.Name = "label1";
-            label1.Size = new Size(57, 15);
-            label1.TabIndex = 3;
-            label1.Text = "Elemento";
             // 
             // Hora
             // 
@@ -129,6 +119,16 @@
             Dom.HeaderText = "Dom X";
             Dom.Name = "Dom";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(9, 186);
+            label1.Name = "label1";
+            label1.Size = new Size(57, 15);
+            label1.TabIndex = 3;
+            label1.Text = "Elemento";
+            // 
             // contextMenuStrip1
             // 
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { reservarEsteTurnoToolStripMenuItem, verReservaToolStripMenuItem, bloquearTurnoToolStripMenuItem });
@@ -167,23 +167,14 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Referencias";
             // 
-            // label2
+            // label5
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(43, 19);
-            label2.Name = "label2";
-            label2.Size = new Size(33, 15);
-            label2.TabIndex = 0;
-            label2.Text = "Libre";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(43, 46);
-            label3.Name = "label3";
-            label3.Size = new Size(103, 15);
-            label3.TabIndex = 1;
-            label3.Text = "Pendiente de seña";
+            label5.AutoSize = true;
+            label5.Location = new Point(43, 104);
+            label5.Name = "label5";
+            label5.Size = new Size(132, 15);
+            label5.TabIndex = 3;
+            label5.Text = "Cerrado / no disponible";
             // 
             // label4
             // 
@@ -194,14 +185,23 @@
             label4.TabIndex = 2;
             label4.Text = "Confirmada";
             // 
-            // label5
+            // label3
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(43, 104);
-            label5.Name = "label5";
-            label5.Size = new Size(132, 15);
-            label5.TabIndex = 3;
-            label5.Text = "Cerrado / no disponible";
+            label3.AutoSize = true;
+            label3.Location = new Point(43, 46);
+            label3.Name = "label3";
+            label3.Size = new Size(103, 15);
+            label3.TabIndex = 1;
+            label3.Text = "Pendiente de seña";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(43, 19);
+            label2.Name = "label2";
+            label2.Size = new Size(33, 15);
+            label2.TabIndex = 0;
+            label2.Text = "Libre";
             // 
             // label6
             // 
@@ -226,7 +226,8 @@
             Controls.Add(cboElemento);
             Controls.Add(mcSemana);
             Name = "frmCalendarioSlots";
-            Text = "frmCalendarioSlots";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Calendario";
             ((System.ComponentModel.ISupportInitialize)dvgSlots).EndInit();
             contextMenuStrip1.ResumeLayout(false);
             groupBox1.ResumeLayout(false);

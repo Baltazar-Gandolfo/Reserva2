@@ -1,7 +1,8 @@
-﻿using Services.Facade;
+using Services.Facade;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Controles
 {
@@ -49,6 +50,7 @@ namespace Reserva2.UI.Controles
             txtConfirmarPass.PasswordChar = '*';
             lblEstado.Visible = false;
             btnCerrar.Click += (s, e) => this.Close();
+            this.Load += (s, e) => TraducirControles(this);
         }
 
         private void btnEnviar_Click(object sender, EventArgs e)
@@ -57,25 +59,25 @@ namespace Reserva2.UI.Controles
 
             if (string.IsNullOrWhiteSpace(txtEmail.Text) || !txtEmail.Text.Contains("@"))
             {
-                MostrarError("Ingresá un email válido.");
+                MostrarError(T("Ingresá un email válido."));
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(txtPassActual.Text))
             {
-                MostrarError("Ingresá la contraseña actual.");
+                MostrarError(T("Ingresá la contraseña actual."));
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(txtNuevaPass.Text) || txtNuevaPass.Text.Length < 6)
             {
-                MostrarError("La nueva contraseña debe tener al menos 6 caracteres.");
+                MostrarError(T("La nueva contraseña debe tener al menos 6 caracteres."));
                 return;
             }
 
             if (txtNuevaPass.Text != txtConfirmarPass.Text)
             {
-                MostrarError("Las contraseñas no coinciden.");
+                MostrarError(T("Las contraseñas no coinciden."));
                 return;
             }
 
@@ -85,7 +87,7 @@ namespace Reserva2.UI.Controles
             }
             catch
             {
-                MostrarError("La contraseña actual es incorrecta.");
+                MostrarError(T("La contraseña actual es incorrecta."));
                 return;
             }
 
@@ -95,7 +97,7 @@ namespace Reserva2.UI.Controles
 
                 if (usuario == null)
                 {
-                    MostrarError("No existe un usuario con ese email.");
+                    MostrarError(T("No existe un usuario con ese email."));
                     return;
                 }
 
@@ -105,8 +107,8 @@ namespace Reserva2.UI.Controles
                 BitacoraService.Registrar("Modificación", "Usuario",
                     $"Contraseña cambiada por el usuario: {txtEmail.Text.Trim()}");
 
-                MessageBox.Show("Contraseña cambiada correctamente. Ya podés iniciar sesión.",
-                    "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(T("Contraseña cambiada correctamente. Ya podés iniciar sesión."),
+                    T("OK"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 this.Close();
             }

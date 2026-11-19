@@ -372,7 +372,8 @@
             Controls.Add(btnCerrar);
             Controls.Add(tabDetalle);
             Name = "frmComercioDetalle";
-            Text = "frmComercioDetalle";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Detalle de Comercio";
             tabDetalle.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();

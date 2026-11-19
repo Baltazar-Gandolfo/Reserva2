@@ -1,10 +1,12 @@
-﻿using Reserva2.BE.Entities;
+using Reserva2.BE.Auxiliares;
+using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic;
 using Reserva2.UI.Controles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Disponibilidad
 {
@@ -37,6 +39,7 @@ namespace Reserva2.UI.Disponibilidad
 
         private void frmDisponibilidad_Load(object sender, EventArgs e)
         {
+            TraducirControles(this);
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.RowHeadersVisible = false;
@@ -65,8 +68,8 @@ namespace Reserva2.UI.Disponibilidad
 
                 if (elementos.Count == 0)
                 {
-                    MessageBox.Show("No hay elementos activos. Creá un elemento antes de configurar su horario.",
-                        "Sin elementos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(T("No hay elementos activos. Creá un elemento antes de configurar su horario."),
+                        T("Sin elementos"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     btnGuardar.Enabled = false;
                 }
             }
@@ -177,7 +180,7 @@ namespace Reserva2.UI.Disponibilidad
         {
             if (_elemento == null)
             {
-                MessageBox.Show("Seleccioná un elemento.", "Validación",
+                MessageBox.Show(T("Seleccioná un elemento."), T("Validación"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -190,8 +193,8 @@ namespace Reserva2.UI.Disponibilidad
                 int creados = _reglaBll.GuardarHorarioSemanal(_elemento.IdElemento, bloques);
 
                 MessageBox.Show(
-                    $"Horario guardado. Se generaron {creados} turnos nuevos para los próximos {GeneradorSlotsBLL.DiasHorizonte} días.",
-                    "Disponibilidad", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    $"{T("Horario guardado. Se generaron")} {creados} {T("turnos nuevos para los próximos")} {GeneradorSlotsBLL.DiasHorizonte} {T("días.")}",
+                    T("Disponibilidad"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

@@ -1,10 +1,12 @@
-﻿using Reserva2.BE.Entities;
+using Reserva2.BE.Auxiliares;
+using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic.Reservas;
 using Reserva2.UI.Pagos;
 using Services.Facade;
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Reservas
 {
@@ -29,7 +31,8 @@ namespace Reserva2.UI.Reservas
 
         private void Cargar()
         {
-            btnImprimir.Visible = false; // fuera del alcance del MVP
+            TraducirControles(this);
+            btnImprimir.Visible = false;
             dgvPagos.AllowUserToAddRows = false;
             dgvPagos.ReadOnly = true;
             dgvPagos.RowHeadersVisible = false;
@@ -89,13 +92,13 @@ namespace Reserva2.UI.Reservas
                 if (_reserva.Estado == EstadoReserva.Pendiente && tienePagoAprobado && rol != "Cliente")
                 {
                     btnRegistrarPago.Enabled = true;
-                    btnRegistrarPago.Text = "Confirmar reserva";
+                    btnRegistrarPago.Text = T("Confirmar reserva");
                     _modoConfirmar = true;
                 }
                 else
                 {
                     btnRegistrarPago.Enabled = _reserva.Estado == EstadoReserva.Pendiente && !tienePagoAprobado;
-                    btnRegistrarPago.Text = "Registrar pago";
+                    btnRegistrarPago.Text = T("Registrar pago");
                     _modoConfirmar = false;
                 }
 
@@ -116,7 +119,7 @@ namespace Reserva2.UI.Reservas
                 try
                 {
                     _reservaBll.Confirmar(_idReserva);
-                    MessageBox.Show("Reserva confirmada.", "Confirmación",
+                    MessageBox.Show(T("Reserva confirmada."), T("Confirmación"),
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Cargar();
                 }

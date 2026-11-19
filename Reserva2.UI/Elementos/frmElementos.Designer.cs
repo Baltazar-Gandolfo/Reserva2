@@ -31,6 +31,13 @@
             btnEditar = new Button();
             btnDisponibilidad = new Button();
             dgvElementos = new DataGridView();
+            Nombre = new DataGridViewTextBoxColumn();
+            Sucursal = new DataGridViewTextBoxColumn();
+            Tipo = new DataGridViewTextBoxColumn();
+            Capacidad = new DataGridViewTextBoxColumn();
+            Precio_hora = new DataGridViewTextBoxColumn();
+            Seña = new DataGridViewTextBoxColumn();
+            Activo = new DataGridViewTextBoxColumn();
             chkVerInactivos = new CheckBox();
             btnBaja = new Button();
             btnNuevo = new Button();
@@ -39,13 +46,6 @@
             comboBox2 = new ComboBox();
             lblComercio = new Label();
             lblSucursal = new Label();
-            Nombre = new DataGridViewTextBoxColumn();
-            Sucursal = new DataGridViewTextBoxColumn();
-            Tipo = new DataGridViewTextBoxColumn();
-            Capacidad = new DataGridViewTextBoxColumn();
-            Precio_hora = new DataGridViewTextBoxColumn();
-            Seña = new DataGridViewTextBoxColumn();
-            Activo = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvElementos).BeginInit();
             SuspendLayout();
             // 
@@ -75,6 +75,44 @@
             dgvElementos.Name = "dgvElementos";
             dgvElementos.Size = new Size(885, 349);
             dgvElementos.TabIndex = 4;
+            // 
+            // Nombre
+            // 
+            Nombre.HeaderText = "Nombre";
+            Nombre.Name = "Nombre";
+            Nombre.Width = 182;
+            // 
+            // Sucursal
+            // 
+            Sucursal.HeaderText = "Sucursal";
+            Sucursal.Name = "Sucursal";
+            Sucursal.Width = 140;
+            // 
+            // Tipo
+            // 
+            Tipo.HeaderText = "Tipo";
+            Tipo.Name = "Tipo";
+            Tipo.Width = 120;
+            // 
+            // Capacidad
+            // 
+            Capacidad.HeaderText = "Capacidad";
+            Capacidad.Name = "Capacidad";
+            // 
+            // Precio_hora
+            // 
+            Precio_hora.HeaderText = "Precio/hora";
+            Precio_hora.Name = "Precio_hora";
+            // 
+            // Seña
+            // 
+            Seña.HeaderText = "Seña";
+            Seña.Name = "Seña";
+            // 
+            // Activo
+            // 
+            Activo.HeaderText = "Activo";
+            Activo.Name = "Activo";
             // 
             // chkVerInactivos
             // 
@@ -156,44 +194,6 @@
             lblSucursal.TabIndex = 13;
             lblSucursal.Text = "Sucursal";
             // 
-            // Nombre
-            // 
-            Nombre.HeaderText = "Nombre";
-            Nombre.Name = "Nombre";
-            Nombre.Width = 182;
-            // 
-            // Sucursal
-            // 
-            Sucursal.HeaderText = "Sucursal";
-            Sucursal.Name = "Sucursal";
-            Sucursal.Width = 140;
-            // 
-            // Tipo
-            // 
-            Tipo.HeaderText = "Tipo";
-            Tipo.Name = "Tipo";
-            Tipo.Width = 120;
-            // 
-            // Capacidad
-            // 
-            Capacidad.HeaderText = "Capacidad";
-            Capacidad.Name = "Capacidad";
-            // 
-            // Precio_hora
-            // 
-            Precio_hora.HeaderText = "Precio/hora";
-            Precio_hora.Name = "Precio_hora";
-            // 
-            // Seña
-            // 
-            Seña.HeaderText = "Seña";
-            Seña.Name = "Seña";
-            // 
-            // Activo
-            // 
-            Activo.HeaderText = "Activo";
-            Activo.Name = "Activo";
-            // 
             // frmElementos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -212,7 +212,8 @@
             Controls.Add(btnDisponibilidad);
             Controls.Add(btnEditar);
             Name = "frmElementos";
-            Text = "frmElementos";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Elementos";
             ((System.ComponentModel.ISupportInitialize)dgvElementos).EndInit();
             ResumeLayout(false);
             PerformLayout();

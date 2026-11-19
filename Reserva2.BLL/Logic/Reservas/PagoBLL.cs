@@ -1,3 +1,4 @@
+using Reserva2.BE.Auxiliares;
 using Reserva2.BE.Entities;
 using Reserva2.DAL.Repositories;
 using Services.Facade;

@@ -121,7 +121,8 @@
             Controls.Add(label1);
             ForeColor = Color.White;
             Name = "frmComercioABM";
-            Text = "frmComercioABM";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Alta/Modificación de Comercio";
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();

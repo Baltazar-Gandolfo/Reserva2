@@ -5,10 +5,10 @@ reservas:Reservas
 nueva reserva:Nueva reserva
 mis reservas:Mis reservas
 comercio:Comercio
-elementos:Elementos reservables
+elementos:Elementos
 nuevo elemento:Nuevo elemento
-disponibilidad:Disponibilidad semanal
-calendario:Calendario de slots
+disponibilidad:Disponibilidad
+calendario:Calendario
 pagos:Pagos
 registrar pago:Registrar pago
 plataforma:Plataforma
@@ -26,3 +26,272 @@ email:Email
 contrasena:Contraseña
 ingresar:Ingresar
 bienvenido:Bienvenido
+mis comercios:Mis comercios
+Errores:Errores
+
+Editar:Editar
+Nuevo:Nuevo
+Dar de baja:Dar de baja
+Ver inactivos:Ver inactivos
+Ver inactivas:Ver inactivas
+Cancelar:Cancelar
+Guardar:Guardar
+Confirmar:Confirmar
+Cerrar:Cerrar
+Desde:Desde
+Hasta:Hasta
+Buscar:Buscar
+Filtrar:Filtrar
+Exportar:Exportar
+Exportar CSV:Exportar CSV
+Nombre *:Nombre *
+Activo:Activo
+Activa:Activa
+Teléfono:Teléfono
+Ubicación:Ubicación
+Sucursal:Sucursal
+Elemento:Elemento
+Estado:Estado
+Crear:Crear
+Eliminar:Eliminar
+Registrar:Registrar
+Generar:Generar
+Fecha:Fecha
+Observaciones:Observaciones
+Descripción:Descripción
+Nombre:Nombre
+DNI:DNI
+Tipo:Tipo
+
+Advertencia:Advertencia
+Validación:Validación
+Info:Info
+OK:OK
+Pago:Pago
+Confirmación:Confirmación
+
+Reserva2:Reserva2
+Ingresá tus credenciales para continuar:Ingresá tus credenciales para continuar
+Contraseña:Contraseña
+Recordarme:Recordarme
+¿Olvidaste tu contraseña?:¿Olvidaste tu contraseña?
+Email o contraseña incorrecto:Email o contraseña incorrecto
+¿No tenés cuenta?:¿No tenés cuenta?
+Registrate:Registrate
+Completá todos los campos.:Completá todos los campos.
+
+DNI *:DNI *
+Email *:Email *
+Contraseña *:Contraseña *
+Apellido *:Apellido *
+Confirmar *:Confirmar *
+Tipo de cuenta:Tipo de cuenta
+Los perfiles de Admin se crean desde la base, no por autoregistro.:Los perfiles de Admin se crean desde la base, no por autoregistro.
+Owner (dueño de comercio):Owner (dueño de comercio)
+Cliente:Cliente
+Crear cuenta:Crear cuenta
+El nombre es obligatorio.:El nombre es obligatorio.
+El apellido es obligatorio.:El apellido es obligatorio.
+El DNI es obligatorio.:El DNI es obligatorio.
+El DNI solo puede contener números.:El DNI solo puede contener números.
+El teléfono solo puede contener números.:El teléfono solo puede contener números.
+Ingresá un email válido.:Ingresá un email válido.
+La contraseña debe tener al menos 6 caracteres.:La contraseña debe tener al menos 6 caracteres.
+Las contraseñas no coinciden.:Las contraseñas no coinciden.
+Cuenta creada correctamente. Ya podés iniciar sesión.:Cuenta creada correctamente. Ya podés iniciar sesión.
+Registro exitoso:Registro exitoso
+
+Ingresá tu email y la nueva contraseña:Ingresá tu email y la nueva contraseña
+Enviar:Enviar
+Nueva contraseña:Nueva contraseña
+Repetir contraseña:Repetir contraseña
+Listo. Revisa tu casilla, el link vence en 30 minutos.:Listo. Revisa tu casilla, el link vence en 30 minutos.
+Ingresá la contraseña actual.:Ingresá la contraseña actual.
+La nueva contraseña debe tener al menos 6 caracteres.:La nueva contraseña debe tener al menos 6 caracteres.
+La contraseña actual es incorrecta.:La contraseña actual es incorrecta.
+No existe un usuario con ese email.:No existe un usuario con ese email.
+Contraseña cambiada correctamente. Ya podés iniciar sesión.:Contraseña cambiada correctamente. Ya podés iniciar sesión.
+
+Ocupación:Ocupación
+
+Sucursales...:Sucursales...
+Seleccioná un comercio.:Seleccioná un comercio.
+dar de baja:dar de baja
+reactivar:reactivar
+¿Está seguro que desea:¿Está seguro que desea
+el comercio:el comercio
+Reactivar:Reactivar
+Editar comercio:Editar comercio
+Nuevo comercio:Nuevo comercio
+
+Datos:Datos
+Resumen del mes:Resumen del mes
+Canceladas:Canceladas
+Ocupación prom.:Ocupación prom.
+Recaudado:Recaudado
+CUIT:CUIT
+Owner:Owner
+Dirección:Dirección
+Rubro:Rubro
+Razón Social:Razón Social
+
+Disponibilidad...:Disponibilidad...
+Tipo *:Tipo *
+Capacidad:Capacidad
+Precio por hora *:Precio por hora *
+Seña(%):Seña(%)
+Duración Turno:Duración Turno
+No tenés comercios registrados. Creá uno desde 'Mis comercios'.:No tenés comercios registrados. Creá uno desde 'Mis comercios'.
+Sin comercios:Sin comercios
+Editar Elemento:Editar Elemento
+Nuevo Elemento:Nuevo Elemento
+El comercio no tiene sucursales activas. Creá una sucursal antes de agregar elementos.:El comercio no tiene sucursales activas. Creá una sucursal antes de agregar elementos.
+Sin sucursales:Sin sucursales
+Seleccione una sucursal.:Seleccione una sucursal.
+Seleccione un tipo.:Seleccione un tipo.
+El precio debe ser mayor a cero.:El precio debe ser mayor a cero.
+
+Copiar lunes al resto:Copiar lunes al resto
+Marcar Todo:Marcar Todo
+No hay elementos activos. Creá un elemento antes de configurar su horario.:No hay elementos activos. Creá un elemento antes de configurar su horario.
+Sin elementos:Sin elementos
+Seleccioná un elemento.:Seleccioná un elemento.
+Horario guardado. Se generaron:Horario guardado. Se generaron
+turnos nuevos para los próximos:turnos nuevos para los próximos
+días.:días.
+
+Reservar este turno:Reservar este turno
+Ver reserva:Ver reserva
+Bloquear turno:Bloquear turno
+Referencias:Referencias
+Libre:Libre
+Pendiente de seña:Pendiente de seña
+Confirmada:Confirmada
+Cerrado / no disponible:Cerrado / no disponible
+
+la sucursal:la sucursal
+Editar sucursal:Editar sucursal
+Nueva sucursal:Nueva sucursal
+
+Ver detalle:Ver detalle
+Registrar pago...:Registrar pago...
+Cancelar reserva:Cancelar reserva
+Imprimir comprobante:Imprimir comprobante
+Mis reservas:Mis reservas
+Reservas del comercio:Reservas del comercio
+Facturado:Facturado
+Pendiente de cobro:Pendiente de cobro
+Confirmar reserva:Confirmar reserva
+Reserva confirmada.:Reserva confirmada.
+
+Turno:Turno
+Saldo:Saldo
+Total:Total
+Datos de la reserva:Datos de la reserva
+Creada:Creada
+Pagado:Pagado
+Historial:Historial
+Imprimir:Imprimir
+
+Elemento *:Elemento *
+Fecha *:Fecha *
+Turnos libres *:Turnos libres *
+Cliente *:Cliente *
+Precio:Precio
+Seña (30%):Seña (30%)
+Saldo a pagar:Saldo a pagar
+Resumen:Resumen
+No hay comercios disponibles para reservar.:No hay comercios disponibles para reservar.
+Seleccioná un turno libre.:Seleccioná un turno libre.
+Pagar ahora:Pagar ahora
+La reserva expiró y el turno fue liberado.:La reserva expiró y el turno fue liberado.
+¡Pago registrado!:¡Pago registrado!
+La reserva queda pendiente de confirmación por el comercio.:La reserva queda pendiente de confirmación por el comercio.
+
+Ingresá el motivo de la cancelación:Ingresá el motivo de la cancelación
+Debe ingresar el motivo de la cancelación.:Debe ingresar el motivo de la cancelación.
+La reserva fue cancelada y el turno quedó libre.:La reserva fue cancelada y el turno quedó libre.
+Se reembolsará el pago total (cancelación dentro del plazo gratuito).:Se reembolsará el pago total (cancelación dentro del plazo gratuito).
+Se retiene el pago (cancelación fuera del plazo gratuito).:Se retiene el pago (cancelación fuera del plazo gratuito).
+Reserva cancelada:Reserva cancelada
+
+Imprimir recibo:Imprimir recibo
+Monto *:Monto *
+N° comprobante:N° comprobante
+Método *:Método *
+La reserva está:La reserva está
+no admite pagos.:no admite pagos.
+Seleccioná un método de pago.:Seleccioná un método de pago.
+
+Comercio (solo Admin):Comercio (solo Admin)
+Ingresos cobrados:Ingresos cobrados
+Ocupación de turnos:Ocupación de turnos
+Cancelaciones y expiradas:Cancelaciones y expiradas
+Clientes recurrentes:Clientes recurrentes
+Cancelaciones + Expiradas:Cancelaciones + Expiradas
+Detalle por elemento:Detalle por elemento
+Generá el reporte primero.:Generá el reporte primero.
+Exportado.:Exportado.
+
+Solo activos:Solo activos
+Ver Ficha:Ver Ficha
+Resetear contraseña:Resetear contraseña
+Desactivar usuario:Desactivar usuario
+Seleccioná un usuario.:Seleccioná un usuario.
+¿Resetear la contraseña de:¿Resetear la contraseña de
+La nueva contraseña será:La nueva contraseña será
+Contraseña reseteada a 'reserva123'.:Contraseña reseteada a 'reserva123'.
+No podés desactivarte a vos mismo.:No podés desactivarte a vos mismo.
+No hay datos para exportar.:No hay datos para exportar.
+Exportado correctamente.:Exportado correctamente.
+
+Nombre de Familia:Nombre de Familia
+Familia:Familia
+Patente:Patente
+Asignar a usuario:Asignar a usuario
+Quitar familia al usuario:Quitar familia al usuario
+Asignar familia seleccionada al usuario:Asignar familia seleccionada al usuario
+
+Acción:Acción
+Entidad:Entidad
+
+Nivel:Nivel
+Copiar detalle:Copiar detalle
+Detalle / StrakTrace:Detalle / StrakTrace
+Detalle copiado al portapapeles.:Detalle copiado al portapapeles.
+
+Ruta de destino:Ruta de destino
+Examinar...:Examinar...
+Crear backup:Crear backup
+Restaurar:Restaurar
+Archivo de backup:Archivo de backup
+Backups existentes:Backups existentes
+Seleccioná una ruta de destino.:Seleccioná una ruta de destino.
+Backup de ambas bases creado correctamente.:Backup de ambas bases creado correctamente.
+Seleccioná un archivo .bak:Seleccioná un archivo .bak
+Base restaurada correctamente.:Base restaurada correctamente.
+Se recomienda reiniciar la aplicación.:Se recomienda reiniciar la aplicación.
+
+Hora:Hora
+Lun:Lun
+Mar:Mar
+Mié:Mié
+Jue:Jue
+Vie:Vie
+Sáb:Sáb
+Dom:Dom
+Fecha y Hora:Fecha y Hora
+Pantalla:Pantalla
+Mensaje:Mensaje
+Detalle:Detalle
+Nombre de Comercio:Nombre de Comercio
+Precio/hora:Precio/hora
+Seña:Seña
+Base de datos:Base de datos
+Tamaño:Tamaño
+Ingresos:Ingresos
+Cancelac.:Cancelac.
+Código:Código
+Método:Método
+Monto:Monto
+Registro:Registro

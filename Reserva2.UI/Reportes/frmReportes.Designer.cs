@@ -412,7 +412,8 @@
             Controls.Add(dtpHasta);
             Controls.Add(dtpDesde);
             Name = "frmReportes";
-            Text = "frmReportes";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Reportes";
             Load += frmReportes_Load;
             pnlIngresos.ResumeLayout(false);
             pnlIngresos.PerformLayout();

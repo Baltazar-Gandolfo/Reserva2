@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Comercios
 {
@@ -22,9 +23,10 @@ namespace Reserva2.UI.Comercios
 
         private void frmComercioABM_Load(object sender, EventArgs e)
         {
+            TraducirControles(this);
             if (_idComercio > 0)
             {
-                this.Text = "Editar comercio";
+                this.Text = T("Editar comercio");
                 var com = _bll.ObtenerPorId(_idComercio);
                 if (com != null)
                 {
@@ -35,7 +37,7 @@ namespace Reserva2.UI.Comercios
             }
             else
             {
-                this.Text = "Nuevo comercio";
+                this.Text = T("Nuevo comercio");
                 chkActivo.Checked = true;
                 chkActivo.Enabled = false;
             }
@@ -45,7 +47,7 @@ namespace Reserva2.UI.Comercios
         {
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                MessageBox.Show("El nombre es obligatorio.", "Validación",
+                MessageBox.Show(T("El nombre es obligatorio."), T("Validación"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtNombre.Focus();
                 return;

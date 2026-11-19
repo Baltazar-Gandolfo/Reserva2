@@ -1,3 +1,4 @@
+using Reserva2.BE.Auxiliares;
 using Reserva2.BE.Entities;
 using Reserva2.DAL.Repositories;
 using Services.Facade;
@@ -7,13 +8,6 @@ using System.Linq;
 
 namespace Reserva2.BLL.Logic
 {
-    public class BloqueHorario
-    {
-        public string DiaSemana { get; set; }
-        public TimeSpan Inicio { get; set; }
-        public TimeSpan Fin { get; set; }
-    }
-
     // CU.Com.011 — Crear Regla de Disponibilidad
     public class ReglaDisponibilidadBLL
     {

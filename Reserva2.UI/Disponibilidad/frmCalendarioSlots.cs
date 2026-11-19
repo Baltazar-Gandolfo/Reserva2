@@ -1,4 +1,5 @@
-﻿using Reserva2.BE.Entities;
+using Reserva2.BE.Auxiliares;
+using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic;
 using Reserva2.UI.Controles;
 using Services.Facade;
@@ -8,6 +9,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Disponibilidad
 {
@@ -39,6 +41,7 @@ namespace Reserva2.UI.Disponibilidad
 
         private void frmCalendarioSlots_Load(object sender, EventArgs e)
         {
+            TraducirControles(this);
             mcSemana.MaxSelectionCount = 1;
             dvgSlots.AllowUserToAddRows = false;
             dvgSlots.AllowUserToDeleteRows = false;

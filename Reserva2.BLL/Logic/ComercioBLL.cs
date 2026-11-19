@@ -1,4 +1,5 @@
-﻿using Reserva2.BE.Entities;
+﻿using Reserva2.BE.Auxiliares;
+using Reserva2.BE.Entities;
 using Reserva2.DAL.Repositories;
 using Services.Facade;
 using System;
@@ -7,15 +8,6 @@ using System.Linq;
 
 namespace Reserva2.BLL.Logic
 {
-    public class ComercioDetalle
-    {
-        public Comercio Comercio { get; set; }
-        public string Owner { get; set; }
-        public List<ElementoReservable> Elementos { get; set; }
-        public List<ReglaNegocio> Reglas { get; set; }
-        public ResumenComercio ResumenMes { get; set; }
-    }
-
     public class ComercioBLL
     {
         private readonly ComercioRepository _repo = new ComercioRepository();

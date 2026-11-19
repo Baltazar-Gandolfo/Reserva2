@@ -1,7 +1,8 @@
-﻿using Services.Facade;
+using Services.Facade;
 using Services.DomainModel.Composite;
 using System;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Controles
 {
@@ -10,6 +11,7 @@ namespace Reserva2.UI.Controles
         public frmRegistro()
         {
             InitializeComponent();
+            this.Load += frmRegistro_Load;
             btnCancelar.Click += (s, e) => this.Close();
             rdbCliente.Checked = true;
             txtDni.KeyPress += (s, ev) =>
@@ -24,48 +26,53 @@ namespace Reserva2.UI.Controles
             };
         }
 
+        private void frmRegistro_Load(object sender, EventArgs e)
+        {
+            TraducirControles(this);
+        }
+
         private void btnCrearCuenta_Click(object sender, EventArgs e)
         {
             errorProvider1.Clear();
 
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                errorProvider1.SetError(txtNombre, "El nombre es obligatorio.");
+                errorProvider1.SetError(txtNombre, T("El nombre es obligatorio."));
                 return;
             }
             if (string.IsNullOrWhiteSpace(txtApellido.Text))
             {
-                errorProvider1.SetError(txtApellido, "El apellido es obligatorio.");
+                errorProvider1.SetError(txtApellido, T("El apellido es obligatorio."));
                 return;
             }
             if (string.IsNullOrWhiteSpace(txtDni.Text))
             {
-                errorProvider1.SetError(txtDni, "El DNI es obligatorio.");
+                errorProvider1.SetError(txtDni, T("El DNI es obligatorio."));
                 return;
             }
             if (!txtDni.Text.Trim().All(char.IsDigit))
             {
-                errorProvider1.SetError(txtDni, "El DNI solo puede contener números.");
+                errorProvider1.SetError(txtDni, T("El DNI solo puede contener números."));
                 return;
             }
             if (!string.IsNullOrWhiteSpace(txtTelefono.Text) && !txtTelefono.Text.Trim().All(char.IsDigit))
             {
-                errorProvider1.SetError(txtTelefono, "El teléfono solo puede contener números.");
+                errorProvider1.SetError(txtTelefono, T("El teléfono solo puede contener números."));
                 return;
             }
             if (string.IsNullOrWhiteSpace(txtEmail.Text) || !txtEmail.Text.Contains("@"))
             {
-                errorProvider1.SetError(txtEmail, "Ingresá un email válido.");
+                errorProvider1.SetError(txtEmail, T("Ingresá un email válido."));
                 return;
             }
             if (string.IsNullOrWhiteSpace(txtPass.Text) || txtPass.Text.Length < 6)
             {
-                errorProvider1.SetError(txtPass, "La contraseña debe tener al menos 6 caracteres.");
+                errorProvider1.SetError(txtPass, T("La contraseña debe tener al menos 6 caracteres."));
                 return;
             }
             if (txtPass.Text != txtPass2.Text)
             {
-                errorProvider1.SetError(txtPass2, "Las contraseñas no coinciden.");
+                errorProvider1.SetError(txtPass2, T("Las contraseñas no coinciden."));
                 return;
             }
 
@@ -111,8 +118,8 @@ namespace Reserva2.UI.Controles
 
                 BitacoraService.Registrar("Alta", "Usuario", $"Se registró: {nuevoUsuario.Email} como {rol}");
 
-                MessageBox.Show("Cuenta creada correctamente. Ya podés iniciar sesión.",
-                    "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(T("Cuenta creada correctamente. Ya podés iniciar sesión."),
+                    T("Registro exitoso"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 this.Close();
             }

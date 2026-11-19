@@ -1,4 +1,4 @@
-﻿using Services.Facade;
+using Services.Facade;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Errores
 {
@@ -25,6 +26,7 @@ namespace Reserva2.UI.Errores
 
         private void frmErrores_Load(object sender, EventArgs e)
         {
+            TraducirControles(this);
             dtpDesde.Value = DateTime.Today.AddDays(-30);
             dtpHasta.Value = DateTime.Today;
 
@@ -118,7 +120,7 @@ namespace Reserva2.UI.Errores
             if (!string.IsNullOrWhiteSpace(txtDetalle.Text))
             {
                 Clipboard.SetText(txtDetalle.Text);
-                MessageBox.Show("Detalle copiado al portapapeles.", "Info",
+                MessageBox.Show(T("Detalle copiado al portapapeles."), T("Info"),
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -127,7 +129,7 @@ namespace Reserva2.UI.Errores
         {
             if (dgvErrores.Rows.Count == 0)
             {
-                MessageBox.Show("No hay datos para exportar.", "Info",
+                MessageBox.Show(T("No hay datos para exportar."), T("Info"),
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -159,7 +161,7 @@ namespace Reserva2.UI.Errores
                 }
 
                 File.WriteAllText(sfd.FileName, sb.ToString(), Encoding.UTF8);
-                MessageBox.Show("Exportado.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(T("Exportado."), T("OK"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

@@ -1,4 +1,4 @@
-﻿using Reserva2.BE.Entities;
+using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic;
 using Reserva2.UI.Controles;
 using Services.Facade;
@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Elementos
 {
@@ -88,6 +89,7 @@ namespace Reserva2.UI.Elementos
                 this.Text = "Elementos";
             }
 
+            TraducirControles(this);
             CargarFiltros();
             CargarGrilla();
 
@@ -152,7 +154,7 @@ namespace Reserva2.UI.Elementos
             if (haySeleccion)
             {
                 var elem = (ElementoReservable)dgvElementos.CurrentRow.Tag;
-                btnBaja.Text = elem.Estado == "Activo" ? "Dar de baja" : "Reactivar";
+                btnBaja.Text = elem.Estado == "Activo" ? T("Dar de baja") : T("Reactivar");
             }
         }
 
@@ -177,10 +179,10 @@ namespace Reserva2.UI.Elementos
         {
             if (dgvElementos.CurrentRow?.Tag is ElementoReservable elem)
             {
-                string accion = elem.Estado == "Activo" ? "dar de baja" : "reactivar";
+                string accion = elem.Estado == "Activo" ? T("dar de baja") : T("reactivar");
                 var resp = MessageBox.Show(
-                    $"¿Está seguro que desea {accion} \"{elem.Nombre}\"?",
-                    "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    $"{T("¿Está seguro que desea")} {accion} \"{elem.Nombre}\"?",
+                    T("Confirmar"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (resp == DialogResult.Yes)
                 {

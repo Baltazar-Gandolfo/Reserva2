@@ -1,7 +1,8 @@
-﻿using Services.Facade;
+using Services.Facade;
 using System;
 using System.IO;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Config
 {
@@ -21,6 +22,7 @@ namespace Reserva2.UI.Config
 
         private void frmBackup_Load(object sender, EventArgs e)
         {
+            TraducirControles(this);
             txtRutaBackup.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Reserva2_Backups");
             lblEstado.Text = "";
             progressBar1.Value = 0;
@@ -41,7 +43,7 @@ namespace Reserva2.UI.Config
         {
             if (string.IsNullOrWhiteSpace(txtRutaBackup.Text))
             {
-                MessageBox.Show("Seleccioná una ruta de destino.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(T("Seleccioná una ruta de destino."), T("Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -71,7 +73,7 @@ namespace Reserva2.UI.Config
 
                 BitacoraService.Registrar("Backup", "Sistema", $"Backup creado en: {carpeta}");
 
-                MessageBox.Show("Backup de ambas bases creado correctamente.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(T("Backup de ambas bases creado correctamente."), T("OK"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CargarBackupsExistentes();
             }
             catch (Exception ex)
@@ -98,7 +100,7 @@ namespace Reserva2.UI.Config
         {
             if (string.IsNullOrWhiteSpace(txtRutaStore.Text))
             {
-                MessageBox.Show("Seleccioná un archivo .bak", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(T("Seleccioná un archivo .bak"), T("Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -143,8 +145,8 @@ namespace Reserva2.UI.Config
 
                     BitacoraService.Registrar("Restauración", "Sistema", $"BD {bdDetectada} restaurada desde: {archivo}");
 
-                    MessageBox.Show("Base restaurada correctamente.\nSe recomienda reiniciar la aplicación.",
-                        "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(T("Base restaurada correctamente.") + "\n" + T("Se recomienda reiniciar la aplicación."),
+                        T("OK"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {

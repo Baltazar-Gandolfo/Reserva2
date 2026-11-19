@@ -285,7 +285,8 @@
             Controls.Add(treeView1);
             Controls.Add(groupBox1);
             Name = "frmPermisos";
-            Text = "frmPermisos";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Permisos";
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             groupBox3.ResumeLayout(false);

@@ -3,9 +3,25 @@
 -- SQL Server 2019+
 -- =============================================
 
+-- Login universal: funciona en cualquier instancia SQL Server.
+-- Si ya existe el login (re-ejecucion), se omite.
+USE master;
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.server_principals WHERE name = 'Reserva2App')
+BEGIN
+    CREATE LOGIN Reserva2App WITH PASSWORD = 'R2#App2026!', DEFAULT_DATABASE = master;
+    ALTER SERVER ROLE dbcreator ADD MEMBER Reserva2App;
+END
+GO
+
 CREATE DATABASE Reserva2_Servicio;
 GO
 USE Reserva2_Servicio;
+GO
+
+-- Mapear el login a esta base con permisos completos
+CREATE USER Reserva2App FOR LOGIN Reserva2App;
+ALTER ROLE db_owner ADD MEMBER Reserva2App;
 GO
 
 CREATE TABLE Usuario (
@@ -184,7 +200,9 @@ INSERT INTO Permiso (IdPermiso, Nombre, Descripcion, Tipo) VALUES
 (NEWID(), 'frmNuevaReserva',    'Crear nueva reserva',           'Patente'),
 (NEWID(), 'frmPagoManual',      'Registrar pago manual',         'Patente'),
 (NEWID(), 'frmBackup',          'Gestionar backups',             'Patente'),
-(NEWID(), 'frmIdioma',          'Cambiar idioma',                'Patente');
+(NEWID(), 'frmIdioma',          'Cambiar idioma',                'Patente'),
+(NEWID(), 'frmReportes',        'Ver estadisticas y KPIs',       'Patente'),
+(NEWID(), 'frmSucursales',      'Gestionar sucursales',          'Patente');
 
 INSERT INTO PermisoSimple (IdPermiso, Clave, TipoAcceso)
 SELECT IdPermiso, Nombre, 'Pantalla' FROM Permiso WHERE Tipo = 'Patente';
@@ -206,7 +224,9 @@ INSERT INTO Patente (DataKey, TipoAcceso) VALUES
 ('frmNuevaReserva',    0),
 ('frmPagoManual',      0),
 ('frmBackup',          0),
-('frmIdioma',          0);
+('frmIdioma',          0),
+('frmReportes',        0),
+('frmSucursales',      0);
 
 -- Familia "Administrador" con todas las patentes
 DECLARE @IdFamAdmin UNIQUEIDENTIFIER = NEWID();
@@ -219,8 +239,10 @@ DECLARE @IdFamCom UNIQUEIDENTIFIER = NEWID();
 INSERT INTO Familia (IdFamilia, Nombre) VALUES (@IdFamCom, 'Comercio');
 INSERT INTO FamiliaPatente (IdFamilia, IdPatente)
 SELECT @IdFamCom, IdPatente FROM Patente
-WHERE DataKey IN ('frmElementos','frmElementoABM','frmDisponibilidad','frmCalendario',
-                  'frmReservas','frmReservaDetalle','frmNuevaReserva','frmPagoManual');
+WHERE DataKey IN ('frmComercios','frmSucursales','frmElementos','frmElementoABM',
+                  'frmDisponibilidad','frmCalendario',
+                  'frmReservas','frmReservaDetalle','frmNuevaReserva','frmPagoManual',
+                  'frmReportes');
 
 -- Familia "Cliente" con patentes de cliente
 DECLARE @IdFamCli UNIQUEIDENTIFIER = NEWID();

@@ -155,7 +155,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "frmRecuperarPass";
-            Text = "frmRecuperarPass";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Recuperar Contraseña";
             ResumeLayout(false);
             PerformLayout();
         }

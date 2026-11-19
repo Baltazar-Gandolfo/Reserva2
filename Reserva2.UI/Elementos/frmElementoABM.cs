@@ -1,9 +1,10 @@
-﻿using Reserva2.BE.Entities;
+using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic;
 using Services.Facade;
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Elementos
 {
@@ -92,10 +93,11 @@ namespace Reserva2.UI.Elementos
                 comboBox1.SelectedIndexChanged += (s2, e2) => CargarSucursales();
             }
 
+            TraducirControles(this);
             if (comercios.Count == 0)
             {
-                MessageBox.Show("No tenés comercios registrados. Creá uno desde 'Mis comercios'.",
-                    "Sin comercios", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(T("No tenés comercios registrados. Creá uno desde 'Mis comercios'."),
+                    T("Sin comercios"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnGuardar.Enabled = false;
             }
             else
@@ -106,12 +108,12 @@ namespace Reserva2.UI.Elementos
             // Si es edición, cargar datos
             if (_idElemento > 0)
             {
-                this.Text = "Editar Elemento";
+                this.Text = T("Editar Elemento");
                 CargarElemento();
             }
             else
             {
-                this.Text = "Nuevo Elemento";
+                this.Text = T("Nuevo Elemento");
             }
         }
 
@@ -128,8 +130,8 @@ namespace Reserva2.UI.Elementos
             btnGuardar.Enabled = hay;
             if (!hay)
             {
-                MessageBox.Show("El comercio no tiene sucursales activas. Creá una sucursal antes de agregar elementos.",
-                    "Sin sucursales", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(T("El comercio no tiene sucursales activas. Creá una sucursal antes de agregar elementos."),
+                    T("Sin sucursales"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -174,32 +176,32 @@ namespace Reserva2.UI.Elementos
             {
                 if (string.IsNullOrWhiteSpace(txtNombre.Text))
                 {
-                    MessageBox.Show("El nombre es obligatorio.",
-                        "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(T("El nombre es obligatorio."),
+                        T("Validación"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtNombre.Focus();
                     return;
                 }
 
                 if (comboBox2.SelectedValue == null)
                 {
-                    MessageBox.Show("Seleccione una sucursal.",
-                        "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(T("Seleccione una sucursal."),
+                        T("Validación"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     comboBox2.Focus();
                     return;
                 }
 
                 if (cmbTipo.SelectedIndex < 0)
                 {
-                    MessageBox.Show("Seleccione un tipo.",
-                        "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(T("Seleccione un tipo."),
+                        T("Validación"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     cmbTipo.Focus();
                     return;
                 }
 
                 if (numPrecio.Value <= 0)
                 {
-                    MessageBox.Show("El precio debe ser mayor a cero.",
-                        "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(T("El precio debe ser mayor a cero."),
+                        T("Validación"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     numPrecio.Focus();
                     return;
                 }

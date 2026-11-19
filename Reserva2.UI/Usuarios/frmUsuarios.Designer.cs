@@ -195,7 +195,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "frmUsuarios";
-            Text = "frmUsuarios";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Usuarios";
             Load += frmUsuarios_Load;
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).EndInit();
             contextMenuStrip1.ResumeLayout(false);

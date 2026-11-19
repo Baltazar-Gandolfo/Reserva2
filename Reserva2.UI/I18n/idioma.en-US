@@ -5,10 +5,10 @@ reservas:Reservations
 nueva reserva:New reservation
 mis reservas:My reservations
 comercio:Business
-elementos:Bookable items
+elementos:Items
 nuevo elemento:New item
-disponibilidad:Weekly availability
-calendario:Slot calendar
+disponibilidad:Availability
+calendario:Calendar
 pagos:Payments
 registrar pago:Register payment
 plataforma:Platform
@@ -26,3 +26,272 @@ email:Email
 contrasena:Password
 ingresar:Login
 bienvenido:Welcome
+mis comercios:My businesses
+Errores:Errors
+
+Editar:Edit
+Nuevo:New
+Dar de baja:Deactivate
+Ver inactivos:Show inactive
+Ver inactivas:Show inactive
+Cancelar:Cancel
+Guardar:Save
+Confirmar:Confirm
+Cerrar:Close
+Desde:From
+Hasta:To
+Buscar:Search
+Filtrar:Filter
+Exportar:Export
+Exportar CSV:Export CSV
+Nombre *:Name *
+Activo:Active
+Activa:Active
+Teléfono:Phone
+Ubicación:Location
+Sucursal:Branch
+Elemento:Item
+Estado:Status
+Crear:Create
+Eliminar:Delete
+Registrar:Register
+Generar:Generate
+Fecha:Date
+Observaciones:Notes
+Descripción:Description
+Nombre:Name
+DNI:ID
+Tipo:Type
+
+Advertencia:Warning
+Validación:Validation
+Info:Info
+OK:OK
+Pago:Payment
+Confirmación:Confirmation
+
+Reserva2:Reserva2
+Ingresá tus credenciales para continuar:Enter your credentials to continue
+Contraseña:Password
+Recordarme:Remember me
+¿Olvidaste tu contraseña?:Forgot your password?
+Email o contraseña incorrecto:Incorrect email or password
+¿No tenés cuenta?:Don't have an account?
+Registrate:Sign up
+Completá todos los campos.:Please fill in all fields.
+
+DNI *:ID number *
+Email *:Email *
+Contraseña *:Password *
+Apellido *:Last name *
+Confirmar *:Confirm *
+Tipo de cuenta:Account type
+Los perfiles de Admin se crean desde la base, no por autoregistro.:Admin profiles are created from the database, not by self-registration.
+Owner (dueño de comercio):Owner (business owner)
+Cliente:Customer
+Crear cuenta:Create account
+El nombre es obligatorio.:Name is required.
+El apellido es obligatorio.:Last name is required.
+El DNI es obligatorio.:ID number is required.
+El DNI solo puede contener números.:ID number can only contain digits.
+El teléfono solo puede contener números.:Phone number can only contain digits.
+Ingresá un email válido.:Enter a valid email address.
+La contraseña debe tener al menos 6 caracteres.:Password must be at least 6 characters.
+Las contraseñas no coinciden.:Passwords do not match.
+Cuenta creada correctamente. Ya podés iniciar sesión.:Account created successfully. You can now log in.
+Registro exitoso:Registration successful
+
+Ingresá tu email y la nueva contraseña:Enter your email and new password
+Enviar:Send
+Nueva contraseña:New password
+Repetir contraseña:Repeat password
+Listo. Revisa tu casilla, el link vence en 30 minutos.:Done. Check your inbox, the link expires in 30 minutes.
+Ingresá la contraseña actual.:Enter the current password.
+La nueva contraseña debe tener al menos 6 caracteres.:New password must be at least 6 characters.
+La contraseña actual es incorrecta.:The current password is incorrect.
+No existe un usuario con ese email.:No user found with that email.
+Contraseña cambiada correctamente. Ya podés iniciar sesión.:Password changed successfully. You can now log in.
+
+Ocupación:Occupancy
+
+Sucursales...:Branches...
+Seleccioná un comercio.:Select a business.
+dar de baja:deactivate
+reactivar:reactivate
+¿Está seguro que desea:Are you sure you want to
+el comercio:the business
+Reactivar:Reactivate
+Editar comercio:Edit business
+Nuevo comercio:New business
+
+Datos:Details
+Resumen del mes:Monthly summary
+Canceladas:Cancelled
+Ocupación prom.:Avg. occupancy
+Recaudado:Revenue
+CUIT:Tax ID
+Owner:Owner
+Dirección:Address
+Rubro:Category
+Razón Social:Legal name
+
+Disponibilidad...:Availability...
+Tipo *:Type *
+Capacidad:Capacity
+Precio por hora *:Price per hour *
+Seña(%):Deposit(%)
+Duración Turno:Slot duration
+No tenés comercios registrados. Creá uno desde 'Mis comercios'.:You have no registered businesses. Create one from 'My businesses'.
+Sin comercios:No businesses
+Editar Elemento:Edit item
+Nuevo Elemento:New item
+El comercio no tiene sucursales activas. Creá una sucursal antes de agregar elementos.:The business has no active branches. Create a branch before adding items.
+Sin sucursales:No branches
+Seleccione una sucursal.:Select a branch.
+Seleccione un tipo.:Select a type.
+El precio debe ser mayor a cero.:Price must be greater than zero.
+
+Copiar lunes al resto:Copy Monday to the rest
+Marcar Todo:Select all
+No hay elementos activos. Creá un elemento antes de configurar su horario.:No active items. Create an item before setting up its schedule.
+Sin elementos:No items
+Seleccioná un elemento.:Select an item.
+Horario guardado. Se generaron:Schedule saved. Generated
+turnos nuevos para los próximos:new slots for the next
+días.:days.
+
+Reservar este turno:Book this slot
+Ver reserva:View reservation
+Bloquear turno:Block slot
+Referencias:Legend
+Libre:Available
+Pendiente de seña:Deposit pending
+Confirmada:Confirmed
+Cerrado / no disponible:Closed / unavailable
+
+la sucursal:the branch
+Editar sucursal:Edit branch
+Nueva sucursal:New branch
+
+Ver detalle:View details
+Registrar pago...:Register payment...
+Cancelar reserva:Cancel reservation
+Imprimir comprobante:Print receipt
+Mis reservas:My reservations
+Reservas del comercio:Business reservations
+Facturado:Billed
+Pendiente de cobro:Pending collection
+Confirmar reserva:Confirm reservation
+Reserva confirmada.:Reservation confirmed.
+
+Turno:Slot
+Saldo:Balance
+Total:Total
+Datos de la reserva:Reservation details
+Creada:Created
+Pagado:Paid
+Historial:History
+Imprimir:Print
+
+Elemento *:Item *
+Fecha *:Date *
+Turnos libres *:Available slots *
+Cliente *:Customer *
+Precio:Price
+Seña (30%):Deposit (30%)
+Saldo a pagar:Balance due
+Resumen:Summary
+No hay comercios disponibles para reservar.:No businesses available for booking.
+Seleccioná un turno libre.:Select an available slot.
+Pagar ahora:Pay now
+La reserva expiró y el turno fue liberado.:The reservation expired and the slot was released.
+¡Pago registrado!:Payment registered!
+La reserva queda pendiente de confirmación por el comercio.:The reservation is pending confirmation by the business.
+
+Ingresá el motivo de la cancelación:Enter the cancellation reason
+Debe ingresar el motivo de la cancelación.:You must enter the cancellation reason.
+La reserva fue cancelada y el turno quedó libre.:The reservation was cancelled and the slot was released.
+Se reembolsará el pago total (cancelación dentro del plazo gratuito).:Full payment will be refunded (cancellation within free period).
+Se retiene el pago (cancelación fuera del plazo gratuito).:Payment is retained (cancellation outside free period).
+Reserva cancelada:Reservation cancelled
+
+Imprimir recibo:Print receipt
+Monto *:Amount *
+N° comprobante:Receipt #
+Método *:Method *
+La reserva está:The reservation is
+no admite pagos.:does not accept payments.
+Seleccioná un método de pago.:Select a payment method.
+
+Comercio (solo Admin):Business (Admin only)
+Ingresos cobrados:Revenue collected
+Ocupación de turnos:Slot occupancy
+Cancelaciones y expiradas:Cancellations and expired
+Clientes recurrentes:Recurring customers
+Cancelaciones + Expiradas:Cancellations + Expired
+Detalle por elemento:Detail by item
+Generá el reporte primero.:Generate the report first.
+Exportado.:Exported.
+
+Solo activos:Active only
+Ver Ficha:View profile
+Resetear contraseña:Reset password
+Desactivar usuario:Deactivate user
+Seleccioná un usuario.:Select a user.
+¿Resetear la contraseña de:Reset the password for
+La nueva contraseña será:The new password will be
+Contraseña reseteada a 'reserva123'.:Password reset to 'reserva123'.
+No podés desactivarte a vos mismo.:You cannot deactivate yourself.
+No hay datos para exportar.:No data to export.
+Exportado correctamente.:Exported successfully.
+
+Nombre de Familia:Family name
+Familia:Family
+Patente:Permission
+Asignar a usuario:Assign to user
+Quitar familia al usuario:Remove family from user
+Asignar familia seleccionada al usuario:Assign selected family to user
+
+Acción:Action
+Entidad:Entity
+
+Nivel:Level
+Copiar detalle:Copy detail
+Detalle / StrakTrace:Detail / StackTrace
+Detalle copiado al portapapeles.:Detail copied to clipboard.
+
+Ruta de destino:Destination path
+Examinar...:Browse...
+Crear backup:Create backup
+Restaurar:Restore
+Archivo de backup:Backup file
+Backups existentes:Existing backups
+Seleccioná una ruta de destino.:Select a destination path.
+Backup de ambas bases creado correctamente.:Backup of both databases created successfully.
+Seleccioná un archivo .bak:Select a .bak file
+Base restaurada correctamente.:Database restored successfully.
+Se recomienda reiniciar la aplicación.:Restarting the application is recommended.
+
+Hora:Hour
+Lun:Mon
+Mar:Tue
+Mié:Wed
+Jue:Thu
+Vie:Fri
+Sáb:Sat
+Dom:Sun
+Fecha y Hora:Date and Time
+Pantalla:Screen
+Mensaje:Message
+Detalle:Detail
+Nombre de Comercio:Business Name
+Precio/hora:Price/hour
+Seña:Deposit
+Base de datos:Database
+Tamaño:Size
+Ingresos:Revenue
+Cancelac.:Canc.
+Código:Code
+Método:Method
+Monto:Amount
+Registro:Record

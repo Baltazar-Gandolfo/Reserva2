@@ -9,6 +9,11 @@ GO
 USE Reserva2_Negocio;
 GO
 
+-- Mapear el login universal a esta base con permisos completos
+CREATE USER Reserva2App FOR LOGIN Reserva2App;
+ALTER ROLE db_owner ADD MEMBER Reserva2App;
+GO
+
 CREATE TABLE Comercio (
     IdComercio      INT IDENTITY(1,1) PRIMARY KEY,
     Nombre          VARCHAR(150) NOT NULL,

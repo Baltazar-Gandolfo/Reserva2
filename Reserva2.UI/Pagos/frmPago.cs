@@ -1,7 +1,9 @@
-﻿using Reserva2.BE.Entities;
+using Reserva2.BE.Auxiliares;
+using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic.Reservas;
 using System;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Pagos
 {
@@ -22,7 +24,7 @@ namespace Reserva2.UI.Pagos
 
         private void frmPago_Load(object sender, EventArgs e)
         {
-            // El MVP no maneja comprobante, observaciones ni recibo impreso
+            TraducirControles(this);
             foreach (Control c in new Control[] { label1, txtComprobante, label7, txtObservaciones, chkImprimir })
                 c.Visible = false;
 
@@ -58,8 +60,8 @@ namespace Reserva2.UI.Pagos
                 if (reserva.Estado != EstadoReserva.Pendiente)
                 {
                     btnRegistrar.Enabled = false;
-                    MessageBox.Show($"La reserva está {reserva.Estado.ToLower()}: no admite pagos.",
-                        "Pago", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"{T("La reserva está")} {reserva.Estado.ToLower()}: {T("no admite pagos.")}",
+                        T("Pago"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
@@ -73,7 +75,7 @@ namespace Reserva2.UI.Pagos
         {
             if (cmbMetodo.SelectedItem == null)
             {
-                MessageBox.Show("Seleccioná un método de pago.", "Validación",
+                MessageBox.Show(T("Seleccioná un método de pago."), T("Validación"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }

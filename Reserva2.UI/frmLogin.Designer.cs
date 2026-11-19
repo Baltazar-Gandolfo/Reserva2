@@ -181,7 +181,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "frmLogin";
-            Text = "frmLogin";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Log-In";
             Load += frmLogin_Load;
             ResumeLayout(false);
             PerformLayout();

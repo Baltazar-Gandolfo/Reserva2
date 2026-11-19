@@ -270,7 +270,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "frmRegistro";
-            Text = "frmRegistro";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Registro de Cuenta";
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             grpRol.ResumeLayout(false);
             grpRol.PerformLayout();

@@ -137,8 +137,7 @@ Entities/
 │
 ├── 📂 Usuarios/
 │   ├── frmUsuarios.cs          Listado de usuarios (pendiente)
-│   ├── frmPermisos.cs          🌳 TreeView Composite — gestión de permisos
-│   └── frmDashboard.cs         Dashboard (pendiente)
+│   └── frmPermisos.cs          🌳 TreeView Composite — gestión de permisos
 │
 ├── 📂 Comercios/               Gestión de comercios (pendiente)
 ├── 📂 Elementos/               ABM de elementos reservables (pendiente)

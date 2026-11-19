@@ -1,9 +1,11 @@
-﻿using Reserva2.BE.Entities;
+using Reserva2.BE.Auxiliares;
+using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic;
 using Services.Facade;
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Comercios
 {
@@ -27,6 +29,7 @@ namespace Reserva2.UI.Comercios
 
         private void Cargar()
         {
+            TraducirControles(this);
             PrepararControles();
 
             try
@@ -40,7 +43,7 @@ namespace Reserva2.UI.Comercios
                 txtDireccion.Text = _comercio.Ubicacion;
                 txtOwner.Text = detalle.Owner;
                 checkBox1.Checked = _comercio.Activo;
-                btnBaja.Text = _comercio.Activo ? "Dar de baja" : "Reactivar";
+                btnBaja.Text = _comercio.Activo ? T("Dar de baja") : T("Reactivar");
 
                 var mes = DateTime.Today.ToString("MMMM yyyy");
                 groupBox1.Text = $"Resumen de {mes}";
@@ -119,9 +122,9 @@ namespace Reserva2.UI.Comercios
         {
             if (_comercio == null) return;
 
-            string accion = _comercio.Activo ? "dar de baja" : "reactivar";
-            var resp = MessageBox.Show($"¿Está seguro que desea {accion} el comercio \"{_comercio.Nombre}\"?",
-                "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            string accion = _comercio.Activo ? T("dar de baja") : T("reactivar");
+            var resp = MessageBox.Show($"{T("¿Está seguro que desea")} {accion} {T("el comercio")} \"{_comercio.Nombre}\"?",
+                T("Confirmar"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (resp != DialogResult.Yes) return;
 
             try

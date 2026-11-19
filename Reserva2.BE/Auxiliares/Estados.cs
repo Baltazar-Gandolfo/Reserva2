@@ -1,4 +1,4 @@
-namespace Reserva2.BE.Entities
+namespace Reserva2.BE.Auxiliares
 {
     public static class EstadoSlot
     {

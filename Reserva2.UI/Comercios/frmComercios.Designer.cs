@@ -33,11 +33,11 @@
             btnAlta = new Button();
             btnBaja = new Button();
             dataGridView1 = new DataGridView();
-            label2 = new Label();
-            chkVerInactivos = new CheckBox();
             Comercio = new DataGridViewTextBoxColumn();
             Ubicacion = new DataGridViewTextBoxColumn();
             Estado = new DataGridViewTextBoxColumn();
+            label2 = new Label();
+            chkVerInactivos = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -50,7 +50,6 @@
             btnSucursales.TabIndex = 3;
             btnSucursales.Text = "Sucursales...";
             btnSucursales.UseVisualStyleBackColor = true;
-            //btnSucursales.Click += btnBuscar_Click;
             // 
             // btnEditar
             // 
@@ -91,7 +90,23 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(708, 150);
             dataGridView1.TabIndex = 7;
-            //dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // Comercio
+            // 
+            Comercio.HeaderText = "Nombre de Comercio";
+            Comercio.Name = "Comercio";
+            Comercio.Width = 245;
+            // 
+            // Ubicacion
+            // 
+            Ubicacion.HeaderText = "Ubicación";
+            Ubicacion.Name = "Ubicacion";
+            Ubicacion.Width = 320;
+            // 
+            // Estado
+            // 
+            Estado.HeaderText = "Estado";
+            Estado.Name = "Estado";
             // 
             // label2
             // 
@@ -114,23 +129,6 @@
             chkVerInactivos.Text = "Ver inactivos";
             chkVerInactivos.UseVisualStyleBackColor = true;
             // 
-            // Comercio
-            // 
-            Comercio.HeaderText = "Nombre de Comercio";
-            Comercio.Name = "Comercio";
-            Comercio.Width = 245;
-            // 
-            // Ubicacion
-            // 
-            Ubicacion.HeaderText = "Ubicación";
-            Ubicacion.Name = "Ubicacion";
-            Ubicacion.Width = 320;
-            // 
-            // Estado
-            // 
-            Estado.HeaderText = "Estado";
-            Estado.Name = "Estado";
-            // 
             // frmComercios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -146,7 +144,8 @@
             Controls.Add(btnSucursales);
             ForeColor = Color.Black;
             Name = "frmComercios";
-            Text = "frmComercios";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Comercios";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();

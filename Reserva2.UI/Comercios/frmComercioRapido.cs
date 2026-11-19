@@ -1,7 +1,8 @@
-﻿using Reserva2.BE.Entities;
+using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic;
 using System;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI
 {
@@ -40,6 +41,7 @@ namespace Reserva2.UI
             };
 
             this.Controls.AddRange(new Control[] { lblNombre, txtNombre, lblUbicacion, txtUbicacion, btnCrear, btnCancelar });
+            this.Load += (s, e) => TraducirControles(this);
         }
 
         private void BtnCrear_Click(object sender, EventArgs e)
@@ -48,8 +50,8 @@ namespace Reserva2.UI
             {
                 if (string.IsNullOrWhiteSpace(txtNombre.Text))
                 {
-                    MessageBox.Show("El nombre es obligatorio.",
-                        "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(T("El nombre es obligatorio."),
+                        T("Validación"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtNombre.Focus();
                     return;
                 }
@@ -71,6 +73,11 @@ namespace Reserva2.UI
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void InitializeComponent()
+        {
+
         }
     }
 }

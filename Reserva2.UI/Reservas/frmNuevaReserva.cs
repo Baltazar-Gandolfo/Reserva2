@@ -1,4 +1,4 @@
-﻿using Reserva2.BE.Entities;
+using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic;
 using Reserva2.BLL.Logic.Reservas;
 using Reserva2.UI.Controles;
@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 using SlotDisp = Reserva2.BE.Entities.Disponibilidad;
 
 namespace Reserva2.UI.Reservas
@@ -45,6 +46,7 @@ namespace Reserva2.UI.Reservas
 
         private void frmNuevaReserva_Load(object sender, EventArgs e)
         {
+            TraducirControles(this);
             var usuario = SessionManager.GetInstance().UsuarioActual;
             bool esCliente = usuario.Rol == "Cliente";
             textBox1.Text = usuario.Nombre;
@@ -66,7 +68,7 @@ namespace Reserva2.UI.Reservas
                 .Select(c => new ItemCombo<int>(c.IdComercio, c.Nombre)).ToList();
 
             if (comercios.Count == 0)
-                MessageBox.Show("No hay comercios disponibles para reservar.", "Reservas",
+                MessageBox.Show(T("No hay comercios disponibles para reservar."), T("Reservas"),
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -170,7 +172,7 @@ namespace Reserva2.UI.Reservas
 
             if (_slot == null)
             {
-                MessageBox.Show("Seleccioná un turno libre.", "Validación",
+                MessageBox.Show(T("Seleccioná un turno libre."), T("Validación"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -199,8 +201,8 @@ namespace Reserva2.UI.Reservas
             foreach (Control c in new Control[] { comboBox1, comboBox2, comboBox3, listBox1 })
                 c.Enabled = false;
 
-            btnConfirmar.Text = "Pagar ahora";
-            btnCancelar.Text = "Cerrar";
+            btnConfirmar.Text = T("Pagar ahora");
+            btnCancelar.Text = T("Cerrar");
             ActualizarCuenta();
             _timerCuenta.Start();
         }
@@ -216,7 +218,7 @@ namespace Reserva2.UI.Reservas
             if (restante <= TimeSpan.Zero)
             {
                 _timerCuenta.Stop();
-                label12.Text = "La reserva expiró y el turno fue liberado.";
+                label12.Text = T("La reserva expiró y el turno fue liberado.");
                 btnConfirmar.Enabled = false;
                 return;
             }
@@ -231,8 +233,8 @@ namespace Reserva2.UI.Reservas
                 if (frm.ShowDialog(this) == DialogResult.OK)
                 {
                     _timerCuenta.Stop();
-                    MessageBox.Show("¡Pago registrado!\r\nLa reserva queda pendiente de confirmación por el comercio.",
-                        "Reservas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(T("¡Pago registrado!") + "\r\n" + T("La reserva queda pendiente de confirmación por el comercio."),
+                        T("Reservas"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
             }

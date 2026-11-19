@@ -34,11 +34,6 @@
             numHasta = new NumericUpDown();
             btnCopiarLunes = new Button();
             dataGridView1 = new DataGridView();
-            label2 = new Label();
-            label3 = new Label();
-            btnMarcarTodo = new Button();
-            btnCancelar = new Button();
-            btnGuardar = new Button();
             Hora = new DataGridViewTextBoxColumn();
             Lun = new DataGridViewCheckBoxColumn();
             Mar = new DataGridViewCheckBoxColumn();
@@ -47,6 +42,11 @@
             Vie = new DataGridViewCheckBoxColumn();
             Sáb = new DataGridViewCheckBoxColumn();
             Dom = new DataGridViewCheckBoxColumn();
+            label2 = new Label();
+            label3 = new Label();
+            btnMarcarTodo = new Button();
+            btnCancelar = new Button();
+            btnGuardar = new Button();
             ((System.ComponentModel.ISupportInitialize)numDesde).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numHasta).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -102,6 +102,48 @@
             dataGridView1.Size = new Size(843, 150);
             dataGridView1.TabIndex = 5;
             // 
+            // Hora
+            // 
+            Hora.HeaderText = "Hora";
+            Hora.Name = "Hora";
+            // 
+            // Lun
+            // 
+            Lun.HeaderText = "Lun";
+            Lun.Name = "Lun";
+            // 
+            // Mar
+            // 
+            Mar.HeaderText = "Mar";
+            Mar.Name = "Mar";
+            // 
+            // Mié
+            // 
+            Mié.HeaderText = "Mié";
+            Mié.Name = "Mié";
+            Mié.Resizable = DataGridViewTriState.True;
+            Mié.SortMode = DataGridViewColumnSortMode.Automatic;
+            // 
+            // Jue
+            // 
+            Jue.HeaderText = "Jue";
+            Jue.Name = "Jue";
+            // 
+            // Vie
+            // 
+            Vie.HeaderText = "Vie";
+            Vie.Name = "Vie";
+            // 
+            // Sáb
+            // 
+            Sáb.HeaderText = "Sáb";
+            Sáb.Name = "Sáb";
+            // 
+            // Dom
+            // 
+            Dom.HeaderText = "Dom";
+            Dom.Name = "Dom";
+            // 
             // label2
             // 
             label2.AutoSize = true;
@@ -149,48 +191,6 @@
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
             // 
-            // Hora
-            // 
-            Hora.HeaderText = "Hora";
-            Hora.Name = "Hora";
-            // 
-            // Lun
-            // 
-            Lun.HeaderText = "Lun";
-            Lun.Name = "Lun";
-            // 
-            // Mar
-            // 
-            Mar.HeaderText = "Mar";
-            Mar.Name = "Mar";
-            // 
-            // Mié
-            // 
-            Mié.HeaderText = "Mié";
-            Mié.Name = "Mié";
-            Mié.Resizable = DataGridViewTriState.True;
-            Mié.SortMode = DataGridViewColumnSortMode.Automatic;
-            // 
-            // Jue
-            // 
-            Jue.HeaderText = "Jue";
-            Jue.Name = "Jue";
-            // 
-            // Vie
-            // 
-            Vie.HeaderText = "Vie";
-            Vie.Name = "Vie";
-            // 
-            // Sáb
-            // 
-            Sáb.HeaderText = "Sáb";
-            Sáb.Name = "Sáb";
-            // 
-            // Dom
-            // 
-            Dom.HeaderText = "Dom";
-            Dom.Name = "Dom";
-            // 
             // frmDisponibilidad
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -209,7 +209,8 @@
             Controls.Add(cmbElemento);
             Controls.Add(label1);
             Name = "frmDisponibilidad";
-            Text = "frmDisponibilidad";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Disponibilidad";
             ((System.ComponentModel.ISupportInitialize)numDesde).EndInit();
             ((System.ComponentModel.ISupportInitialize)numHasta).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

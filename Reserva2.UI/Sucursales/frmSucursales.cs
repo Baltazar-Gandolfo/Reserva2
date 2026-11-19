@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Sucursales
 {
@@ -32,6 +33,7 @@ namespace Reserva2.UI.Sucursales
 
         private void frmSucursales_Load(object sender, EventArgs e)
         {
+            TraducirControles(this);
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.ReadOnly = true;
@@ -115,10 +117,10 @@ namespace Reserva2.UI.Sucursales
             var suc = ObtenerSeleccionada();
             if (suc == null) return;
 
-            string accion = suc.Activo ? "dar de baja" : "reactivar";
+            string accion = suc.Activo ? T("dar de baja") : T("reactivar");
             var result = MessageBox.Show(
-                $"¿Está seguro que desea {accion} la sucursal \"{suc.Nombre}\"?",
-                "Confirmar",
+                $"{T("¿Está seguro que desea")} {accion} {T("la sucursal")} \"{suc.Nombre}\"?",
+                T("Confirmar"),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 

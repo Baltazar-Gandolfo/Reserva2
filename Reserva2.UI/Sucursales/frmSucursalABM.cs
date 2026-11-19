@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Sucursales
 {
@@ -26,9 +27,10 @@ namespace Reserva2.UI.Sucursales
 
         private void frmSucursalABM_Load(object sender, EventArgs e)
         {
+            TraducirControles(this);
             if (_idSucursal > 0)
             {
-                this.Text = "Editar sucursal";
+                this.Text = T("Editar sucursal");
                 var suc = _bll.ObtenerPorId(_idSucursal);
                 if (suc != null)
                 {
@@ -39,7 +41,7 @@ namespace Reserva2.UI.Sucursales
             }
             else
             {
-                this.Text = "Nueva sucursal";
+                this.Text = T("Nueva sucursal");
                 chkActivo.Checked = true;
                 chkActivo.Enabled = false;
             }
@@ -49,7 +51,7 @@ namespace Reserva2.UI.Sucursales
         {
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                MessageBox.Show("El nombre es obligatorio.", "Validación",
+                MessageBox.Show(T("El nombre es obligatorio."), T("Validación"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtNombre.Focus();
                 return;

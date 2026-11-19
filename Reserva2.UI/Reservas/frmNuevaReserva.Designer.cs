@@ -352,7 +352,8 @@
             Controls.Add(grpResumen);
             ForeColor = Color.White;
             Name = "frmNuevaReserva";
-            Text = "frmNuevaReserva";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Alta/Modificación de Reserva";
             ResumeLayout(false);
             PerformLayout();
         }

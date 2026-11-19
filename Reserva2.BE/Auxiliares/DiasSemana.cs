@@ -1,6 +1,6 @@
 using System;
 
-namespace Reserva2.BLL.Logic
+namespace Reserva2.BE.Auxiliares
 {
     public static class DiasSemana
     {

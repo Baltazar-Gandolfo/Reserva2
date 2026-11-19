@@ -1,8 +1,9 @@
-﻿using Services.Facade;
+using Services.Facade;
 using Services.DomainModel.Composite;
 using Reserva2.UI.Controles;
 using System;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI
 {
@@ -25,7 +26,7 @@ namespace Reserva2.UI
 
             if (string.IsNullOrWhiteSpace(txtEmail.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
             {
-                lblError.Text = "Completá todos los campos.";
+                lblError.Text = T("Completá todos los campos.");
                 lblError.Visible = true;
                 return;
             }
@@ -86,7 +87,7 @@ namespace Reserva2.UI
 
         private void frmLogin_Load(object sender, EventArgs e)
         {
-
+            TraducirControles(this);
         }
 
         private void btnIngresar_Click_1(object sender, EventArgs e)

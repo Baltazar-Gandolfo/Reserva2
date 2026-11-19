@@ -1,4 +1,5 @@
-﻿using Reserva2.BE.Entities;
+using Reserva2.BE.Auxiliares;
+using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic.Reservas;
 using Reserva2.UI.Pagos;
 using Services.Facade;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Reservas
 {
@@ -48,7 +50,8 @@ namespace Reserva2.UI.Reservas
 
         private void frmReservas_Load(object sender, EventArgs e)
         {
-            this.Text = _esCliente ? "Mis reservas" : "Reservas del comercio";
+            TraducirControles(this);
+            this.Text = _esCliente ? T("Mis reservas") : T("Reservas del comercio");
 
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.ReadOnly = true;
@@ -147,9 +150,9 @@ namespace Reserva2.UI.Reservas
                     fila.DefaultCellStyle.ForeColor = Color.Gray;
             }
 
-            lblCantidad.Text = $"{filtradas.Count} reservas";
-            lblFacturado.Text = $"Facturado: {facturado:C2}";
-            lblPendiente.Text = $"Pendiente de cobro: {pendiente:C2}";
+            lblCantidad.Text = $"{filtradas.Count} {T("reservas")}";
+            lblFacturado.Text = $"{T("Facturado")}: {facturado:C2}";
+            lblPendiente.Text = $"{T("Pendiente de cobro")}: {pendiente:C2}";
             ActualizarBotones();
         }
 
@@ -187,13 +190,13 @@ namespace Reserva2.UI.Reservas
             if (pendiente && tienePago && !_esCliente)
             {
                 btnRegistrarPago.Enabled = true;
-                btnRegistrarPago.Text = "Confirmar";
+                btnRegistrarPago.Text = T("Confirmar");
                 _modoConfirmar = true;
             }
             else
             {
                 btnRegistrarPago.Enabled = pendiente && !tienePago;
-                btnRegistrarPago.Text = "Registrar pago";
+                btnRegistrarPago.Text = T("Registrar pago");
                 _modoConfirmar = false;
             }
 
@@ -221,7 +224,7 @@ namespace Reserva2.UI.Reservas
                 try
                 {
                     new ReservaBLL().Confirmar(r.IdReserva);
-                    MessageBox.Show("Reserva confirmada.", "Confirmación",
+                    MessageBox.Show(T("Reserva confirmada."), T("Confirmación"),
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Recargar();
                 }

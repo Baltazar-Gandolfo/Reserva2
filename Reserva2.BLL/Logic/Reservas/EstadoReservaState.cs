@@ -1,4 +1,4 @@
-using Reserva2.BE.Entities;
+using Reserva2.BE.Auxiliares;
 using System;
 
 namespace Reserva2.BLL.Logic.Reservas

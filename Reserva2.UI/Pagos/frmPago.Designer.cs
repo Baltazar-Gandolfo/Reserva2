@@ -221,7 +221,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "frmPago";
-            Text = "frmPago";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Pago";
             Load += frmPago_Load;
             ((System.ComponentModel.ISupportInitialize)numMonto).EndInit();
             ResumeLayout(false);

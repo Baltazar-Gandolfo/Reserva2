@@ -1,4 +1,4 @@
-﻿using Services.Facade;
+using Services.Facade;
 using Services.DomainModel.Composite;
 using System;
 using System.Collections.Generic;
@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Usuarios
 {
@@ -29,6 +30,7 @@ namespace Reserva2.UI.Usuarios
 
         private void frmUsuarios_Load(object sender, EventArgs e)
         {
+            TraducirControles(this);
             cmbRol.Items.Clear();
             cmbRol.Items.Add("Todos");
             cmbRol.Items.Add("Admin");
@@ -119,7 +121,7 @@ namespace Reserva2.UI.Usuarios
         {
             if (dgvUsuarios.CurrentRow == null || dgvUsuarios.CurrentRow.Tag == null)
             {
-                MessageBox.Show("Seleccioná un usuario.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(T("Seleccioná un usuario."), T("Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return null;
             }
             return (Usuario)dgvUsuarios.CurrentRow.Tag;
@@ -151,8 +153,8 @@ namespace Reserva2.UI.Usuarios
             if (usuario == null) return;
 
             var result = MessageBox.Show(
-                $"¿Resetear la contraseña de '{usuario.Nombre}'?\n\nLa nueva contraseña será: reserva123",
-                "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                $"{T("¿Resetear la contraseña de")} '{usuario.Nombre}'?\n\n{T("La nueva contraseña será") + ":"} reserva123",
+                T("Confirmar"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
@@ -164,7 +166,7 @@ namespace Reserva2.UI.Usuarios
                     BitacoraService.Registrar("Modificación", "Usuario",
                         $"Se reseteó la contraseña de: {usuario.Email}");
 
-                    MessageBox.Show("Contraseña reseteada a 'reserva123'.", "OK",
+                    MessageBox.Show(T("Contraseña reseteada a 'reserva123'."), T("OK"),
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
@@ -183,7 +185,7 @@ namespace Reserva2.UI.Usuarios
             var sesion = SessionManager.GetInstance().UsuarioActual;
             if (usuario.IdUsuario == sesion.IdUsuario)
             {
-                MessageBox.Show("No podés desactivarte a vos mismo.", "Advertencia",
+                MessageBox.Show(T("No podés desactivarte a vos mismo."), T("Advertencia"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -221,7 +223,7 @@ namespace Reserva2.UI.Usuarios
         {
             if (dgvUsuarios.Rows.Count == 0)
             {
-                MessageBox.Show("No hay datos para exportar.", "Info",
+                MessageBox.Show(T("No hay datos para exportar."), T("Info"),
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }

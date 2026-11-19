@@ -1,4 +1,5 @@
-﻿using Reserva2.BE.Entities;
+using Reserva2.BE.Auxiliares;
+using Reserva2.BE.Entities;
 using Reserva2.BLL.Logic;
 using Reserva2.UI.Controles;
 using Services.Facade;
@@ -9,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Reportes
 {
@@ -25,6 +27,7 @@ namespace Reserva2.UI.Reportes
 
         private void frmReportes_Load(object sender, EventArgs e)
         {
+            TraducirControles(this);
             _esAdmin = SessionManager.GetInstance().GetRol() == "Admin";
 
             cboComercio.Visible = _esAdmin;
@@ -58,10 +61,10 @@ namespace Reserva2.UI.Reportes
             pnlCancelacion.BackColor = Color.FromArgb(198, 40, 40);
             pnlRecurrentes.BackColor = Color.FromArgb(106, 27, 154);
 
-            lblTituloIngresos.Text = "Ingresos cobrados";
-            lblTituloOcupacion.Text = "Ocupación de turnos";
-            lblTituloCancelacion.Text = "Cancelaciones + Expiradas";
-            lblTituloRecurrentes.Text = "Clientes recurrentes";
+            lblTituloIngresos.Text = T("Ingresos cobrados");
+            lblTituloOcupacion.Text = T("Ocupación de turnos");
+            lblTituloCancelacion.Text = T("Cancelaciones + Expiradas");
+            lblTituloRecurrentes.Text = T("Clientes recurrentes");
 
             LimpiarKpis();
         }
@@ -196,7 +199,7 @@ namespace Reserva2.UI.Reportes
         {
             if (dgvDetalle.Rows.Count == 0)
             {
-                MessageBox.Show("Generá el reporte primero.", "Info",
+                MessageBox.Show(T("Generá el reporte primero."), T("Info"),
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -229,7 +232,7 @@ namespace Reserva2.UI.Reportes
                 }
 
                 File.WriteAllText(sfd.FileName, sb.ToString(), Encoding.UTF8);
-                MessageBox.Show("Exportado.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(T("Exportado."), T("OK"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

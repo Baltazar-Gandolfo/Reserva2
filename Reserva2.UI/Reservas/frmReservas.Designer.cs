@@ -289,7 +289,8 @@
             Controls.Add(dateTimePicker2);
             Controls.Add(dateTimePicker1);
             Name = "frmReservas";
-            Text = "frmReservas";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Reservas";
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

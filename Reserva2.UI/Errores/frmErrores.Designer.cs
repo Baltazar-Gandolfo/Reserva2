@@ -215,6 +215,7 @@
             Controls.Add(dtpDesde);
             Margin = new Padding(3, 2, 3, 2);
             Name = "frmErrores";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Errores del sistema";
             ((System.ComponentModel.ISupportInitialize)dgvErrores).EndInit();
             ResumeLayout(false);

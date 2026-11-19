@@ -23,6 +23,7 @@ namespace Reserva2.UI.Controles
 {
     public partial class frmPrincipal : Form
     {
+
         public frmPrincipal()
         {
             InitializeComponent();
@@ -193,6 +194,7 @@ namespace Reserva2.UI.Controles
                 mnuBitacora
             });
 
+
             // --- Ayuda ---
             var mnuIdioma = new ToolStripMenuItem("Idioma");
             try
@@ -266,6 +268,7 @@ namespace Reserva2.UI.Controles
             reservasToolStripMenuItem.Visible =
                 TienePermiso("frmNuevaReserva") ||
                 TienePermiso("frmReservas");
+
         }
 
         private void AbrirPantallaInicial(Usuario usuario)

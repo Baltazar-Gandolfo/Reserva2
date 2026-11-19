@@ -1,8 +1,9 @@
-﻿using Services.Facade;
+using Services.Facade;
 using Services.DomainModel.Composite;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Usuarios
 {
@@ -30,6 +31,7 @@ namespace Reserva2.UI.Usuarios
 
         private void frmPermisos_Load(object sender, EventArgs e)
         {
+            TraducirControles(this);
             CargarArbol();
             CargarUsuarios();
         }

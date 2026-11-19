@@ -220,7 +220,8 @@
             Controls.Add(cboUsuario);
             Controls.Add(label4);
             Name = "frmAuditoria";
-            Text = "frmAuditoria";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Auditoría";
             ((System.ComponentModel.ISupportInitialize)dgvAuditoria).EndInit();
             ResumeLayout(false);
             PerformLayout();
