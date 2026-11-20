@@ -7,8 +7,13 @@ using System.Linq;
 
 namespace Reserva2.DAL.Repositories
 {
+    /// <summary>
+    /// Repositorio de acceso a datos para la entidad Comercio.
+    /// </summary>
     public class ComercioRepository
     {
+        /// <summary>Obtiene todos los comercios.</summary>
+        /// <returns>Lista de comercios.</returns>
         public List<Comercio> GetAll()
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -17,6 +22,8 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Obtiene los comercios activos ordenados por nombre.</summary>
+        /// <returns>Lista de comercios activos.</returns>
         public List<Comercio> GetActivos()
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -25,6 +32,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Obtiene los comercios de un usuario propietario.</summary>
+        /// <param name="idUsuario">Identificador del usuario.</param>
+        /// <returns>Lista de comercios del usuario.</returns>
         public List<Comercio> GetByUsuario(Guid idUsuario)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -33,6 +43,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Obtiene un comercio por su identificador.</summary>
+        /// <param name="id">Identificador del comercio.</param>
+        /// <returns>Comercio encontrado o null.</returns>
         public Comercio GetById(int id)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -41,7 +54,11 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
-        // Resumen de actividad entre desde (inclusive) y hasta (exclusive), según la fecha del turno.
+        /// <summary>Obtiene el resumen de actividad de un comercio en un rango de fechas.</summary>
+        /// <param name="idComercio">Identificador del comercio.</param>
+        /// <param name="desde">Fecha desde (inclusive).</param>
+        /// <param name="hasta">Fecha hasta (exclusive).</param>
+        /// <returns>Resumen con recaudación, reservas, cancelaciones y ocupación.</returns>
         public ResumenComercio GetResumen(int idComercio, DateTime desde, DateTime hasta)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -74,6 +91,10 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Verifica si un slug ya está en uso por otro comercio.</summary>
+        /// <param name="slug">Slug a verificar.</param>
+        /// <param name="idExcluir">Id del comercio a excluir de la búsqueda.</param>
+        /// <returns><c>true</c> si el slug ya existe.</returns>
         public bool ExisteSlug(string slug, int? idExcluir = null)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -83,6 +104,8 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Inserta un nuevo comercio.</summary>
+        /// <param name="comercio">Comercio a insertar.</param>
         public void Insertar(Comercio comercio)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -94,6 +117,8 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Actualiza los datos de un comercio existente.</summary>
+        /// <param name="comercio">Comercio con los datos actualizados.</param>
         public void Actualizar(Comercio comercio)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -110,6 +135,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Activa o desactiva un comercio.</summary>
+        /// <param name="id">Identificador del comercio.</param>
+        /// <param name="activo">Estado de activación.</param>
         public void CambiarEstado(int id, bool activo)
         {
             using (var ctx = NegocioContextFactory.Crear())

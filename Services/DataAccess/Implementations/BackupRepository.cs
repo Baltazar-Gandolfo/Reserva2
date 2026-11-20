@@ -5,14 +5,19 @@ using System.Data.SqlClient;
 
 namespace Services.Dal.Implementations
 {
+    /// <summary>
+    /// Repositorio de operaciones de backup y restauración de la base de datos.
+    /// </summary>
     internal class BackupRepository
     {
+        /// <summary>Obtiene la cadena de conexión a la base master.</summary>
         private string GetMasterConnectionString()
         {
             return ConfigurationManager.ConnectionStrings["MasterDB"].ConnectionString;
         }
 
-        // Carpeta donde la cuenta del servicio de SQL Server sí tiene permiso de escritura.
+        /// <summary>Obtiene la carpeta de backup por defecto del servidor SQL.</summary>
+        /// <returns>Ruta de la carpeta de backup o null.</returns>
         public string ObtenerCarpetaPorDefecto()
         {
             using (SqlConnection conn = new SqlConnection(GetMasterConnectionString()))
@@ -25,6 +30,9 @@ namespace Services.Dal.Implementations
             }
         }
 
+        /// <summary>Crea un backup completo de la base de datos en la ruta indicada.</summary>
+        /// <param name="nombreBD">Nombre de la base de datos.</param>
+        /// <param name="rutaArchivo">Ruta del archivo de backup.</param>
         public void CrearBackup(string nombreBD, string rutaArchivo)
         {
             string sql = $"BACKUP DATABASE [{nombreBD}] TO DISK = @Ruta WITH FORMAT, INIT";
@@ -47,6 +55,9 @@ namespace Services.Dal.Implementations
             }
         }
 
+        /// <summary>Restaura la base de datos desde un archivo de backup.</summary>
+        /// <param name="nombreBD">Nombre de la base de datos a restaurar.</param>
+        /// <param name="rutaArchivo">Ruta del archivo de backup.</param>
         public void Restaurar(string nombreBD, string rutaArchivo)
         {
             string connStr = GetMasterConnectionString();

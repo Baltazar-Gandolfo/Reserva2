@@ -6,11 +6,15 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Controles
 {
+    /// <summary>
+    /// Formulario de cambio de contraseña. Solicita email, contraseña actual y la nueva contraseña.
+    /// </summary>
     public partial class frmRecuperarPass : Form
     {
         private TextBox txtPassActual;
         private Label lblPassActual;
 
+        /// <summary>Inicializa el formulario y posiciona los controles de cambio de contraseña.</summary>
         public frmRecuperarPass()
         {
             InitializeComponent();
@@ -53,6 +57,7 @@ namespace Reserva2.UI.Controles
             this.Load += (s, e) => TraducirControles(this);
         }
 
+        /// <summary>Valida la contraseña actual, verifica las nuevas y actualiza la contraseña en la base de datos.</summary>
         private void btnEnviar_Click(object sender, EventArgs e)
         {
             lblEstado.Visible = false;
@@ -119,6 +124,7 @@ namespace Reserva2.UI.Controles
             }
         }
 
+        /// <summary>Muestra un mensaje de error en el label de estado.</summary>
         private void MostrarError(string mensaje)
         {
             lblEstado.Text = mensaje;

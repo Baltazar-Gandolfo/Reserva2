@@ -6,6 +6,9 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI
 {
+    /// <summary>
+    /// Formulario rápido para crear un comercio/sucursal desde otros formularios.
+    /// </summary>
     public class frmComercioRapido : Form
     {
         private TextBox txtNombre;
@@ -13,8 +16,12 @@ namespace Reserva2.UI
         private Button btnCrear;
         private Button btnCancelar;
 
+        /// <summary>Id del comercio recién creado, disponible tras DialogResult.OK.</summary>
         public int IdComercioCreado { get; private set; }
 
+        /// <summary>
+        /// Inicializa el formulario con los controles de creación rápida.
+        /// </summary>
         public frmComercioRapido()
         {
             this.Text = "Crear Comercio / Sucursal";
@@ -44,6 +51,7 @@ namespace Reserva2.UI
             this.Load += (s, e) => TraducirControles(this);
         }
 
+        /// <summary>Valida los datos y crea el comercio en la base de datos.</summary>
         private void BtnCrear_Click(object sender, EventArgs e)
         {
             try

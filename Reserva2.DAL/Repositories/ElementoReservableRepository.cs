@@ -6,8 +6,13 @@ using System.Linq;
 
 namespace Reserva2.DAL.Repositories
 {
+    /// <summary>
+    /// Repositorio de acceso a datos para elementos reservables.
+    /// </summary>
     public class ElementoReservableRepository
     {
+        /// <summary>Obtiene todos los elementos reservables con su sucursal.</summary>
+        /// <returns>Lista de elementos.</returns>
         public List<ElementoReservable> GetAll()
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -18,6 +23,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Obtiene los elementos de un comercio.</summary>
+        /// <param name="idComercio">Identificador del comercio.</param>
+        /// <returns>Lista de elementos del comercio.</returns>
         public List<ElementoReservable> GetByComercio(int idComercio)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -29,6 +37,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Obtiene los elementos de una sucursal.</summary>
+        /// <param name="idSucursal">Identificador de la sucursal.</param>
+        /// <returns>Lista de elementos de la sucursal.</returns>
         public List<ElementoReservable> GetBySucursal(int idSucursal)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -40,6 +51,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Obtiene un elemento por su identificador con su sucursal.</summary>
+        /// <param name="id">Identificador del elemento.</param>
+        /// <returns>Elemento encontrado o null.</returns>
         public ElementoReservable GetById(int id)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -50,6 +64,8 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Inserta un nuevo elemento reservable.</summary>
+        /// <param name="elemento">Elemento a insertar.</param>
         public void Insertar(ElementoReservable elemento)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -62,6 +78,8 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Actualiza los datos de un elemento existente.</summary>
+        /// <param name="elemento">Elemento con los datos actualizados.</param>
         public void Actualizar(ElementoReservable elemento)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -83,6 +101,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Cambia el estado de un elemento reservable.</summary>
+        /// <param name="id">Identificador del elemento.</param>
+        /// <param name="estado">Nuevo estado.</param>
         public void CambiarEstado(int id, string estado)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -96,6 +117,11 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Verifica si existe otro elemento con el mismo nombre en la sucursal.</summary>
+        /// <param name="nombre">Nombre a verificar.</param>
+        /// <param name="idSucursal">Identificador de la sucursal.</param>
+        /// <param name="idExcluir">Id del elemento a excluir de la búsqueda.</param>
+        /// <returns><c>true</c> si el nombre ya existe.</returns>
         public bool ExisteNombre(string nombre, int idSucursal, int? idExcluir = null)
         {
             using (var ctx = NegocioContextFactory.Crear())

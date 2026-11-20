@@ -10,11 +10,19 @@ using System.Linq;
 
 namespace Reserva2.BLL.Logic
 {
+    /// <summary>
+    /// Lógica de negocio para la generación de reportes y KPIs de los comercios.
+    /// </summary>
     public class ReporteBLL
     {
         private readonly ComercioRepository _comercioRepo = new();
         private readonly SucursalRepository _sucursalRepo = new();
 
+        /// <summary>
+        /// Obtiene los comercios visibles para el usuario actual: todos para Admin, solo los propios para Comercio.
+        /// </summary>
+        /// <returns>Lista de comercios visibles.</returns>
+        /// <exception cref="Exception">Si no hay sesión iniciada.</exception>
         public List<Comercio> ListarComerciosVisibles()
         {
             var usuario = SessionManager.GetInstance().UsuarioActual
@@ -24,11 +32,25 @@ namespace Reserva2.BLL.Logic
                 : _comercioRepo.GetByUsuario(usuario.IdUsuario);
         }
 
+        /// <summary>
+        /// Obtiene las sucursales de un comercio para filtrar reportes.
+        /// </summary>
+        /// <param name="idComercio">Identificador del comercio.</param>
+        /// <returns>Lista de sucursales del comercio.</returns>
         public List<Sucursal> ListarSucursales(int idComercio)
         {
             return _sucursalRepo.GetByComercio(idComercio);
         }
 
+        /// <summary>
+        /// Calcula los KPIs del período indicado comparándolos con el período anterior equivalente.
+        /// Incluye ingresos cobrados, ocupación, cancelación, clientes recurrentes y detalle por elemento.
+        /// </summary>
+        /// <param name="idComercio">Identificador del comercio (null para todos).</param>
+        /// <param name="idSucursal">Identificador de la sucursal (null para todas).</param>
+        /// <param name="desde">Fecha de inicio del período.</param>
+        /// <param name="hasta">Fecha de fin del período.</param>
+        /// <returns>Resultado con KPIs del período actual y comparación con el anterior.</returns>
         public KpiResult ObtenerKpis(int? idComercio, int? idSucursal, DateTime desde, DateTime hasta)
         {
             using var ctx = NegocioContextFactory.Crear();
@@ -56,9 +78,21 @@ namespace Reserva2.BLL.Logic
             };
         }
 
+        /// <summary>
+        /// Resultado intermedio del cálculo de un período.
+        /// </summary>
         private record PeriodoCalc(decimal Ingresos, decimal Ocupacion, decimal Cancelacion,
             decimal Recurrentes, List<DetalleElemento> Detalle);
 
+        /// <summary>
+        /// Calcula las métricas de un período específico: ingresos, ocupación, cancelación y recurrencia.
+        /// </summary>
+        /// <param name="ctx">Contexto de base de datos.</param>
+        /// <param name="idComercio">Filtro por comercio (null para todos).</param>
+        /// <param name="idSucursal">Filtro por sucursal (null para todas).</param>
+        /// <param name="desde">Fecha de inicio del período.</param>
+        /// <param name="hasta">Fecha de fin del período.</param>
+        /// <returns>Métricas calculadas del período.</returns>
         private static PeriodoCalc CalcularPeriodo(NegocioDbContext ctx,
             int? idComercio, int? idSucursal, DateTime desde, DateTime hasta)
         {

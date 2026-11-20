@@ -6,10 +6,15 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Config
 {
+    /// <summary>
+    /// Formulario de backup y restauración de bases de datos SQL Server.
+    /// </summary>
     public partial class frmBackup : Form
     {
+        /// <summary>Nombres de las bases de datos a respaldar.</summary>
         private string[] basesDeDatos = { "Reserva2_Servicio", "Reserva2_Negocio" };
 
+        /// <summary>Inicializa el formulario y conecta los eventos de los botones.</summary>
         public frmBackup()
         {
             InitializeComponent();
@@ -20,6 +25,7 @@ namespace Reserva2.UI.Config
             btnRestaurar.Click += btnRestaurar_Click;
         }
 
+        /// <summary>Establece la ruta por defecto y carga los backups existentes al abrir el formulario.</summary>
         private void frmBackup_Load(object sender, EventArgs e)
         {
             TraducirControles(this);
@@ -34,6 +40,7 @@ namespace Reserva2.UI.Config
             CargarBackupsExistentes();
         }
 
+        /// <summary>Abre el diálogo para seleccionar la carpeta de destino del backup.</summary>
         private void btnExaminar_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog fbd = new FolderBrowserDialog())
@@ -44,6 +51,7 @@ namespace Reserva2.UI.Config
             }
         }
 
+        /// <summary>Crea un backup de ambas bases de datos en la carpeta seleccionada.</summary>
         private void btnCrearBackup_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtRutaBackup.Text))
@@ -90,6 +98,7 @@ namespace Reserva2.UI.Config
             }
         }
 
+        /// <summary>Abre el diálogo para seleccionar el archivo .bak a restaurar.</summary>
         private void btnExaminarRestore_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -101,6 +110,7 @@ namespace Reserva2.UI.Config
             }
         }
 
+        /// <summary>Restaura una base de datos desde el archivo .bak seleccionado, previa confirmación.</summary>
         private void btnRestaurar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtRutaStore.Text))
@@ -163,6 +173,7 @@ namespace Reserva2.UI.Config
             }
         }
 
+        /// <summary>Lista los archivos .bak de la carpeta configurada en la grilla de backups.</summary>
         private void CargarBackupsExistentes()
         {
             dgvBackups.Rows.Clear();

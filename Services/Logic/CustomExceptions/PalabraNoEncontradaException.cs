@@ -6,11 +6,21 @@ using System.Threading.Tasks;
 
 namespace Services.Logic.CustomExceptions
 {
+    /// <summary>
+    /// Excepción lanzada cuando una palabra clave no se encuentra en los archivos de traducción i18n.
+    /// </summary>
+    /// <summary>
+    /// Excepción lanzada cuando una palabra no se encuentra en el diccionario de traducciones.
+    /// </summary>
     internal class PalabraNoEncontradaException : Exception
     {
-        // Se puede atar cualquier INFO pertinente que el diseñador quiera compartir con aquel
-        // que debe tratar esta excepción.
+        /// <summary>Palabra que no pudo ser traducida.</summary>
         public string Palabra { get; private set; }
+
+        /// <summary>
+        /// Crea una nueva excepción indicando la palabra no encontrada.
+        /// </summary>
+        /// <param name="palabra">Palabra que no se encontró.</param>
         public PalabraNoEncontradaException(string palabra) : base($"La palabra { palabra } no ha sido encontrada")
         {
             this.Palabra = palabra;

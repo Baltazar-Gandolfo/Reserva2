@@ -9,7 +9,9 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Comercios
 {
-    // CU.Adm.002 — Ver Detalle de Comercio (solo lectura). Desde acá el Admin puede dar de baja o reactivar.
+    /// <summary>
+    /// Formulario de detalle de comercio (solo lectura). Muestra resumen del mes, elementos y reglas.
+    /// </summary>
     public partial class frmComercioDetalle : Form
     {
         private readonly int _idComercio;
@@ -19,6 +21,8 @@ namespace Reserva2.UI.Comercios
         private DataGridView _gridElementos;
         private DataGridView _gridReglas;
 
+        /// <summary>Inicializa el formulario para el comercio indicado.</summary>
+        /// <param name="idComercio">Identificador del comercio a mostrar.</param>
         public frmComercioDetalle(int idComercio)
         {
             InitializeComponent();
@@ -27,6 +31,7 @@ namespace Reserva2.UI.Comercios
             btnBaja.Click += btnBaja_Click;
         }
 
+        /// <summary>Carga todos los datos del comercio: datos básicos, resumen y grillas de elementos/reglas.</summary>
         private void Cargar()
         {
             TraducirControles(this);

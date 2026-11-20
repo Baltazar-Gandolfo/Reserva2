@@ -10,10 +10,14 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Usuarios
 {
+    /// <summary>
+    /// Formulario de administración de usuarios. Permite buscar, filtrar, exportar y gestionar estados y contraseñas.
+    /// </summary>
     public partial class frmUsuarios : Form
     {
         private List<Usuario> _usuarios;
 
+        /// <summary>Inicializa el formulario y conecta los eventos.</summary>
         public frmUsuarios()
         {
             InitializeComponent();
@@ -28,6 +32,7 @@ namespace Reserva2.UI.Usuarios
             dgvUsuarios.CellMouseClick += dgvUsuarios_CellMouseClick;
         }
 
+        /// <summary>Configura la grilla y los filtros al cargar el formulario.</summary>
         private void frmUsuarios_Load(object sender, EventArgs e)
         {
             TraducirControles(this);
@@ -47,6 +52,7 @@ namespace Reserva2.UI.Usuarios
             CargarGrilla();
         }
 
+        /// <summary>Carga y filtra los usuarios en la grilla según los criterios seleccionados.</summary>
         private void CargarGrilla()
         {
             try
@@ -102,6 +108,7 @@ namespace Reserva2.UI.Usuarios
             }
         }
 
+        /// <summary>Muestra el menú contextual al hacer clic derecho sobre una fila.</summary>
         private void dgvUsuarios_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
@@ -117,6 +124,7 @@ namespace Reserva2.UI.Usuarios
             }
         }
 
+        /// <summary>Obtiene el usuario seleccionado en la grilla, o muestra advertencia si no hay selección.</summary>
         private Usuario ObtenerSeleccionado()
         {
             if (dgvUsuarios.CurrentRow == null || dgvUsuarios.CurrentRow.Tag == null)
@@ -127,6 +135,7 @@ namespace Reserva2.UI.Usuarios
             return (Usuario)dgvUsuarios.CurrentRow.Tag;
         }
 
+        /// <summary>Muestra la ficha completa del usuario seleccionado.</summary>
         private void verFichaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var usuario = ObtenerSeleccionado();
@@ -147,6 +156,7 @@ namespace Reserva2.UI.Usuarios
             MessageBox.Show(ficha, $"Ficha de {usuario.Nombre}", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>Resetea la contraseña del usuario seleccionado a un valor por defecto.</summary>
         private void resetearContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var usuario = ObtenerSeleccionado();
@@ -177,6 +187,7 @@ namespace Reserva2.UI.Usuarios
             }
         }
 
+        /// <summary>Activa o desactiva al usuario seleccionado.</summary>
         private void desactivarUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var usuario = ObtenerSeleccionado();
@@ -219,6 +230,7 @@ namespace Reserva2.UI.Usuarios
             }
         }
 
+        /// <summary>Exporta los usuarios mostrados en la grilla a un archivo CSV.</summary>
         private void btnExportar_Click(object sender, EventArgs e)
         {
             if (dgvUsuarios.Rows.Count == 0)

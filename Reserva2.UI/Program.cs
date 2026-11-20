@@ -4,8 +4,14 @@ using System.Windows.Forms;
 
 namespace Reserva2.UI
 {
+    /// <summary>
+    /// Punto de entrada de la aplicación. Configura el manejo global de excepciones e inicia el formulario de login.
+    /// </summary>
     internal static class Program
     {
+        /// <summary>
+        /// Método principal de la aplicación.
+        /// </summary>
         [STAThread]
         static void Main()
         {

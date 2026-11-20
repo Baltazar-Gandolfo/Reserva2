@@ -8,6 +8,10 @@ using System.Linq;
 
 namespace Reserva2.BLL.Logic.Reservas
 {
+    /// <summary>
+    /// Lógica de negocio principal para la gestión de reservas.
+    /// Implementa CU.Cli.001, CU.Cli.002, CU.Cli.004, CU.Com.015, CU.Sis.001 y CU.Sis.004.
+    /// </summary>
     public class ReservaBLL
     {
         private readonly ReservaRepository _repo = new ReservaRepository();
@@ -17,13 +21,26 @@ namespace Reserva2.BLL.Logic.Reservas
         private readonly ReglaNegocioBLL _reglas = new ReglaNegocioBLL();
         private readonly ListaEsperaBLL _listaEspera = new ListaEsperaBLL();
 
+        /// <summary>
+        /// Obtiene el usuario actualmente logueado o lanza excepción.
+        /// </summary>
+        /// <returns>Usuario de la sesión actual.</returns>
+        /// <exception cref="Exception">Si no hay sesión iniciada.</exception>
         private static Services.DomainModel.Composite.Usuario UsuarioActual()
         {
             return SessionManager.GetInstance().UsuarioActual
                 ?? throw new Exception("Debe iniciar sesión.");
         }
 
-        // CU.Cli.001 — Realizar Reserva
+        /// <summary>
+        /// Realiza una reserva sobre un slot de disponibilidad. Valida disponibilidad del elemento,
+        /// límite semanal de reservas y bloquea el slot de forma concurrente.
+        /// </summary>
+        /// <param name="idDisponibilidad">Identificador del slot a reservar.</param>
+        /// <param name="nombreCliente">Nombre opcional del cliente (para reservas de terceros).</param>
+        /// <returns>La reserva creada con estado Pendiente.</returns>
+        /// <exception cref="Exception">Si el slot no existe, no está disponible o se superó el límite semanal.</exception>
+        /// <exception cref="SlotNoDisponibleException">Si otro cliente tomó el slot simultáneamente.</exception>
         public Reserva Reservar(int idDisponibilidad, string? nombreCliente = null)
         {
             var usuario = UsuarioActual();
@@ -66,21 +83,27 @@ namespace Reserva2.BLL.Logic.Reservas
                 $"Reserva pendiente de {elemento.Nombre} el {slot.Fecha:dd/MM/yyyy} {slot.HoraInicio:hh\\:mm}",
                 reserva.IdReserva);
 
-            // El contador de expiración arranca recién cuando el cliente empieza a reservar.
             ExpiracionReservasService.Instancia.Iniciar();
 
             return reserva;
         }
 
-        // CU.Cli.002 — Consultar Mis Reservas
+        /// <summary>
+        /// Obtiene las reservas del usuario actualmente logueado, expirando las vencidas previamente.
+        /// </summary>
+        /// <returns>Lista de reservas del usuario actual.</returns>
         public List<Reserva> ListarMisReservas()
         {
             var usuario = UsuarioActual();
-            ExpirarVencidas(); // consistencia aunque el timer no esté corriendo
+            ExpirarVencidas();
             return _repo.GetByUsuario(usuario.IdUsuario);
         }
 
-        // Reservas que el usuario actual puede ver: las propias (Cliente) o las de sus comercios (Comercio/Admin).
+        /// <summary>
+        /// Obtiene las reservas visibles para el usuario actual según su rol:
+        /// Cliente ve las propias, Comercio/Admin ve las de sus comercios.
+        /// </summary>
+        /// <returns>Lista de reservas visibles ordenadas por fecha descendente.</returns>
         public List<Reserva> ListarVisibles()
         {
             var usuario = UsuarioActual();
@@ -98,7 +121,12 @@ namespace Reserva2.BLL.Logic.Reservas
             return resultado.OrderByDescending(r => r.FechaReserva).ToList();
         }
 
-        // Una reserva la gestiona su cliente, el dueño del comercio o el Admin.
+        /// <summary>
+        /// Determina si un usuario puede gestionar (ver/confirmar/cancelar) una reserva.
+        /// </summary>
+        /// <param name="usuario">Usuario a evaluar.</param>
+        /// <param name="reserva">Reserva a gestionar.</param>
+        /// <returns>True si es Admin, el cliente de la reserva o el dueño del comercio.</returns>
         public static bool PuedeGestionar(Services.DomainModel.Composite.Usuario usuario, Reserva reserva)
         {
             if (usuario.Rol == "Admin" || reserva.IdUsuario == usuario.IdUsuario)
@@ -107,6 +135,12 @@ namespace Reserva2.BLL.Logic.Reservas
             return comercio != null && comercio.IdUsuario == usuario.IdUsuario;
         }
 
+        /// <summary>
+        /// Obtiene una reserva por su identificador, validando permisos del usuario actual.
+        /// </summary>
+        /// <param name="idReserva">Identificador de la reserva.</param>
+        /// <returns>La reserva encontrada.</returns>
+        /// <exception cref="Exception">Si no existe o no tiene permisos.</exception>
         public Reserva ObtenerPorId(int idReserva)
         {
             var usuario = UsuarioActual();
@@ -117,7 +151,15 @@ namespace Reserva2.BLL.Logic.Reservas
             return reserva;
         }
 
-        // CU.Com.015 — Consultar Reservas del Comercio
+        /// <summary>
+        /// Obtiene las reservas de un comercio con filtros opcionales. Solo para Admin o dueño del comercio.
+        /// </summary>
+        /// <param name="idComercio">Identificador del comercio.</param>
+        /// <param name="estado">Filtro por estado (null para todos).</param>
+        /// <param name="fecha">Filtro por fecha (null para todas).</param>
+        /// <param name="idElemento">Filtro por elemento (null para todos).</param>
+        /// <returns>Lista de reservas filtradas del comercio.</returns>
+        /// <exception cref="Exception">Si el comercio no existe o no tiene permisos.</exception>
         public List<Reserva> ListarDelComercio(int idComercio, string estado = null,
             DateTime? fecha = null, int? idElemento = null)
         {
@@ -132,7 +174,11 @@ namespace Reserva2.BLL.Logic.Reservas
             return _repo.GetByComercio(idComercio, estado, fecha, idElemento);
         }
 
-        // CU.Sis.001 — Confirmar Reserva (solo Comercio o Admin después de que el cliente pagó)
+        /// <summary>
+        /// Confirma una reserva pendiente. Solo puede ser ejecutado por Comercio o Admin.
+        /// </summary>
+        /// <param name="idReserva">Identificador de la reserva a confirmar.</param>
+        /// <exception cref="Exception">Si es Cliente, la reserva no existe, no tiene permisos o cambió de estado.</exception>
         public void Confirmar(int idReserva)
         {
             var usuario = UsuarioActual();
@@ -154,7 +200,14 @@ namespace Reserva2.BLL.Logic.Reservas
                 $"Reserva ID {idReserva} confirmada por {usuario.Nombre}", idReserva);
         }
 
-        // CU.Cli.004 — Cancelar Reserva
+        /// <summary>
+        /// Cancela una reserva aplicando la política de cancelación para determinar si corresponde reembolso.
+        /// Libera el slot y notifica al primero de la lista de espera.
+        /// </summary>
+        /// <param name="idReserva">Identificador de la reserva a cancelar.</param>
+        /// <param name="motivo">Motivo de la cancelación.</param>
+        /// <returns>Resultado indicando si había pago y si fue reembolsado.</returns>
+        /// <exception cref="Exception">Si el motivo está vacío, la reserva no existe, no tiene permisos o cambió de estado.</exception>
         public ResultadoCancelacion Cancelar(int idReserva, string motivo)
         {
             var usuario = UsuarioActual();
@@ -199,7 +252,11 @@ namespace Reserva2.BLL.Logic.Reservas
             return resultado;
         }
 
-        // CU.Sis.004 — Expirar Reserva. Devuelve las reservas que pasaron a Expirada.
+        /// <summary>
+        /// Expira las reservas pendientes que superaron su tiempo límite de pago.
+        /// Libera los slots y notifica a la lista de espera por cada una.
+        /// </summary>
+        /// <returns>Lista de reservas que fueron expiradas en esta ejecución.</returns>
         public List<Reserva> ExpirarVencidas()
         {
             var expiradas = new List<Reserva>();
@@ -209,7 +266,7 @@ namespace Reserva2.BLL.Logic.Reservas
 
                 if (!_repo.CambiarEstado(reserva.IdReserva, EstadoReserva.Pendiente,
                         EstadoReserva.Expirada, liberarSlot: true))
-                    continue; // otro proceso la confirmó o expiró primero
+                    continue;
 
                 _listaEspera.NotificarPrimero(reserva.IdDisponibilidad);
 
@@ -221,21 +278,37 @@ namespace Reserva2.BLL.Logic.Reservas
             return expiradas;
         }
 
+        /// <summary>
+        /// Verifica si existen reservas pendientes de pago en el sistema.
+        /// </summary>
+        /// <returns>True si hay al menos una reserva pendiente.</returns>
         public bool HayPendientes()
         {
             return _repo.ExistenPendientes();
         }
 
+        /// <summary>
+        /// Calcula el lunes y domingo de la semana que contiene la fecha indicada.
+        /// </summary>
+        /// <param name="fecha">Fecha de referencia.</param>
+        /// <returns>Tupla con el lunes y domingo de esa semana.</returns>
         private static (DateTime lunes, DateTime domingo) SemanaDe(DateTime fecha)
         {
-            int desfase = ((int)fecha.DayOfWeek + 6) % 7; // lunes = 0
+            int desfase = ((int)fecha.DayOfWeek + 6) % 7;
             var lunes = fecha.Date.AddDays(-desfase);
             return (lunes, lunes.AddDays(6));
         }
     }
 
+    /// <summary>
+    /// Excepción lanzada cuando un slot ya fue tomado por otro cliente de forma concurrente.
+    /// </summary>
     public class SlotNoDisponibleException : Exception
     {
+        /// <summary>
+        /// Inicializa la excepción con un mensaje descriptivo.
+        /// </summary>
+        /// <param name="mensaje">Mensaje de error.</param>
         public SlotNoDisponibleException(string mensaje) : base(mensaje) { }
     }
 }

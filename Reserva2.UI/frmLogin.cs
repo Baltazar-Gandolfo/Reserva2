@@ -9,8 +9,14 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI
 {
+    /// <summary>
+    /// Formulario de inicio de sesión. Valida credenciales y verifica integridad de datos antes de ingresar.
+    /// </summary>
     public partial class frmLogin : Form
     {
+        /// <summary>
+        /// Inicializa el formulario y conecta los eventos de los controles.
+        /// </summary>
         public frmLogin()
         {
             InitializeComponent();
@@ -22,6 +28,9 @@ namespace Reserva2.UI
             txtPassword.KeyDown += txt_KeyDown;
         }
 
+        /// <summary>
+        /// Valida las credenciales, verifica integridad DVH/DVV e inicia la sesión del usuario.
+        /// </summary>
         private void btnIngresar_Click(object sender, EventArgs e)
         {
             lblError.Visible = false;
@@ -88,6 +97,9 @@ namespace Reserva2.UI
             }
         }
 
+        /// <summary>
+        /// Permite iniciar sesión con la tecla Enter.
+        /// </summary>
         private void txt_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -97,18 +109,27 @@ namespace Reserva2.UI
             }
         }
 
+        /// <summary>
+        /// Abre el formulario de recuperación de contraseña.
+        /// </summary>
         private void lnkRecuperar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             frmRecuperarPass frm = new frmRecuperarPass();
             frm.ShowDialog();
         }
 
+        /// <summary>
+        /// Abre el formulario de registro de nueva cuenta.
+        /// </summary>
         private void lknRegistro_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             frmRegistro frm = new frmRegistro();
             frm.ShowDialog();
         }
 
+        /// <summary>
+        /// Traduce los controles del formulario al idioma actual.
+        /// </summary>
         private void frmLogin_Load(object sender, EventArgs e)
         {
             TraducirControles(this);

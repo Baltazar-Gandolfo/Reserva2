@@ -16,47 +16,59 @@ using System.IO;
 namespace Services.DomainModel.Composite
 {
 	/// <summary>
-	/// This class (a) defines behaviour for components having children, (b) stores
-	/// child components, and (c) implements child-related operations in the Component
-	/// interface.
+	/// Nodo compuesto del patrón Composite. Representa un rol que agrupa patentes y/u otras familias.
 	/// </summary>
-	/// 
-
-	
 	public class Familia : Component {
 
 		private List<Component> hijos = new List<Component>();
 
+        /// <summary>Nombre descriptivo de la familia (rol).</summary>
         public string Nombre { get; set; }
 
+        /// <summary>Inicializa una nueva instancia vacía de <see cref="Familia"/>.</summary>
         public Familia(){
 
 		}
 
+        /// <summary>
+        /// Crea una familia con un componente hijo inicial.
+        /// </summary>
+        /// <param name="component">Componente hijo inicial.</param>
         public Familia(Component component)
         {
 			hijos.Add(component);
         }
 
-
-        /// 
-        /// <param name="component"></param>
+        /// <summary>
+        /// Agrega un componente hijo a la familia.
+        /// </summary>
+        /// <param name="component">Componente a agregar.</param>
         public override void Add(Component component){
 
 			hijos.Add(component);
 		}
 
+		/// <summary>
+		/// Agrega múltiples componentes hijos a la familia.
+		/// </summary>
+		/// <param name="components">Colección de componentes a agregar.</param>
 		public void AddRange(IEnumerable<Component> components)
 		{
 			hijos.AddRange(components);
         }
 
-        /// 
-        /// <param name="component"></param>
+        /// <summary>
+        /// Elimina un componente hijo de la familia.
+        /// </summary>
+        /// <param name="component">Componente a eliminar.</param>
         public override void Remove(Component component){
 			component.Remove(component);
 		}
 
+		/// <summary>
+		/// Obtiene la lista de componentes hijos de esta familia.
+		/// </summary>
+		/// <returns>Lista de componentes hijos.</returns>
 		public List<Component> GetHijos()
 		{
 			return hijos;

@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace Services.DataAccess.Tools
 {
+    /// <summary>
+    /// Utilidad estática para ejecutar comandos SQL contra la base de datos.
+    /// </summary>
     internal static class SqlHelper
     {
         readonly static string conString;

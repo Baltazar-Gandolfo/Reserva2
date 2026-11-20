@@ -8,6 +8,9 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Elementos
 {
+    /// <summary>
+    /// Formulario de alta y modificación de elementos reservables (canchas, piletas, salones, etc.).
+    /// </summary>
     public partial class frmElementoABM : Form
     {
         private readonly ElementoReservableBLL _bll = new ElementoReservableBLL();
@@ -16,6 +19,11 @@ namespace Reserva2.UI.Elementos
         private int _idElemento;
         private int _idComercio;
 
+        /// <summary>
+        /// Inicializa el formulario en modo alta (idElemento=0) o edición.
+        /// </summary>
+        /// <param name="idElemento">0 para alta, mayor a 0 para edición.</param>
+        /// <param name="idComercio">Id del comercio que contiene el elemento.</param>
         public frmElementoABM(int idElemento, int idComercio)
         {
             InitializeComponent();

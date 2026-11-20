@@ -3,11 +3,18 @@ using Services.Facade;
 
 namespace Reserva2.BLL.Logic.Reservas
 {
+    /// <summary>
+    /// Lógica de negocio para la gestión de la lista de espera de slots.
+    /// </summary>
     public class ListaEsperaBLL
     {
         private readonly ListaEsperaRepository _repo = new ListaEsperaRepository();
 
-        // Notifica al primero de la cola cuando se libera un slot (si hay alguien esperando).
+        /// <summary>
+        /// Notifica al primer usuario en la cola de espera cuando se libera un slot.
+        /// </summary>
+        /// <param name="idDisponibilidad">Identificador del slot liberado.</param>
+        /// <returns>True si se notificó a alguien, false si la cola estaba vacía.</returns>
         public bool NotificarPrimero(int idDisponibilidad)
         {
             var usuario = _repo.NotificarPrimero(idDisponibilidad);

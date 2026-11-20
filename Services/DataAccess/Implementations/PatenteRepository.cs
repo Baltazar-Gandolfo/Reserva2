@@ -9,8 +9,13 @@ using System.Data.SqlClient;
 
 namespace Services.Dal.Implementations
 {
+    /// <summary>
+    /// Repositorio de acceso a datos para patentes (permisos individuales).
+    /// </summary>
     internal class PatenteRepository : IPatenteRepository
     {
+        /// <summary>Inserta una nueva patente.</summary>
+        /// <param name="entity">Patente a insertar.</param>
         public void Add(Patente entity)
         {
             entity.Id = Guid.NewGuid();
@@ -21,6 +26,8 @@ namespace Services.Dal.Implementations
                 new SqlParameter("@TipoAcceso", (int)entity.TipoAcceso));
         }
 
+        /// <summary>Obtiene todas las patentes del sistema.</summary>
+        /// <returns>Lista de patentes.</returns>
         public List<Patente> GetAll()
         {
             List<Patente> patentes = new List<Patente>();
@@ -37,6 +44,8 @@ namespace Services.Dal.Implementations
             return patentes;
         }
 
+        /// <summary>Elimina una patente y todas sus relaciones asociadas.</summary>
+        /// <param name="id">Identificador de la patente.</param>
         public void Delete(Guid id)
         {
             SqlHelper.ExecuteNonQuery("DELETE FROM FamiliaPatente WHERE IdPatente = @Id", CommandType.Text, new SqlParameter("@Id", id));
@@ -44,6 +53,9 @@ namespace Services.Dal.Implementations
             SqlHelper.ExecuteNonQuery("DELETE FROM Patente WHERE IdPatente = @Id", CommandType.Text, new SqlParameter("@Id", id));
         }
 
+        /// <summary>Obtiene una patente por su identificador.</summary>
+        /// <param name="id">Identificador de la patente.</param>
+        /// <returns>Patente encontrada o null.</returns>
         public Patente GetById(Guid id)
         {
             string SelectByIdStatement = "SELECT IdPatente, DataKey, TipoAcceso FROM [dbo].[Patente] WHERE IdPatente = @IdPatente";
@@ -65,6 +77,8 @@ namespace Services.Dal.Implementations
             }
         }
 
+        /// <summary>Actualiza una patente. No implementado.</summary>
+        /// <param name="entity">Patente a actualizar.</param>
         public void Update(Patente entity)
         {
             throw new NotImplementedException();

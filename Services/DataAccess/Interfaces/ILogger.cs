@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Services.DataAccess.Interfaces
 {
+    /// <summary>
+    /// Contrato para los servicios de logging del sistema.
+    /// </summary>
     internal interface ILogger
     {
         void Debug(string message);

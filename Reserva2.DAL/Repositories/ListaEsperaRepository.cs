@@ -4,10 +4,14 @@ using System.Linq;
 
 namespace Reserva2.DAL.Repositories
 {
+    /// <summary>
+    /// Repositorio de acceso a datos para la lista de espera de slots.
+    /// </summary>
     public class ListaEsperaRepository
     {
-        // Marca como notificado al primero de la cola (menor posición) y registra la notificación.
-        // Devuelve el usuario notificado o null si nadie esperaba el slot.
+        /// <summary>Notifica al primero en la cola de espera de un slot y registra la notificación.</summary>
+        /// <param name="idDisponibilidad">Identificador del slot liberado.</param>
+        /// <returns>IdUsuario notificado o null si nadie esperaba.</returns>
         public Guid? NotificarPrimero(int idDisponibilidad)
         {
             using (var ctx = NegocioContextFactory.Crear())

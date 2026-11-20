@@ -7,13 +7,19 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Pagos
 {
-    // CU.Sis.002 — Registrar Pago Aprobado (MVP: el pago se asienta directamente, sin pasarela externa)
+    /// <summary>
+    /// Formulario de registro de pago de una reserva. Calcula el monto según la seña configurada.
+    /// </summary>
     public partial class frmPago : Form
     {
         private readonly int _idReserva;
         private readonly ReservaBLL _reservaBll = new ReservaBLL();
         private readonly PagoBLL _pagoBll = new PagoBLL();
 
+        /// <summary>
+        /// Inicializa el formulario para registrar el pago de la reserva indicada.
+        /// </summary>
+        /// <param name="idReserva">Id de la reserva a pagar.</param>
         public frmPago(int idReserva)
         {
             InitializeComponent();
@@ -22,6 +28,7 @@ namespace Reserva2.UI.Pagos
             btnCancelar.Click += (s, e) => this.Close();
         }
 
+        /// <summary>Carga los datos de la reserva y configura los controles de pago.</summary>
         private void frmPago_Load(object sender, EventArgs e)
         {
             TraducirControles(this);
@@ -71,6 +78,7 @@ namespace Reserva2.UI.Pagos
             }
         }
 
+        /// <summary>Registra el pago con el método seleccionado y cierra el formulario.</summary>
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             if (cmbMetodo.SelectedItem == null)

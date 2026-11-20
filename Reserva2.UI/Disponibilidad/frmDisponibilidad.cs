@@ -10,7 +10,9 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Disponibilidad
 {
-    // CU.Com.011 — Crear Regla de Disponibilidad (horario semanal por elemento)
+    /// <summary>
+    /// Formulario de configuración de disponibilidad horaria semanal por elemento reservable.
+    /// </summary>
     public partial class frmDisponibilidad : Form
     {
         private readonly ElementoReservableBLL _elementoBll = new ElementoReservableBLL();
@@ -23,6 +25,10 @@ namespace Reserva2.UI.Disponibilidad
 
         private readonly int _idElementoInicial;
 
+        /// <summary>
+        /// Inicializa el formulario. Si se pasa un id de elemento, se preselecciona en el combo.
+        /// </summary>
+        /// <param name="idElementoInicial">Id del elemento a preseleccionar, o 0 para ninguno.</param>
         public frmDisponibilidad(int idElementoInicial = 0)
         {
             InitializeComponent();

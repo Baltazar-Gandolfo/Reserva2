@@ -7,8 +7,16 @@ using System.Linq;
 
 namespace Reserva2.DAL.Repositories
 {
+    /// <summary>
+    /// Repositorio de acceso a datos para slots de disponibilidad.
+    /// </summary>
     public class DisponibilidadRepository
     {
+        /// <summary>Obtiene los slots de un elemento en un rango de fechas.</summary>
+        /// <param name="idElemento">Identificador del elemento reservable.</param>
+        /// <param name="desde">Fecha desde.</param>
+        /// <param name="hasta">Fecha hasta.</param>
+        /// <returns>Lista de slots ordenados por fecha y hora.</returns>
         public List<Disponibilidad> GetByElemento(int idElemento, DateTime desde, DateTime hasta)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -21,6 +29,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Obtiene un slot por su identificador con elemento y sucursal incluidos.</summary>
+        /// <param name="id">Identificador del slot.</param>
+        /// <returns>Slot encontrado o null.</returns>
         public Disponibilidad GetById(int id)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -31,7 +42,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
-        // Inserta solo los slots que todavía no existen (mismo elemento, fecha y hora de inicio).
+        /// <summary>Inserta solo los slots que todavía no existen (mismo elemento, fecha y hora de inicio).</summary>
+        /// <param name="slots">Slots a insertar.</param>
+        /// <returns>Cantidad de slots nuevos insertados.</returns>
         public int InsertarNuevos(IEnumerable<Disponibilidad> slots)
         {
             var lista = slots.ToList();
@@ -57,7 +70,11 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
-        // Reservas vigentes (Pendiente/Confirmada) de los slots de un elemento en el rango, por slot.
+        /// <summary>Obtiene las reservas vigentes (Pendiente/Confirmada) por slot de un elemento en un rango.</summary>
+        /// <param name="idElemento">Identificador del elemento.</param>
+        /// <param name="desde">Fecha desde.</param>
+        /// <param name="hasta">Fecha hasta.</param>
+        /// <returns>Diccionario de IdDisponibilidad a reserva vigente más reciente.</returns>
         public Dictionary<int, Reserva> GetReservasVigentes(int idElemento, DateTime desde, DateTime hasta)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -72,7 +89,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
-        // Alterna Libre <-> Bloqueada. Devuelve el estado resultante o null si el slot está reservado.
+        /// <summary>Alterna un slot entre Libre y Bloqueada. No aplica a slots reservados.</summary>
+        /// <param name="id">Identificador del slot.</param>
+        /// <returns>Estado resultante o null si el slot está reservado.</returns>
         public string AlternarBloqueo(int id)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -87,6 +106,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Cambia el estado de un slot de disponibilidad.</summary>
+        /// <param name="id">Identificador del slot.</param>
+        /// <param name="estado">Nuevo estado.</param>
         public void CambiarEstado(int id, string estado)
         {
             using (var ctx = NegocioContextFactory.Crear())

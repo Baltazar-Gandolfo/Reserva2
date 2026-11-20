@@ -7,8 +7,13 @@ using System.Data.SqlClient;
 
 namespace Services.Dal.Implementations
 {
+    /// <summary>
+    /// Repositorio de acceso a datos para la bitácora de auditoría.
+    /// </summary>
     internal class BitacoraRepository
     {
+        /// <summary>Inserta un registro de auditoría en la bitácora.</summary>
+        /// <param name="entry">Entrada de log a registrar.</param>
         public void Insertar(LogEntry entry)
         {
             string sql = @"INSERT INTO Bitacora 
@@ -29,6 +34,12 @@ namespace Services.Dal.Implementations
                 new SqlParameter("@IdUsuario", (object)entry.IdUsuario ?? DBNull.Value));
         }
 
+        /// <summary>Lista registros de bitácora filtrados por rango de fechas, acción y entidad.</summary>
+        /// <param name="desde">Fecha desde (inclusive).</param>
+        /// <param name="hasta">Fecha hasta (inclusive).</param>
+        /// <param name="accion">Filtro parcial por acción.</param>
+        /// <param name="entidad">Filtro parcial por entidad.</param>
+        /// <returns>Lista de entradas de bitácora ordenadas por fecha descendente.</returns>
         public List<LogEntry> Listar(DateTime? desde, DateTime? hasta, string accion, string entidad)
         {
             List<LogEntry> lista = new List<LogEntry>();

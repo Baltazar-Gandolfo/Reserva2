@@ -6,12 +6,21 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Sucursales
 {
+    /// <summary>
+    /// Formulario de alta y modificación de sucursales.
+    /// </summary>
     public partial class frmSucursalABM : Form
     {
         private readonly int _idSucursal;
         private readonly int _idComercio;
         private readonly SucursalBLL _bll = new SucursalBLL();
 
+        /// <summary>
+        /// Inicializa el formulario en modo alta (idSucursal=0) o edición.
+        /// </summary>
+        /// <param name="idSucursal">0 para alta, mayor a 0 para edición.</param>
+        /// <param name="idComercio">Id del comercio padre.</param>
+        /// <param name="nombreComercio">Nombre del comercio (se muestra como referencia).</param>
         public frmSucursalABM(int idSucursal, int idComercio, string nombreComercio)
         {
             InitializeComponent();

@@ -9,11 +9,15 @@ using System.Threading.Tasks;
 
 namespace Services.Dal.Implementations.Adapters
 {
+    /// <summary>
+    /// Adaptador Singleton que convierte datos SQL en objetos Familia con sus hijos.
+    /// </summary>
     internal class FamiliaAdapter : IAdapter<Familia>
     {
         #region Singleton
         private readonly static FamiliaAdapter _instance = new FamiliaAdapter();
 
+        /// <summary>Obtiene la instancia única del adaptador.</summary>
         public static FamiliaAdapter Current
         {
             get
@@ -28,6 +32,9 @@ namespace Services.Dal.Implementations.Adapters
         }
 
         #endregion
+        /// <summary>Convierte un arreglo de valores SQL en un objeto Familia con sus hijos.</summary>
+        /// <param name="values">Valores de la fila de la tabla Familia.</param>
+        /// <returns>Objeto Familia hidratado con familias y patentes hijas.</returns>
         public Familia Get(object[] values)
         {
             Familia familia = new Familia();

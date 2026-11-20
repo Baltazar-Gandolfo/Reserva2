@@ -6,13 +6,19 @@ using Timer = System.Timers.Timer;
 
 namespace Reserva2.BLL.Logic.Reservas
 {
-    // Singleton + Observer: un único temporizador de fondo que expira las reservas vencidas.
-    // Se enciende cuando alguien crea una reserva pendiente y se apaga solo cuando no quedan pendientes.
+    /// <summary>
+    /// Servicio singleton con temporizador de fondo que expira automáticamente las reservas vencidas.
+    /// Implementa los patrones Singleton y Observer. Se enciende al crear una reserva pendiente
+    /// y se apaga cuando no quedan pendientes.
+    /// </summary>
     public sealed class ExpiracionReservasService
     {
         private static readonly Lazy<ExpiracionReservasService> _instancia =
             new Lazy<ExpiracionReservasService>(() => new ExpiracionReservasService());
 
+        /// <summary>
+        /// Instancia única del servicio de expiración.
+        /// </summary>
         public static ExpiracionReservasService Instancia => _instancia.Value;
 
         private readonly Timer _timer;
@@ -20,7 +26,10 @@ namespace Reserva2.BLL.Logic.Reservas
         private readonly object _lock = new object();
         private bool _ejecutando;
 
-        // Se dispara desde un hilo del timer: la UI debe pasar al hilo de interfaz (Invoke) antes de tocar controles.
+        /// <summary>
+        /// Evento que se dispara desde el hilo del timer cuando se expiran reservas.
+        /// La UI debe invocar al hilo de interfaz antes de tocar controles.
+        /// </summary>
         public event Action<List<Reserva>> ReservasExpiradas;
 
         private ExpiracionReservasService()
@@ -29,8 +38,14 @@ namespace Reserva2.BLL.Logic.Reservas
             _timer.Elapsed += (s, e) => Tick();
         }
 
+        /// <summary>
+        /// Indica si el temporizador de expiración está activo.
+        /// </summary>
         public bool EstaActivo => _timer.Enabled;
 
+        /// <summary>
+        /// Inicia el temporizador de expiración si no está corriendo.
+        /// </summary>
         public void Iniciar()
         {
             lock (_lock)
@@ -40,6 +55,9 @@ namespace Reserva2.BLL.Logic.Reservas
             }
         }
 
+        /// <summary>
+        /// Detiene el temporizador de expiración.
+        /// </summary>
         public void Detener()
         {
             lock (_lock)
@@ -48,6 +66,9 @@ namespace Reserva2.BLL.Logic.Reservas
             }
         }
 
+        /// <summary>
+        /// Ejecuta un ciclo de expiración: expira las vencidas, notifica observadores y se detiene si no quedan pendientes.
+        /// </summary>
         private void Tick()
         {
             if (_ejecutando) return;

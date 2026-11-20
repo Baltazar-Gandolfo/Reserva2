@@ -5,10 +5,17 @@ using System.Windows.Forms;
 
 namespace Reserva2.UI.Config
 {
+    /// <summary>
+    /// Formulario de resolución de errores de integridad DVH/DVV. Muestra las filas afectadas y permite recalcular o restaurar.
+    /// </summary>
     public partial class frmIntegridadDVH : Form
     {
         private ResultadoIntegridad _resultado;
 
+        /// <summary>
+        /// Inicializa el formulario con el resultado de la verificación de integridad.
+        /// </summary>
+        /// <param name="resultado">Resultado de la verificación conteniendo las filas con falla.</param>
         public frmIntegridadDVH(ResultadoIntegridad resultado)
         {
             InitializeComponent();
@@ -19,6 +26,7 @@ namespace Reserva2.UI.Config
             btnCancelar.Click += (s, e) => { this.DialogResult = DialogResult.Cancel; this.Close(); };
         }
 
+        /// <summary>Carga las filas con falla de integridad en la grilla.</summary>
         private void frmIntegridadDVH_Load(object sender, EventArgs e)
         {
             dgvIntegridadDVH.Rows.Clear();
@@ -28,6 +36,7 @@ namespace Reserva2.UI.Config
             }
         }
 
+        /// <summary>Recalcula todos los dígitos verificadores y registra la acción en bitácora.</summary>
         private void btnRecalcular_Click(object sender, EventArgs e)
         {
             try
@@ -46,6 +55,7 @@ namespace Reserva2.UI.Config
             }
         }
 
+        /// <summary>Abre el formulario de backup para restaurar la base de datos.</summary>
         private void btnRestaurar_Click(object sender, EventArgs e)
         {
             var frm = new frmBackup();

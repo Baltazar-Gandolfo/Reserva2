@@ -16,41 +16,55 @@ using System.IO;
 namespace Services.DomainModel.Composite
 {
 	/// <summary>
-	/// This class (a) represents leaf objects in the composition, and (b) defines
-	/// behaviour for primitive objects in the composition.
+	/// Nodo hoja del patrón Composite. Representa un permiso atómico (patente).
 	/// </summary>
 	public class Patente : Component {
 
+        /// <summary>Clave de dato para identificar el permiso en la UI.</summary>
         public string DataKey { get; set; }
 
+        /// <summary>Tipo de acceso que otorga esta patente.</summary>
         public TipoAcceso TipoAcceso { get; set; }
+        /// <summary>Nombre descriptivo de la patente.</summary>
         public string Nombre { get; set; }
 
+        /// <summary>Inicializa una nueva instancia vacía de <see cref="Patente"/>.</summary>
         public Patente(){
 
 		}
 
-
-		/// 
-		/// <param name="component"></param>
+		/// <summary>
+		/// No soportado. Las patentes son hojas y no admiten hijos.
+		/// </summary>
+		/// <param name="component">Componente (no utilizado).</param>
 		public override void Add(Component component){
 			throw new Exception("No se pueden agregar elementos en un hijo tipo hoja");
 		}
 
-		/// 
-		/// <param name="component"></param>
+		/// <summary>
+		/// No soportado. Las patentes son hojas y no admiten hijos.
+		/// </summary>
+		/// <param name="component">Componente (no utilizado).</param>
 		public override void Remove(Component component){
             throw new Exception("No se pueden eliminar elementos en un hijo tipo hoja");
         }
 
     }//end Patente
 
+	/// <summary>
+	/// Tipos de acceso que puede representar una patente.
+	/// </summary>
 	public enum TipoAcceso
 	{
+		/// <summary>Acceso a una pantalla del sistema.</summary>
 		Pantalla,
+		/// <summary>Acceso a un caso de uso.</summary>
 		CasoUso,
+		/// <summary>Acceso a un servicio.</summary>
 		Servicio,
+		/// <summary>Acceso a un stored procedure.</summary>
 		SP,
+		/// <summary>Acceso a una tabla de datos.</summary>
 		Tabla
     }
 

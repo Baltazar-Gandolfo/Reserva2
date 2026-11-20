@@ -12,8 +12,10 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Reservas
 {
-    // CU.Cli.002 — Consultar Mis Reservas, CU.Cli.004 — Cancelar Reserva y CU.Com.015 — Consultar Reservas del Comercio.
-    // El Cliente ve sus reservas; Comercio/Admin ven las de sus comercios (ReservaBLL.ListarVisibles).
+    /// <summary>
+    /// Formulario de consulta de reservas. El Cliente ve las propias; Comercio/Admin ven las de sus comercios.
+    /// Permite filtrar, ver detalle, registrar pago, confirmar y cancelar.
+    /// </summary>
     public partial class frmReservas : Form
     {
         private const string TextoBusqueda = "Cliente, código o cancha";
@@ -30,6 +32,10 @@ namespace Reserva2.UI.Reservas
         private bool _cargando;
         private bool _modoConfirmar;
 
+        /// <summary>
+        /// Inicializa el formulario. Con soloPendientes=true filtra directamente por estado Pendiente.
+        /// </summary>
+        /// <param name="soloPendientes">Si es true, muestra solo reservas pendientes.</param>
         public frmReservas(bool soloPendientes = false)
         {
             InitializeComponent();

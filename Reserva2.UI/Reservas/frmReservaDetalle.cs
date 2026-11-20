@@ -10,7 +10,9 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Reservas
 {
-    // Detalle de una reserva: datos, pagos asentados e historial.
+    /// <summary>
+    /// Formulario de detalle de una reserva. Muestra datos del turno, pagos asentados e historial de actividad.
+    /// </summary>
     public partial class frmReservaDetalle : Form
     {
         private readonly int _idReserva;
@@ -19,6 +21,10 @@ namespace Reserva2.UI.Reservas
         private Reserva _reserva;
         private bool _modoConfirmar;
 
+        /// <summary>
+        /// Inicializa el formulario para la reserva indicada.
+        /// </summary>
+        /// <param name="idReserva">Id de la reserva a mostrar.</param>
         public frmReservaDetalle(int idReserva)
         {
             InitializeComponent();

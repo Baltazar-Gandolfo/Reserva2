@@ -6,8 +6,15 @@ using System.Linq;
 
 namespace Reserva2.DAL.Repositories
 {
+    /// <summary>
+    /// Repositorio de acceso a datos para reglas de disponibilidad horaria.
+    /// </summary>
     public class ReglaDisponibilidadRepository
     {
+        /// <summary>Obtiene las reglas de un elemento, opcionalmente solo las activas.</summary>
+        /// <param name="idElemento">Identificador del elemento.</param>
+        /// <param name="soloActivas">Si es <c>true</c>, filtra solo las reglas activas.</param>
+        /// <returns>Lista de reglas ordenadas por día y hora.</returns>
         public List<ReglaDisponibilidad> GetByElemento(int idElemento, bool soloActivas = true)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -19,6 +26,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Obtiene una regla por su identificador.</summary>
+        /// <param name="id">Identificador de la regla.</param>
+        /// <returns>Regla encontrada o null.</returns>
         public ReglaDisponibilidad GetById(int id)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -27,7 +37,12 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
-        // Una regla activa del mismo elemento y día se superpone si los rangos horarios se cruzan.
+        /// <summary>Verifica si una regla activa del mismo elemento y día se superpone con el rango horario.</summary>
+        /// <param name="idElemento">Identificador del elemento.</param>
+        /// <param name="diaSemana">Día de la semana.</param>
+        /// <param name="horaInicio">Hora de inicio del rango.</param>
+        /// <param name="horaFin">Hora de fin del rango.</param>
+        /// <returns><c>true</c> si existe superposición.</returns>
         public bool ExisteSuperposicion(int idElemento, string diaSemana,
             System.TimeSpan horaInicio, System.TimeSpan horaFin)
         {
@@ -42,8 +57,10 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
-        // Desactiva las reglas vigentes, inserta las nuevas y limpia los slots libres futuros
-        // que ya no entran en el horario (se borran, o se bloquean si tienen historial de reservas).
+        /// <summary>Reemplaza las reglas activas de un elemento por nuevas, limpiando slots futuros obsoletos.</summary>
+        /// <param name="idElemento">Identificador del elemento.</param>
+        /// <param name="nuevas">Nuevas reglas a insertar.</param>
+        /// <param name="entraEnHorario">Función que evalúa si un slot encaja en el nuevo horario.</param>
         public void ReemplazarReglas(int idElemento, List<ReglaDisponibilidad> nuevas,
             System.Func<string, System.TimeSpan, System.TimeSpan, bool> entraEnHorario)
         {
@@ -95,6 +112,8 @@ namespace Reserva2.DAL.Repositories
             };
         }
 
+        /// <summary>Inserta una nueva regla de disponibilidad.</summary>
+        /// <param name="regla">Regla a insertar.</param>
         public void Insertar(ReglaDisponibilidad regla)
         {
             using (var ctx = NegocioContextFactory.Crear())

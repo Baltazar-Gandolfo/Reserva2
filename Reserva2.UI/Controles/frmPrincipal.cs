@@ -21,15 +21,19 @@ using System.Windows.Forms;
 
 namespace Reserva2.UI.Controles
 {
+    /// <summary>
+    /// Formulario principal MDI. Gestiona el menú dinámico, los permisos y el control de expiración de reservas.
+    /// </summary>
     public partial class frmPrincipal : Form
     {
-
+        /// <summary>Inicializa el formulario como contenedor MDI.</summary>
         public frmPrincipal()
         {
             InitializeComponent();
             this.IsMdiContainer = true;
         }
 
+        /// <summary>Configura la barra de estado, arma los menús según permisos e inicia el timer de expiración.</summary>
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
             var usuario = SessionManager.GetInstance().UsuarioActual;
@@ -53,7 +57,7 @@ namespace Reserva2.UI.Controles
             AbrirPantallaInicial(usuario);
         }
 
-        // CU.Sis.004: el temporizador solo corre si hay reservas pendientes (también si quedaron de una sesión anterior).
+        /// <summary>Inicia el temporizador de expiración de reservas si hay reservas pendientes.</summary>
         private void IniciarControlDeExpiracion()
         {
             try
@@ -70,7 +74,7 @@ namespace Reserva2.UI.Controles
             this.FormClosed += (s, e) => ExpiracionReservasService.Instancia.ReservasExpiradas -= OnReservasExpiradas;
         }
 
-        // Llega desde el hilo del temporizador: se pasa al hilo de la interfaz antes de mostrar nada.
+        /// <summary>Notifica al usuario sobre reservas expiradas, invocado desde el hilo del temporizador.</summary>
         private void OnReservasExpiradas(List<Reserva2.BE.Entities.Reserva> expiradas)
         {
             if (IsDisposed || !IsHandleCreated) return;
@@ -90,12 +94,14 @@ namespace Reserva2.UI.Controles
             }));
         }
 
+        /// <summary>Traduce una clave al idioma activo.</summary>
         private string T(string clave)
         {
             try { return IdiomaService.Traducir(clave); }
             catch { return clave; }
         }
 
+        /// <summary>Construye dinámicamente los menús de la barra principal según el rol del usuario.</summary>
         private void ArmarMenus()
         {
             archivoToolStripMenuItem.DropDownItems.Clear();
@@ -238,6 +244,7 @@ namespace Reserva2.UI.Controles
             });
         }
 
+        /// <summary>Oculta las opciones de menú a las que el usuario no tiene acceso según sus patentes.</summary>
         private void FiltrarMenuPorPermisos()
         {
             var usuario = SessionManager.GetInstance().UsuarioActual;
@@ -281,6 +288,7 @@ namespace Reserva2.UI.Controles
 
         }
 
+        /// <summary>Abre la pantalla inicial según el rol: Reservas para Cliente, Reportes para los demás.</summary>
         private void AbrirPantallaInicial(Usuario usuario)
         {
             if (usuario.Rol == "Cliente")
@@ -289,6 +297,7 @@ namespace Reserva2.UI.Controles
                 AbrirForm(new frmReportes());
         }
 
+        /// <summary>Abre un formulario hijo dentro del contenedor MDI.</summary>
         private void AbrirForm(Form form)
         {
             form.MdiParent = this;
@@ -296,6 +305,7 @@ namespace Reserva2.UI.Controles
             form.Show();
         }
 
+        /// <summary>Registra en bitácora, cierra la sesión y vuelve al login.</summary>
         private void CerrarSesion()
         {
             BitacoraService.Registrar("Logout", "Usuario", "Cerró sesión");

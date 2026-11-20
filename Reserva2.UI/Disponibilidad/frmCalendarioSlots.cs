@@ -13,7 +13,9 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Disponibilidad
 {
-    // CU.Com.012 — Ver Calendario de Disponibilidad
+    /// <summary>
+    /// Formulario de calendario semanal de disponibilidad. Muestra turnos libres, pendientes, confirmados y bloqueados.
+    /// </summary>
     public partial class frmCalendarioSlots : Form
     {
         private static readonly Color ColorLibre = Color.PaleGreen;
@@ -27,6 +29,7 @@ namespace Reserva2.UI.Disponibilidad
         private readonly DisponibilidadBLL _dispBll = new DisponibilidadBLL();
         private ElementoReservable _elemento;
 
+        /// <summary>Inicializa el formulario y conecta los eventos del calendario y la grilla.</summary>
         public frmCalendarioSlots()
         {
             InitializeComponent();

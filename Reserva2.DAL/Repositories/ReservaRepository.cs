@@ -7,8 +7,12 @@ using System.Linq;
 
 namespace Reserva2.DAL.Repositories
 {
+    /// <summary>
+    /// Repositorio de acceso a datos para reservas.
+    /// </summary>
     public class ReservaRepository
     {
+        /// <summary>Consulta base que incluye disponibilidad, elemento, sucursal y comercio.</summary>
         private static IQueryable<Reserva> ConDetalle(NegocioDbContext ctx)
         {
             return ctx.Reservas
@@ -18,6 +22,9 @@ namespace Reserva2.DAL.Repositories
                             .ThenInclude(s => s.Comercio);
         }
 
+        /// <summary>Obtiene una reserva por su identificador con detalle completo.</summary>
+        /// <param name="id">Identificador de la reserva.</param>
+        /// <returns>Reserva encontrada o null.</returns>
         public Reserva GetById(int id)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -26,6 +33,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Obtiene las reservas de un usuario ordenadas por fecha descendente.</summary>
+        /// <param name="idUsuario">Identificador del usuario.</param>
+        /// <returns>Lista de reservas del usuario.</returns>
         public List<Reserva> GetByUsuario(Guid idUsuario)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -37,6 +47,12 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Obtiene las reservas de un comercio con filtros opcionales.</summary>
+        /// <param name="idComercio">Identificador del comercio.</param>
+        /// <param name="estado">Filtro por estado (opcional).</param>
+        /// <param name="fecha">Filtro por fecha del turno (opcional).</param>
+        /// <param name="idElemento">Filtro por elemento reservable (opcional).</param>
+        /// <returns>Lista de reservas filtradas.</returns>
         public List<Reserva> GetByComercio(int idComercio, string estado, DateTime? fecha, int? idElemento)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -55,6 +71,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Obtiene las reservas pendientes cuya expiración ya pasó.</summary>
+        /// <param name="ahora">Fecha y hora actual.</param>
+        /// <returns>Lista de reservas vencidas.</returns>
         public List<Reserva> GetPendientesVencidas(DateTime ahora)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -66,6 +85,8 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Verifica si existen reservas en estado Pendiente.</summary>
+        /// <returns><c>true</c> si hay al menos una reserva pendiente.</returns>
         public bool ExistenPendientes()
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -74,7 +95,12 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
-        // Reservas Pendiente/Confirmada del cliente en un comercio, cuyo slot cae entre desde y hasta.
+        /// <summary>Cuenta las reservas activas (Pendiente/Confirmada) de un cliente en un comercio y rango de fechas.</summary>
+        /// <param name="idUsuario">Identificador del usuario.</param>
+        /// <param name="idComercio">Identificador del comercio.</param>
+        /// <param name="desde">Fecha desde.</param>
+        /// <param name="hasta">Fecha hasta.</param>
+        /// <returns>Cantidad de reservas activas.</returns>
         public int ContarActivas(Guid idUsuario, int idComercio, DateTime desde, DateTime hasta)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -88,8 +114,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
-        // Bloquea el slot y crea la reserva en una sola transacción.
-        // Devuelve false si el slot dejó de estar Libre (otro cliente lo tomó antes).
+        /// <summary>Bloquea el slot y crea la reserva en una sola transacción atómica.</summary>
+        /// <param name="reserva">Reserva a crear.</param>
+        /// <returns><c>false</c> si el slot dejó de estar Libre.</returns>
         public bool CrearPendiente(Reserva reserva)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -114,7 +141,13 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
-        // Transición de estado condicionada al estado actual. Opcionalmente libera el slot.
+        /// <summary>Transición de estado condicionada al estado actual, opcionalmente liberando el slot.</summary>
+        /// <param name="idReserva">Identificador de la reserva.</param>
+        /// <param name="estadoEsperado">Estado que debe tener para aplicar el cambio.</param>
+        /// <param name="estadoNuevo">Nuevo estado a asignar.</param>
+        /// <param name="liberarSlot">Si es <c>true</c>, libera el slot asociado.</param>
+        /// <param name="motivo">Motivo de cancelación (opcional).</param>
+        /// <returns><c>false</c> si la reserva no estaba en el estado esperado.</returns>
         public bool CambiarEstado(int idReserva, string estadoEsperado, string estadoNuevo,
             bool liberarSlot, string motivo = null)
         {

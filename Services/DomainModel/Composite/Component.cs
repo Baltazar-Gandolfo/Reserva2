@@ -15,25 +15,28 @@ using System.IO;
 
 namespace Services.DomainModel.Composite { 
     /// <summary>
-    /// This class (a) declares the interface for objects in the composition, (b)
-    /// implements default behaviour for the interface common to all classes, as
-    /// appropriate, (c) declares an interface for accessing and managing its child
-    /// components, and (d) optionally defines an interface for accessing a component's
-    /// parent in the recursive structure and implements it if that's appropriate.
+    /// Clase base abstracta del patrón Composite para la gestión de permisos.
+    /// Define la interfaz común para patentes (hojas) y familias (compuestos).
     /// </summary>
     public abstract class Component {
 
+        /// <summary>Identificador único del componente.</summary>
         public Guid Id { get; set; }
+        /// <summary>Inicializa una nueva instancia de <see cref="Component"/>.</summary>
         public Component(){
 
 		}
 
-		/// 
-		/// <param name="component"></param>
+		/// <summary>
+		/// Agrega un componente hijo.
+		/// </summary>
+		/// <param name="component">Componente a agregar.</param>
 		public abstract void Add(Component component);
 
-		/// 
-		/// <param name="component"></param>
+		/// <summary>
+		/// Elimina un componente hijo.
+		/// </summary>
+		/// <param name="component">Componente a eliminar.</param>
 		public abstract void Remove(Component component);
 
 	}//end Component

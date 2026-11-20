@@ -14,17 +14,22 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Reportes
 {
+    /// <summary>
+    /// Formulario de reportes y estadísticas. Muestra KPIs de ingresos, ocupación, cancelaciones y recurrencia.
+    /// </summary>
     public partial class frmReportes : Form
     {
         private readonly ReporteBLL _reporteBll = new();
         private bool _esAdmin;
         private bool _cargando;
 
+        /// <summary>Inicializa el formulario de reportes.</summary>
         public frmReportes()
         {
             InitializeComponent();
         }
 
+        /// <summary>Configura filtros, paneles KPI y carga los comercios disponibles.</summary>
         private void frmReportes_Load(object sender, EventArgs e)
         {
             TraducirControles(this);
@@ -124,6 +129,7 @@ namespace Reserva2.UI.Reportes
             _cargando = false;
         }
 
+        /// <summary>Genera el reporte con los filtros seleccionados y muestra KPIs y detalle por elemento.</summary>
         private void Generar()
         {
             try
@@ -195,6 +201,7 @@ namespace Reserva2.UI.Reportes
             return positivo ? Color.LightGreen : Color.Salmon;
         }
 
+        /// <summary>Exporta el reporte generado a un archivo CSV.</summary>
         private void btnExportar_Click(object sender, EventArgs e)
         {
             if (dgvDetalle.Rows.Count == 0)

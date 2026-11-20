@@ -6,11 +6,17 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Reservas
 {
-    // Flujo de UI de CU.Cli.004 (pedir motivo, confirmar y mostrar qué pasó con el pago).
-    // Lo comparten la grilla de reservas y el detalle de la reserva.
+    /// <summary>
+    /// Helper de cancelación de reservas. Pide motivo, ejecuta la cancelación e informa sobre el reembolso.
+    /// </summary>
     public static class CancelacionHelper
     {
-        // Devuelve true si la reserva quedó cancelada.
+        /// <summary>
+        /// Ejecuta el flujo de cancelación de una reserva: pide motivo, cancela y muestra resultado.
+        /// </summary>
+        /// <param name="owner">Ventana padre para los diálogos.</param>
+        /// <param name="idReserva">Id de la reserva a cancelar.</param>
+        /// <returns><c>true</c> si la reserva fue cancelada exitosamente.</returns>
         public static bool Cancelar(IWin32Window owner, int idReserva)
         {
             string motivo = Interaction.InputBox(

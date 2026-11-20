@@ -8,11 +8,15 @@ using System.Threading.Tasks;
 
 namespace Services.Dal.Implementations.Adapters
 {
+    /// <summary>
+    /// Adaptador Singleton que convierte datos SQL en objetos Patente.
+    /// </summary>
     internal class PatenteAdapter : IAdapter<Patente>
     {
         #region Singleton
         private readonly static PatenteAdapter _instance = new PatenteAdapter();
 
+        /// <summary>Obtiene la instancia única del adaptador.</summary>
         public static PatenteAdapter Current
         {
             get
@@ -27,6 +31,9 @@ namespace Services.Dal.Implementations.Adapters
         }
 
         #endregion
+        /// <summary>Convierte un arreglo de valores SQL en un objeto Patente.</summary>
+        /// <param name="values">Valores de la fila de la tabla Patente.</param>
+        /// <returns>Objeto Patente hidratado.</returns>
         public Patente Get(object[] values)
         {
             Patente patente = new Patente();

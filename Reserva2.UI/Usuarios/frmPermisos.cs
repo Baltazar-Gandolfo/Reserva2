@@ -7,12 +7,16 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Usuarios
 {
+    /// <summary>
+    /// Formulario de gestión de permisos (Familias y Patentes) basado en el patrón Composite.
+    /// </summary>
     public partial class frmPermisos : Form
     {
         private List<Familia> familias;
         private List<Patente> patentes;
         private List<Usuario> usuarios;
 
+        /// <summary>Inicializa el formulario y conecta los eventos de los controles.</summary>
         public frmPermisos()
         {
             InitializeComponent();
@@ -29,6 +33,7 @@ namespace Reserva2.UI.Usuarios
             btnEliminarPatente.Click += btnEliminarPatente_Click;
         }
 
+        /// <summary>Carga el árbol de permisos y la lista de usuarios al abrir el formulario.</summary>
         private void frmPermisos_Load(object sender, EventArgs e)
         {
             TraducirControles(this);
@@ -36,6 +41,7 @@ namespace Reserva2.UI.Usuarios
             CargarUsuarios();
         }
 
+        /// <summary>Construye el TreeView con la jerarquía de familias y patentes.</summary>
         private void CargarArbol()
         {
             treeView1.Nodes.Clear();
@@ -81,6 +87,7 @@ namespace Reserva2.UI.Usuarios
             treeView1.ExpandAll();
         }
 
+        /// <summary>Carga la lista de usuarios en el ComboBox de asignación.</summary>
         private void CargarUsuarios()
         {
             usuarios = UsuarioService.GetAll();
@@ -89,6 +96,7 @@ namespace Reserva2.UI.Usuarios
             cboUsuarios.DisplayMember = "Nombre";
         }
 
+        /// <summary>Muestra los datos del nodo seleccionado en los campos de edición.</summary>
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Tag is Familia fam)
@@ -103,6 +111,7 @@ namespace Reserva2.UI.Usuarios
             }
         }
 
+        /// <summary>Crea una nueva familia de permisos y opcionalmente le asigna la patente seleccionada.</summary>
         private void btnCrearFamilia_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtFamiliaNombre.Text))
@@ -136,6 +145,7 @@ namespace Reserva2.UI.Usuarios
             }
         }
 
+        /// <summary>Edita la familia seleccionada (funcionalidad pendiente).</summary>
         private void btnEditarFamilia_Click(object sender, EventArgs e)
         {
             if (treeView1.SelectedNode == null || !(treeView1.SelectedNode.Tag is Familia fam))
@@ -147,6 +157,7 @@ namespace Reserva2.UI.Usuarios
             MessageBox.Show("Funcionalidad de edición pendiente de implementar.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>Elimina la familia seleccionada previa confirmación.</summary>
         private void btnEliminarFamilia_Click(object sender, EventArgs e)
         {
             if (treeView1.SelectedNode == null || !(treeView1.SelectedNode.Tag is Familia fam))
@@ -173,6 +184,7 @@ namespace Reserva2.UI.Usuarios
             }
         }
 
+        /// <summary>Crea una nueva patente con la clave ingresada.</summary>
         private void btnCrearPatente_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textBox2.Text))
@@ -200,6 +212,7 @@ namespace Reserva2.UI.Usuarios
             }
         }
 
+        /// <summary>Asigna la familia seleccionada al usuario elegido en el combo.</summary>
         private void btnAsignarFamilia_Click(object sender, EventArgs e)
         {
             if (cboUsuarios.SelectedItem == null)
@@ -228,6 +241,7 @@ namespace Reserva2.UI.Usuarios
             }
         }
 
+        /// <summary>Quita la familia seleccionada del usuario elegido en el combo.</summary>
         private void btnQuitarFamilia_Click(object sender, EventArgs e)
         {
             if (cboUsuarios.SelectedItem == null)
@@ -261,11 +275,13 @@ namespace Reserva2.UI.Usuarios
 
         }
 
+        /// <summary>Edita la patente seleccionada (funcionalidad pendiente).</summary>
         private void btnEditarPatente_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Funcionalidad pendiente de implementar.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>Elimina la patente seleccionada (funcionalidad pendiente).</summary>
         private void btnEliminarPatente_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Funcionalidad pendiente de implementar.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);

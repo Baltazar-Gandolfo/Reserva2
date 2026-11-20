@@ -3,16 +3,18 @@ using Services.DomainModel.Composite;
 
 namespace Services.DataAccess.Interfaces
 {
+    /// <summary>
+    /// Repositorio específico para la entidad Usuario con operaciones de autenticación.
+    /// </summary>
     internal interface IUsuarioRepository : IGenericRepository<Usuario>
     {
-        //Un camino es en el acceso es comparar los hash en
-        //el where del sql server
+        /// <summary>Obtiene un usuario validando sus credenciales.</summary>
         Usuario GetByCredentials(string user, string password);
+        /// <summary>Busca un usuario por su email.</summary>
         Usuario GetByEmail(string email);
-
-        //Camino 2: Traer el usuario por nombre y luego comparar el
-        //hash en la capa de servicio
+        /// <summary>Cambia la contraseña de un usuario.</summary>
         void CambiarPassword(Guid idUsuario, string nuevoHash);
+        /// <summary>Cambia el estado de un usuario.</summary>
         void CambiarEstado(Guid idUsuario, string nuevoEstado);
     }
 }

@@ -12,8 +12,14 @@ using System.Threading.Tasks;
 
 namespace Services.Dal.Implementations
 {
+    /// <summary>
+    /// Repositorio de la relación entre familias y patentes de permisos.
+    /// </summary>
     internal class FamiliaPatenteRepository : IJoinRepository<Patente, Familia>
     {
+        /// <summary>Asocia una patente a una familia.</summary>
+        /// <param name="patente">Patente a asociar.</param>
+        /// <param name="familia">Familia destino.</param>
         public void Add(Patente patente, Familia familia)
         {
             SqlHelper.ExecuteNonQuery("INSERT INTO FamiliaPatente (IdFamilia, IdPatente) VALUES (@IdFamilia, @IdPatente)",
@@ -26,16 +32,21 @@ namespace Services.Dal.Implementations
             //Cantidad 
         }
 
+        /// <summary>Asocia múltiples patentes a una familia. No implementado.</summary>
         public void AddRange(List<Patente> children, Familia parent)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>Elimina una relación de patente. No implementado.</summary>
         public void Delete(Patente obj)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>Obtiene las patentes asociadas a una familia.</summary>
+        /// <param name="obj">Familia a consultar.</param>
+        /// <returns>Lista de patentes de la familia.</returns>
         public List<Patente> GetByObject(Familia obj)
         {
             List<Patente> patentes = new List<Patente>();

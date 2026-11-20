@@ -11,10 +11,18 @@ using System.Threading.Tasks;
 
 namespace Services.Logic
 {
+    /// <summary>
+    /// Implementación del logger que escribe mensajes en archivo de texto.
+    /// </summary>
+    /// <summary>
+    /// Implementación de ILogger que escribe los mensajes de log en un archivo de texto.
+    /// </summary>
     internal class FileLogger : ILogger
     {
-        //Configuración para la creación y escritura
         private FileLoggerRepository fileLoggerRepository;
+        /// <summary>
+        /// Inicializa el logger leyendo la configuración de App.config.
+        /// </summary>
         public FileLogger()
         {
             string _fileName = ConfigurationManager.AppSettings["FileName"];

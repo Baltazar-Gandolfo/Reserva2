@@ -6,8 +6,12 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Controles
 {
+    /// <summary>
+    /// Formulario de registro de nuevos usuarios. Valida datos, crea la cuenta y asigna permisos según el rol.
+    /// </summary>
     public partial class frmRegistro : Form
     {
+        /// <summary>Inicializa el formulario y configura validaciones de teclado para DNI y teléfono.</summary>
         public frmRegistro()
         {
             InitializeComponent();
@@ -26,11 +30,13 @@ namespace Reserva2.UI.Controles
             };
         }
 
+        /// <summary>Traduce los controles al idioma activo.</summary>
         private void frmRegistro_Load(object sender, EventArgs e)
         {
             TraducirControles(this);
         }
 
+        /// <summary>Valida los campos, encripta DNI y contraseña, registra el usuario y asigna la familia de permisos.</summary>
         private void btnCrearCuenta_Click(object sender, EventArgs e)
         {
             errorProvider1.Clear();

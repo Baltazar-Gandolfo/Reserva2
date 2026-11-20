@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Services</RootNamespace>
     <AssemblyName>Services</AssemblyName>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

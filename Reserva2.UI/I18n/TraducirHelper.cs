@@ -3,8 +3,16 @@ using System.Windows.Forms;
 
 namespace Reserva2.UI.I18n
 {
+    /// <summary>
+    /// Helper de internacionalización. Traduce textos y controles de formularios al idioma activo.
+    /// </summary>
     public static class TraducirHelper
     {
+        /// <summary>
+        /// Traduce una clave al idioma activo. Si no existe la traducción, devuelve la clave original.
+        /// </summary>
+        /// <param name="clave">Texto clave a traducir.</param>
+        /// <returns>Texto traducido o la clave original si falla.</returns>
         public static string T(string clave)
         {
             if (string.IsNullOrWhiteSpace(clave)) return clave;
@@ -12,6 +20,10 @@ namespace Reserva2.UI.I18n
             catch { return clave; }
         }
 
+        /// <summary>
+        /// Traduce recursivamente los textos de los controles de un formulario.
+        /// </summary>
+        /// <param name="contenedor">Control raíz (generalmente un Form).</param>
         public static void TraducirControles(Control contenedor)
         {
             if (contenedor is Form frm && !string.IsNullOrWhiteSpace(frm.Text))
@@ -20,6 +32,7 @@ namespace Reserva2.UI.I18n
             Recorrer(contenedor);
         }
 
+        /// <summary>Recorre recursivamente los controles hijos traduciendo labels, botones y similares.</summary>
         private static void Recorrer(Control padre)
         {
             foreach (Control c in padre.Controls)
@@ -45,6 +58,10 @@ namespace Reserva2.UI.I18n
             }
         }
 
+        /// <summary>
+        /// Traduce los encabezados de columna de un DataGridView.
+        /// </summary>
+        /// <param name="dgv">Grilla cuyas columnas se traducen.</param>
         public static void TraducirColumnas(DataGridView dgv)
         {
             foreach (DataGridViewColumn col in dgv.Columns)

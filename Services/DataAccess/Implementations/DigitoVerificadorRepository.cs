@@ -7,13 +7,19 @@ using System.Configuration;
 
 namespace Services.Dal.Implementations
 {
+    /// <summary>
+    /// Repositorio de acceso a datos para dígitos verificadores horizontales (DVH) y verticales (DVV).
+    /// </summary>
     internal class DigitoVerificadorRepository
     {
+        /// <summary>Obtiene la cadena de conexión del servicio.</summary>
         private string GetConnectionString()
         {
             return ConfigurationManager.ConnectionStrings["ServicioDB"].ConnectionString;
         }
 
+        /// <summary>Obtiene todas las filas de Usuario como diccionarios clave-valor incluyendo DVH.</summary>
+        /// <returns>Lista de diccionarios con los campos de cada fila.</returns>
         public List<Dictionary<string, string>> ObtenerUsuariosRaw()
         {
             var lista = new List<Dictionary<string, string>>();
@@ -45,6 +51,9 @@ namespace Services.Dal.Implementations
             return lista;
         }
 
+        /// <summary>Actualiza el DVH de un usuario específico.</summary>
+        /// <param name="idUsuario">Identificador del usuario.</param>
+        /// <param name="dvh">Nuevo valor del DVH.</param>
         public void ActualizarDVH(Guid idUsuario, string dvh)
         {
             string sql = "UPDATE Usuario SET DVH = @DVH WHERE IdUsuario = @Id";
@@ -53,6 +62,9 @@ namespace Services.Dal.Implementations
                 new SqlParameter("@Id", idUsuario));
         }
 
+        /// <summary>Obtiene el DVV almacenado para una entidad.</summary>
+        /// <param name="nombreEntidad">Nombre de la entidad (ej: "Usuario").</param>
+        /// <returns>Valor del DVV o null si no existe.</returns>
         public string ObtenerDVV(string nombreEntidad)
         {
             string sql = "SELECT ValorDVV FROM DigitoVerificadorVertical WHERE NombreEntidad = @Entidad";
@@ -63,6 +75,9 @@ namespace Services.Dal.Implementations
             return result.ToString();
         }
 
+        /// <summary>Inserta o actualiza el DVV de una entidad.</summary>
+        /// <param name="nombreEntidad">Nombre de la entidad.</param>
+        /// <param name="valorDVV">Nuevo valor del DVV.</param>
         public void ActualizarDVV(string nombreEntidad, string valorDVV)
         {
             using (SqlConnection conn = new SqlConnection(GetConnectionString()))
@@ -98,6 +113,9 @@ namespace Services.Dal.Implementations
             }
         }
 
+        /// <summary>Verifica si existe un usuario con el DNI encriptado indicado.</summary>
+        /// <param name="dniEncriptado">DNI encriptado a buscar.</param>
+        /// <returns><c>true</c> si el DNI ya existe en la base de datos.</returns>
         public bool ExisteDNI(string dniEncriptado)
         {
             string sql = "SELECT COUNT(*) FROM Usuario WHERE DNI = @DNI";

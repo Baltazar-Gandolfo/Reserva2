@@ -6,11 +6,18 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Comercios
 {
+    /// <summary>
+    /// Formulario de alta y modificación de comercios.
+    /// </summary>
     public partial class frmComercioABM : Form
     {
         private readonly int _idComercio;
         private readonly ComercioBLL _bll = new ComercioBLL();
 
+        /// <summary>
+        /// Inicializa el formulario en modo alta (id=0) o edición.
+        /// </summary>
+        /// <param name="idComercio">0 para alta, mayor a 0 para edición.</param>
         public frmComercioABM(int idComercio)
         {
             InitializeComponent();

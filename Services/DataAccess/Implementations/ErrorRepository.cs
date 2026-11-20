@@ -6,8 +6,17 @@ using System.Data.SqlClient;
 
 namespace Services.Dal.Implementations
 {
+    /// <summary>
+    /// Repositorio de acceso a datos para el log de errores del sistema.
+    /// </summary>
     internal class ErrorRepository
     {
+        /// <summary>Inserta un registro de error en la tabla LogError.</summary>
+        /// <param name="mensaje">Mensaje del error.</param>
+        /// <param name="tipoExcepcion">Tipo de la excepción.</param>
+        /// <param name="stackTrace">Traza de la pila.</param>
+        /// <param name="modulo">Módulo donde ocurrió el error.</param>
+        /// <param name="idUsuario">Identificador del usuario activo o null.</param>
         public void Insertar(string mensaje, string tipoExcepcion, string stackTrace, string modulo, Guid? idUsuario)
         {
             string sql = @"INSERT INTO LogError 
@@ -24,6 +33,10 @@ namespace Services.Dal.Implementations
                 new SqlParameter("@IdUsuario", (object)idUsuario ?? DBNull.Value));
         }
 
+        /// <summary>Lista errores filtrados por rango de fechas.</summary>
+        /// <param name="desde">Fecha desde (inclusive).</param>
+        /// <param name="hasta">Fecha hasta (inclusive).</param>
+        /// <returns>Lista de diccionarios con los datos de cada error.</returns>
         public List<Dictionary<string, string>> Listar(DateTime? desde, DateTime? hasta)
         {
             List<Dictionary<string, string>> lista = new List<Dictionary<string, string>>();

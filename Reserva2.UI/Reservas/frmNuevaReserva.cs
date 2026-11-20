@@ -13,7 +13,9 @@ using SlotDisp = Reserva2.BE.Entities.Disponibilidad;
 
 namespace Reserva2.UI.Reservas
 {
-    // CU.Cli.001 — Realizar Reserva
+    /// <summary>
+    /// Formulario de creación de reserva. Guía al usuario a elegir comercio, elemento, fecha y turno, y luego pagar.
+    /// </summary>
     public partial class frmNuevaReserva : Form
     {
         private readonly ComercioBLL _comercioBll = new ComercioBLL();
@@ -29,7 +31,7 @@ namespace Reserva2.UI.Reservas
         private bool _armando;
         private readonly System.Windows.Forms.Timer _timerCuenta = new System.Windows.Forms.Timer { Interval = 1000 };
 
-        // comboBox1 = Comercio, comboBox2 = Elemento, comboBox3 = Fecha, listBox1 = Turnos libres
+        /// <summary>Inicializa el formulario de nueva reserva y conecta eventos.</summary>
         public frmNuevaReserva()
         {
             InitializeComponent();

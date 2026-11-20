@@ -9,20 +9,29 @@ using System.Threading.Tasks;
 
 namespace Services.DataAccess.Implementations
 {
-    internal class FileLoggerRepository 
+    /// <summary>
+    /// Repositorio de log que escribe entradas en un archivo de texto.
+    /// </summary>
+    internal class FileLoggerRepository
     {
-        //true es para hacer append, es decir, escribir al final del archivo sin borrar lo que ya hay
         private StreamWriter streamWriter;
         
         private string _fileName;
 
         private LogLevel _minimalLogLevel;
+        /// <summary>Inicializa el logger con el archivo de salida y el nivel mínimo de log.</summary>
+        /// <param name="fileName">Ruta del archivo de log.</param>
+        /// <param name="minimalLogLevel">Nivel mínimo de log a registrar.</param>
         public FileLoggerRepository(string fileName, string minimalLogLevel)
         {
             _fileName = fileName;
             _minimalLogLevel = (LogLevel)Enum.Parse(typeof(LogLevel), minimalLogLevel);
             streamWriter = new StreamWriter(_fileName, true);
         }
+        /// <summary>Escribe un mensaje de log en el archivo si supera el nivel mínimo configurado.</summary>
+        /// <param name="message">Mensaje a registrar.</param>
+        /// <param name="logLevel">Nivel de severidad del mensaje.</param>
+        /// <param name="exception">Excepción asociada (opcional).</param>
         public void WriteLog(string message, LogLevel logLevel, Exception exception = null)
         {
             //Si el nivel de log es menor que el mínimo configurado, no se registra el mensaje

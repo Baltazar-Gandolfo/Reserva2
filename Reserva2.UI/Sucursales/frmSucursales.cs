@@ -9,12 +9,20 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Sucursales
 {
+    /// <summary>
+    /// Formulario de listado de sucursales de un comercio. Permite alta, edición y baja.
+    /// </summary>
     public partial class frmSucursales : Form
     {
         private readonly int _idComercio;
         private readonly string _nombreComercio;
         private readonly SucursalBLL _bll = new SucursalBLL();
 
+        /// <summary>
+        /// Inicializa el formulario para las sucursales del comercio indicado.
+        /// </summary>
+        /// <param name="idComercio">Id del comercio padre.</param>
+        /// <param name="nombreComercio">Nombre del comercio (se muestra en el título).</param>
         public frmSucursales(int idComercio, string nombreComercio)
         {
             InitializeComponent();

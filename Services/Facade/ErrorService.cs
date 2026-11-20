@@ -6,10 +6,18 @@ using System.Text.Json;
 
 namespace Services.Facade
 {
+    /// <summary>
+    /// Fachada para el registro y consulta de errores del sistema.
+    /// </summary>
     public static class ErrorService
     {
         private static readonly ErrorRepository _repo = new ErrorRepository();
 
+        /// <summary>
+        /// Registra una excepción en la base de datos. Si falla, la guarda en un archivo JSON.
+        /// </summary>
+        /// <param name="ex">Excepción a registrar.</param>
+        /// <param name="modulo">Nombre del módulo donde ocurrió el error.</param>
         public static void Registrar(Exception ex, string modulo = null)
         {
             Guid? idUsuario = SessionManager.GetInstance().UsuarioActual?.IdUsuario;
@@ -29,6 +37,12 @@ namespace Services.Facade
             }
         }
 
+        /// <summary>
+        /// Lista los errores registrados aplicando filtros opcionales de fecha.
+        /// </summary>
+        /// <param name="desde">Fecha de inicio del rango.</param>
+        /// <param name="hasta">Fecha de fin del rango.</param>
+        /// <returns>Lista de diccionarios con los datos de cada error.</returns>
         public static List<Dictionary<string, string>> Listar(DateTime? desde = null, DateTime? hasta = null)
         {
             return _repo.Listar(desde, hasta);

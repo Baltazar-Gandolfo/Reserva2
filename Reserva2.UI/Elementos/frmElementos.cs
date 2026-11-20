@@ -10,13 +10,20 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Elementos
 {
+    /// <summary>
+    /// Formulario de listado de elementos reservables. Permite filtrar por comercio y sucursal, editar, dar de baja y ver disponibilidad.
+    /// </summary>
     public partial class frmElementos : Form
     {
         private readonly ElementoReservableBLL _bll = new ElementoReservableBLL();
         private readonly ComercioBLL _comercioBll = new ComercioBLL();
         private readonly SucursalBLL _sucursalBll = new SucursalBLL();
-        private int _idComercio; // 0 = todos los comercios del usuario
+        private int _idComercio;
 
+        /// <summary>
+        /// Inicializa el formulario. Con idComercio=0 muestra todos los comercios del usuario.
+        /// </summary>
+        /// <param name="idComercio">Id del comercio a filtrar, o 0 para todos.</param>
         public frmElementos(int idComercio)
         {
             InitializeComponent();

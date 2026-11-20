@@ -5,8 +5,16 @@ using System.Text;
 
 namespace Services.Logic.Infraestructure
 {
+    /// <summary>
+    /// Lógica de criptografía: hashing MD5 y cifrado/descifrado simétrico AES.
+    /// </summary>
     public static class CryptographyLogic
     {
+        /// <summary>
+        /// Genera un hash MD5 a partir de un texto plano.
+        /// </summary>
+        /// <param name="textPlain">Texto a hashear.</param>
+        /// <returns>Hash MD5 en formato hexadecimal.</returns>
         public static string HashMd5(string textPlain)
         {
             StringBuilder sb = new StringBuilder();
@@ -23,6 +31,11 @@ namespace Services.Logic.Infraestructure
 
         private static string encryptionKey = "RESERVA2_KEY_2026";
 
+        /// <summary>
+        /// Cifra un texto plano utilizando AES con clave derivada por PBKDF2.
+        /// </summary>
+        /// <param name="clearText">Texto plano a cifrar.</param>
+        /// <returns>Texto cifrado en Base64.</returns>
         public static string Encrypt(string clearText)
         {
             byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
@@ -46,6 +59,11 @@ namespace Services.Logic.Infraestructure
             return clearText;
         }
 
+        /// <summary>
+        /// Descifra un texto previamente cifrado con AES.
+        /// </summary>
+        /// <param name="cipherText">Texto cifrado en Base64.</param>
+        /// <returns>Texto plano original.</returns>
         public static string Decrypt(string cipherText)
         {
             cipherText = cipherText.Replace(" ", "+");

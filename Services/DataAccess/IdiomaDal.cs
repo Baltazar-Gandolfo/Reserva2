@@ -11,22 +11,23 @@ using System.Threading.Tasks;
 
 namespace Services.DataAccess
 {
+    /// <summary>
+    /// Acceso a datos para la capa de internacionalización (i18n) basada en archivos de texto.
+    /// </summary>
     internal static class IdiomaDal
     {
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary>Carpeta donde se almacenan los archivos de idioma.</summary>
         private static string folder = ConfigurationManager.AppSettings["I18NFolder"];
 
+        /// <summary>Nombre base del archivo de idioma (sin extensión de cultura).</summary>
         private static string fileName = ConfigurationManager.AppSettings["I18NFileName"];
 
-
         /// <summary>
-        /// idioma por ahora recibe la extensión del archivo. EJ: es-AR, en-US, etc. El texto es la palabra a traducir. El método devuelve la traducción de esa palabra en el idioma solicitado.
+        /// Busca la traducción de un texto en el archivo del idioma actual del hilo.
         /// </summary>
-        /// <param name="idioma"></param>
-        /// <param name="texto"></param>
-        /// <returns></returns>
+        /// <param name="texto">Texto clave a traducir.</param>
+        /// <returns>Traducción encontrada.</returns>
+        /// <exception cref="PalabraNoEncontradaException">Si no se encuentra la clave.</exception>
         public static string Traducir(string texto)
         {
             string fileNameIdioma = Path.Combine(folder, fileName + "." + Thread.CurrentThread.CurrentCulture.Name);
@@ -51,6 +52,10 @@ namespace Services.DataAccess
 
 
 
+        /// <summary>
+        /// Obtiene la lista de idiomas disponibles a partir de los archivos en la carpeta de i18n.
+        /// </summary>
+        /// <returns>Lista de culturas soportadas.</returns>
         public static List<CultureInfo> ObtenerIdiomas()
         {
             try
@@ -72,6 +77,11 @@ namespace Services.DataAccess
             }
         }
 
+        /// <summary>
+        /// Agrega una palabra al archivo del idioma actual con traducción vacía por defecto.
+        /// </summary>
+        /// <param name="palabra">Clave a agregar.</param>
+        /// <param name="traduccion">Traducción (vacía por defecto).</param>
         public static void AgregarPalabra(string palabra, string traduccion = "")
         {
             string fileNameIdioma = Path.Combine(folder, fileName + "." + Thread.CurrentThread.CurrentCulture.Name);

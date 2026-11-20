@@ -8,19 +8,33 @@ using System.Linq;
 
 namespace Reserva2.BLL.Logic
 {
-    // CU.Com.011 — Crear Regla de Disponibilidad
+    /// <summary>
+    /// Lógica de negocio para la gestión de reglas de disponibilidad.
+    /// Implementa CU.Com.011 — Crear Regla de Disponibilidad.
+    /// </summary>
     public class ReglaDisponibilidadBLL
     {
         private readonly ReglaDisponibilidadRepository _repo = new ReglaDisponibilidadRepository();
         private readonly ElementoReservableRepository _elementoRepo = new ElementoReservableRepository();
         private readonly GeneradorSlotsBLL _generador = new GeneradorSlotsBLL();
 
+        /// <summary>
+        /// Obtiene las reglas de disponibilidad de un elemento reservable.
+        /// </summary>
+        /// <param name="idElemento">Identificador del elemento.</param>
+        /// <returns>Lista de reglas del elemento.</returns>
         public List<ReglaDisponibilidad> ListarPorElemento(int idElemento)
         {
             return _repo.GetByElemento(idElemento);
         }
 
-        // Devuelve la cantidad de slots generados.
+        /// <summary>
+        /// Crea una nueva regla de disponibilidad validando elemento, día, horario, duración y superposición.
+        /// Genera los slots correspondientes automáticamente.
+        /// </summary>
+        /// <param name="regla">Regla de disponibilidad a crear.</param>
+        /// <returns>Cantidad de slots generados por la nueva regla.</returns>
+        /// <exception cref="Exception">Si alguna validación falla o hay superposición con otra regla.</exception>
         public int Crear(ReglaDisponibilidad regla)
         {
             var elemento = _elementoRepo.GetById(regla.IdElemento);
@@ -64,8 +78,14 @@ namespace Reserva2.BLL.Logic
             return creados;
         }
 
-        // Reemplaza el horario semanal completo del elemento (grilla de la pantalla de disponibilidad).
-        // Cada bloque es una franja continua de un día; la duración del slot es la del elemento.
+        /// <summary>
+        /// Reemplaza el horario semanal completo de un elemento con los bloques especificados.
+        /// Descarta los slots libres futuros que quedaron fuera del nuevo horario.
+        /// </summary>
+        /// <param name="idElemento">Identificador del elemento reservable.</param>
+        /// <param name="bloques">Lista de bloques horarios que definen el nuevo horario semanal.</param>
+        /// <returns>Cantidad de slots nuevos generados.</returns>
+        /// <exception cref="Exception">Si el elemento no existe, está inactivo o algún bloque es inválido.</exception>
         public int GuardarHorarioSemanal(int idElemento, List<BloqueHorario> bloques)
         {
             var elemento = _elementoRepo.GetById(idElemento);
@@ -95,7 +115,6 @@ namespace Reserva2.BLL.Logic
                 });
             }
 
-            // Se descartan los slots libres futuros que quedaron fuera del nuevo horario
             _repo.ReemplazarReglas(idElemento, reglas, (dia, ini, fin) =>
                 reglas.Any(r => r.DiaSemana == dia && ini >= r.HoraInicio && fin <= r.HoraFin));
 

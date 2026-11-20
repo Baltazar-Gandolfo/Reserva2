@@ -7,10 +7,18 @@ using System.Text;
 
 namespace Services.Logic
 {
+    /// <summary>
+    /// Lógica de cálculo y verificación de dígitos verificadores horizontales (DVH) y verticales (DVV).
+    /// </summary>
     internal static class DigitoVerificadorLogic
     {
         private static readonly DigitoVerificadorRepository _repo = new DigitoVerificadorRepository();
 
+        /// <summary>
+        /// Calcula el dígito verificador horizontal (DVH) para una fila de la tabla Usuario.
+        /// </summary>
+        /// <param name="campos">Diccionario con los valores de los campos de la fila.</param>
+        /// <returns>DVH calculado como cadena numérica.</returns>
         public static string CalcularDVH(Dictionary<string, string> campos)
         {
             string[] orden = { "IdUsuario", "DNI", "Nombre", "Email", "PasswordHash", "Rol", "Telefono", "Estado", "FechaRegistro" };
@@ -26,6 +34,11 @@ namespace Services.Logic
             return acumulado.ToString();
         }
 
+        /// <summary>
+        /// Calcula el dígito verificador vertical (DVV) como suma de todos los DVH.
+        /// </summary>
+        /// <param name="dvhs">Lista de DVH de cada fila.</param>
+        /// <returns>DVV calculado como cadena numérica.</returns>
         public static string CalcularDVV(List<string> dvhs)
         {
             long acumulado = 0;
@@ -37,6 +50,9 @@ namespace Services.Logic
             return acumulado.ToString();
         }
 
+        /// <summary>
+        /// Recalcula el DVH de cada fila y el DVV de la tabla Usuario completa.
+        /// </summary>
         public static void RecalcularTodo()
         {
             var filas = _repo.ObtenerUsuariosRaw();
@@ -54,6 +70,9 @@ namespace Services.Logic
             _repo.ActualizarDVV("Usuario", dvv);
         }
 
+        /// <summary>
+        /// Recalcula solo el DVV a partir de los DVH almacenados en la base de datos.
+        /// </summary>
         public static void RecalcularDVV()
         {
             var filas = _repo.ObtenerUsuariosRaw();
@@ -62,6 +81,10 @@ namespace Services.Logic
             _repo.ActualizarDVV("Usuario", dvv);
         }
 
+        /// <summary>
+        /// Verifica la integridad de DVH y DVV comparando valores almacenados contra los calculados.
+        /// </summary>
+        /// <returns>Resultado con las filas que presentan inconsistencias.</returns>
         public static ResultadoIntegridad Verificar()
         {
             var resultado = new ResultadoIntegridad { EsValido = true };
@@ -107,6 +130,11 @@ namespace Services.Logic
             return resultado;
         }
 
+        /// <summary>
+        /// Verifica si ya existe un usuario con el DNI encriptado indicado.
+        /// </summary>
+        /// <param name="dniEncriptado">DNI encriptado a buscar.</param>
+        /// <returns><c>true</c> si el DNI ya existe.</returns>
         public static bool ExisteDNI(string dniEncriptado)
         {
             return _repo.ExisteDNI(dniEncriptado);

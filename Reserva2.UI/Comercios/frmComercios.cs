@@ -12,11 +12,15 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Comercios
 {
+    /// <summary>
+    /// Formulario de listado de comercios. Permite alta, edición, baja y acceso a sucursales.
+    /// </summary>
     public partial class frmComercios : Form
     {
         private ComercioBLL _bll = new ComercioBLL();
         private List<Comercio> _comercios;
 
+        /// <summary>Inicializa el formulario y conecta los eventos de los controles.</summary>
         public frmComercios()
         {
             InitializeComponent();
@@ -30,7 +34,7 @@ namespace Reserva2.UI.Comercios
             dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
         }
 
-        // Doble clic: el Admin ve el detalle (CU.Adm.002); el dueño edita su comercio.
+        /// <summary>Doble clic: el Admin ve el detalle; el dueño edita su comercio.</summary>
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             var com = ObtenerSeleccionado();
@@ -58,6 +62,7 @@ namespace Reserva2.UI.Comercios
             CargarGrilla();
         }
 
+        /// <summary>Carga los comercios en la grilla, filtrando por rol del usuario y estado.</summary>
         private void CargarGrilla()
         {
             dataGridView1.Rows.Clear();

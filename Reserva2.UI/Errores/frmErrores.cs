@@ -10,10 +10,17 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Errores
 {
+    /// <summary>
+    /// Formulario de visualización y exportación de errores del sistema.
+    /// </summary>
     public partial class frmErrores : Form
     {
+        /// <summary>Lista en memoria de errores cargados desde la base de datos.</summary>
         private List<Dictionary<string, string>> _errores = new();
 
+        /// <summary>
+        /// Inicializa el formulario y conecta los eventos de los controles.
+        /// </summary>
         public frmErrores()
         {
             InitializeComponent();
@@ -24,6 +31,7 @@ namespace Reserva2.UI.Errores
             btnExportar.Click += btnExportar_Click;
         }
 
+        /// <summary>Configura los controles y ejecuta el filtro inicial al cargar el formulario.</summary>
         private void frmErrores_Load(object sender, EventArgs e)
         {
             TraducirControles(this);
@@ -45,6 +53,7 @@ namespace Reserva2.UI.Errores
             Filtrar();
         }
 
+        /// <summary>Consulta los errores por rango de fechas y nivel, y los muestra en la grilla.</summary>
         private void Filtrar()
         {
             try
@@ -89,6 +98,7 @@ namespace Reserva2.UI.Errores
                 dgvErrores_SelectionChanged(dgvErrores, EventArgs.Empty);
         }
 
+        /// <summary>Clasifica un error como Critico, Advertencia o Error según el tipo de excepción.</summary>
         private static string ClasificarNivel(Dictionary<string, string> err)
         {
             string tipo = ObtenerValor(err, "TipoExcepcion").ToLower();
@@ -99,11 +109,13 @@ namespace Reserva2.UI.Errores
             return "Error";
         }
 
+        /// <summary>Obtiene un valor del diccionario de forma segura, devolviendo cadena vacía si no existe.</summary>
         private static string ObtenerValor(Dictionary<string, string> dict, string clave)
         {
             return dict.TryGetValue(clave, out var v) ? v ?? "" : "";
         }
 
+        /// <summary>Muestra el detalle del error seleccionado en el cuadro de texto.</summary>
         private void dgvErrores_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvErrores.CurrentRow?.Tag is not Dictionary<string, string> err)
@@ -117,6 +129,7 @@ namespace Reserva2.UI.Errores
                               $"StackTrace:\r\n{ObtenerValor(err, "StackTrace")}";
         }
 
+        /// <summary>Copia el detalle del error al portapapeles.</summary>
         private void btnCopiar_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txtDetalle.Text))
@@ -127,6 +140,7 @@ namespace Reserva2.UI.Errores
             }
         }
 
+        /// <summary>Exporta los errores filtrados a un archivo CSV.</summary>
         private void btnExportar_Click(object sender, EventArgs e)
         {
             if (dgvErrores.Rows.Count == 0)
@@ -171,6 +185,7 @@ namespace Reserva2.UI.Errores
             }
         }
 
+        /// <summary>Escapa caracteres conflictivos para formato CSV.</summary>
         private static string Escapar(string valor)
         {
             return valor.Replace(";", ",").Replace("\r", " ").Replace("\n", " ");

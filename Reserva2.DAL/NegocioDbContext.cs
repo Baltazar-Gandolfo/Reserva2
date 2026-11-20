@@ -4,31 +4,48 @@ using Reserva2.BE.Entities;
 
 namespace Reserva2.DAL
 {
+    /// <summary>
+    /// Contexto de Entity Framework para la base de datos de negocio (reservas, comercios, pagos).
+    /// </summary>
     public class NegocioDbContext : DbContext
     {
         private readonly string _connectionString;
 
+        /// <summary>Comercios registrados en el sistema.</summary>
         public DbSet<Comercio> Comercios { get; set; }
+        /// <summary>Sucursales de los comercios.</summary>
         public DbSet<Sucursal> Sucursales { get; set; }
+        /// <summary>Elementos reservables (canchas, salas, etc.).</summary>
         public DbSet<ElementoReservable> Elementos { get; set; }
+        /// <summary>Reglas de disponibilidad horaria.</summary>
         public DbSet<ReglaDisponibilidad> ReglasDisponibilidad { get; set; }
+        /// <summary>Slots de disponibilidad generados.</summary>
         public DbSet<Disponibilidad> Disponibilidades { get; set; }
+        /// <summary>Reservas realizadas por los clientes.</summary>
         public DbSet<Reserva> Reservas { get; set; }
+        /// <summary>Pagos asociados a reservas.</summary>
         public DbSet<Pago> Pagos { get; set; }
+        /// <summary>Reglas de negocio configurables por comercio.</summary>
         public DbSet<ReglaNegocio> ReglasNegocio { get; set; }
+        /// <summary>Registros de lista de espera.</summary>
         public DbSet<ListaEspera> ListasEspera { get; set; }
+        /// <summary>Notificaciones enviadas a usuarios.</summary>
         public DbSet<Notificacion> Notificaciones { get; set; }
 
+        /// <summary>Inicializa el contexto con la cadena de conexión proporcionada.</summary>
+        /// <param name="connectionString">Cadena de conexión a la base de datos.</param>
         public NegocioDbContext(string connectionString)
         {
             _connectionString = connectionString;
         }
 
+        /// <summary>Configura la conexión a SQL Server.</summary>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_connectionString);
         }
 
+        /// <summary>Configura el mapeo de entidades a tablas y sus restricciones.</summary>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Comercio>(e =>

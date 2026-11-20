@@ -9,10 +9,14 @@ using static Reserva2.UI.I18n.TraducirHelper;
 
 namespace Reserva2.UI.Auditoria
 {
+    /// <summary>
+    /// Formulario de auditoría (bitácora). Permite consultar y exportar el registro de acciones del sistema.
+    /// </summary>
     public partial class frmAuditoria : Form
     {
         private List<Services.DomainModel.Composite.Usuario> _usuarios = new List<Services.DomainModel.Composite.Usuario>();
 
+        /// <summary>Inicializa el formulario y conecta los eventos de filtro y exportación.</summary>
         public frmAuditoria()
         {
             InitializeComponent();
@@ -21,6 +25,7 @@ namespace Reserva2.UI.Auditoria
             btnExportar.Click += btnExportar_Click;
         }
 
+        /// <summary>Configura filtros de fecha, acción, entidad y usuario, y ejecuta la carga inicial.</summary>
         private void frmAuditoria_Load(object sender, EventArgs e)
         {
             TraducirControles(this);
@@ -65,6 +70,7 @@ namespace Reserva2.UI.Auditoria
             CargarGrilla();
         }
 
+        /// <summary>Consulta la bitácora con los filtros seleccionados y carga los resultados en la grilla.</summary>
         private void CargarGrilla()
         {
             try
@@ -105,6 +111,7 @@ namespace Reserva2.UI.Auditoria
             }
         }
 
+        /// <summary>Exporta los registros de auditoría a un archivo CSV.</summary>
         private void btnExportar_Click(object sender, EventArgs e)
         {
             if (dgvAuditoria.Rows.Count == 0)

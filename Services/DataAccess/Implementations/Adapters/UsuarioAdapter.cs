@@ -11,11 +11,15 @@ using System.Threading.Tasks;
 
 namespace Services.DAL.Implementations.Adapters
 {
+    /// <summary>
+    /// Adaptador Singleton que convierte datos SQL en objetos Usuario con sus privilegios.
+    /// </summary>
     internal class UsuarioAdapter : IAdapter<Usuario>
     {
         #region Singleton
         private readonly static UsuarioAdapter _instance = new UsuarioAdapter();
 
+        /// <summary>Obtiene la instancia única del adaptador.</summary>
         public static UsuarioAdapter Current
         {
             get
@@ -29,6 +33,9 @@ namespace Services.DAL.Implementations.Adapters
         }
         #endregion
 
+        /// <summary>Convierte un arreglo de valores SQL en un objeto Usuario con privilegios.</summary>
+        /// <param name="values">Valores de la fila de la tabla Usuario.</param>
+        /// <returns>Objeto Usuario hidratado.</returns>
         public Usuario Get(object[] values)
         {
             string dniRaw = values[1].ToString();

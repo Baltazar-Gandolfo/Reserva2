@@ -7,8 +7,14 @@ using System.Linq;
 
 namespace Reserva2.DAL.Repositories
 {
+    /// <summary>
+    /// Repositorio de acceso a datos para pagos de reservas.
+    /// </summary>
     public class PagoRepository
     {
+        /// <summary>Obtiene el pago aprobado de una reserva.</summary>
+        /// <param name="idReserva">Identificador de la reserva.</param>
+        /// <returns>Pago aprobado o null.</returns>
         public Pago GetAprobadoPorReserva(int idReserva)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -18,6 +24,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Obtiene los pagos agrupados por reserva para un conjunto de reservas.</summary>
+        /// <param name="idsReserva">Identificadores de las reservas.</param>
+        /// <returns>Diccionario de IdReserva a lista de pagos ordenados por fecha.</returns>
         public Dictionary<int, List<Pago>> GetPorReservas(IEnumerable<int> idsReserva)
         {
             var ids = idsReserva.ToList();
@@ -31,6 +40,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Obtiene todos los pagos de una reserva.</summary>
+        /// <param name="idReserva">Identificador de la reserva.</param>
+        /// <returns>Lista de pagos.</returns>
         public List<Pago> GetPorReserva(int idReserva)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -39,8 +51,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
-        // Asienta el pago y desactiva la expiración de la reserva Pendiente.
-        // La confirmación queda a cargo del comercio. Devuelve false si la reserva ya no está Pendiente.
+        /// <summary>Registra un pago aprobado y desactiva la expiración de la reserva Pendiente.</summary>
+        /// <param name="pago">Pago a registrar.</param>
+        /// <returns><c>false</c> si la reserva ya no está Pendiente.</returns>
         public bool RegistrarAprobado(Pago pago)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -64,6 +77,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Cambia el estado de un pago.</summary>
+        /// <param name="idPago">Identificador del pago.</param>
+        /// <param name="estado">Nuevo estado.</param>
         public void CambiarEstado(int idPago, string estado)
         {
             using (var ctx = NegocioContextFactory.Crear())

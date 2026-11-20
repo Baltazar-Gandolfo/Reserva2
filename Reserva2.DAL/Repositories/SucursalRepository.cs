@@ -5,8 +5,13 @@ using System.Linq;
 
 namespace Reserva2.DAL.Repositories
 {
+    /// <summary>
+    /// Repositorio de acceso a datos para sucursales de comercios.
+    /// </summary>
     public class SucursalRepository
     {
+        /// <summary>Obtiene todas las sucursales.</summary>
+        /// <returns>Lista de sucursales.</returns>
         public List<Sucursal> GetAll()
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -15,6 +20,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Obtiene las sucursales de un comercio.</summary>
+        /// <param name="idComercio">Identificador del comercio.</param>
+        /// <returns>Lista de sucursales del comercio.</returns>
         public List<Sucursal> GetByComercio(int idComercio)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -25,6 +33,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Obtiene una sucursal por su identificador.</summary>
+        /// <param name="id">Identificador de la sucursal.</param>
+        /// <returns>Sucursal encontrada o null.</returns>
         public Sucursal GetById(int id)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -33,6 +44,8 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Inserta una nueva sucursal.</summary>
+        /// <param name="sucursal">Sucursal a insertar.</param>
         public void Insertar(Sucursal sucursal)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -44,6 +57,8 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Actualiza los datos de una sucursal existente.</summary>
+        /// <param name="sucursal">Sucursal con los datos actualizados.</param>
         public void Actualizar(Sucursal sucursal)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -59,6 +74,9 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Activa o desactiva una sucursal.</summary>
+        /// <param name="id">Identificador de la sucursal.</param>
+        /// <param name="activo">Estado de activación.</param>
         public void CambiarEstado(int id, bool activo)
         {
             using (var ctx = NegocioContextFactory.Crear())
@@ -72,6 +90,11 @@ namespace Reserva2.DAL.Repositories
             }
         }
 
+        /// <summary>Verifica si existe otra sucursal con el mismo nombre en el comercio.</summary>
+        /// <param name="nombre">Nombre a verificar.</param>
+        /// <param name="idComercio">Identificador del comercio.</param>
+        /// <param name="idExcluir">Id de la sucursal a excluir de la búsqueda.</param>
+        /// <returns><c>true</c> si el nombre ya existe.</returns>
         public bool ExisteNombre(string nombre, int idComercio, int? idExcluir = null)
         {
             using (var ctx = NegocioContextFactory.Crear())

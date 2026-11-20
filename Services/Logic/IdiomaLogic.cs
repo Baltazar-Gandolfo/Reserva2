@@ -10,8 +10,16 @@ using System.Threading.Tasks;
 
 namespace Services.Logic
 {
+    /// <summary>
+    /// Lógica de negocio para la traducción de textos (internacionalización i18n).
+    /// </summary>
     internal static class IdiomaLogic
     {
+        /// <summary>
+        /// Traduce un texto al idioma actual del hilo. Si no se encuentra, agrega la clave vacía.
+        /// </summary>
+        /// <param name="texto">Texto clave a traducir.</param>
+        /// <returns>Texto traducido o el original si no se encontró.</returns>
         public static string Traducir(string texto)
         {
             try
@@ -43,6 +51,10 @@ namespace Services.Logic
             }
         }
 
+        /// <summary>
+        /// Obtiene la lista de idiomas disponibles en el sistema.
+        /// </summary>
+        /// <returns>Lista de culturas disponibles.</returns>
         public static List<CultureInfo> ObtenerIdiomas()
         {
             return IdiomaDal.ObtenerIdiomas();
