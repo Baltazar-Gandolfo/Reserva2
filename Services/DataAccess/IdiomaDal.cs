@@ -17,10 +17,18 @@ namespace Services.DataAccess
     internal static class IdiomaDal
     {
         /// <summary>Carpeta donde se almacenan los archivos de idioma.</summary>
-        private static string folder = ConfigurationManager.AppSettings["I18NFolder"];
+        private static string folder = ResolverCarpeta(ConfigurationManager.AppSettings["I18NFolder"]);
 
         /// <summary>Nombre base del archivo de idioma (sin extensión de cultura).</summary>
         private static string fileName = ConfigurationManager.AppSettings["I18NFileName"];
+
+        /// <summary>Resuelve la carpeta de idiomas respecto de la carpeta del ejecutable y no de la carpeta de trabajo.</summary>
+        /// <param name="ruta">Ruta absoluta o relativa configurada.</param>
+        /// <returns>Ruta absoluta de la carpeta de idiomas.</returns>
+        private static string ResolverCarpeta(string ruta)
+        {
+            return Path.IsPathRooted(ruta) ? ruta : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ruta);
+        }
 
         /// <summary>
         /// Busca la traducción de un texto en el archivo del idioma actual del hilo.
@@ -86,9 +94,19 @@ namespace Services.DataAccess
         {
             string fileNameIdioma = Path.Combine(folder, fileName + "." + Thread.CurrentThread.CurrentCulture.Name);
 
-            using (StreamWriter sw = new StreamWriter(fileNameIdioma, true)) //Append: Sirve para agregar data al final del archivo
+            try
             {
-                sw.WriteLine($"{palabra}:{traduccion}");
+                using (StreamWriter sw = new StreamWriter(fileNameIdioma, true)) //Append: Sirve para agregar data al final del archivo
+                {
+                    sw.WriteLine($"{palabra}:{traduccion}");
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // La carpeta de instalación puede ser de solo lectura: se muestra la clave sin traducir.
+            }
+            catch (IOException)
+            {
             }
         }
     }

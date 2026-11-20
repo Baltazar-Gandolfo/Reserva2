@@ -52,7 +52,7 @@ namespace Services.Facade
         {
             try
             {
-                string carpeta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs", "errors");
+                string carpeta = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Reserva2", "logs", "errors");
                 if (!Directory.Exists(carpeta))
                     Directory.CreateDirectory(carpeta);
 

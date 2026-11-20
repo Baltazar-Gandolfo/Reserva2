@@ -4,6 +4,10 @@
 -- Ejecutar DESPUÉS de Reserva2_Servicio.sql
 -- =============================================
 
+-- Si la base ya existe (re-ejecucion/reinstalacion), se omite el resto del script.
+IF DB_ID('Reserva2_Negocio') IS NOT NULL SET NOEXEC ON;
+GO
+
 CREATE DATABASE Reserva2_Negocio;
 GO
 USE Reserva2_Negocio;
@@ -234,4 +238,7 @@ GO
 USE master;
 GO
 ALTER DATABASE Reserva2_Negocio SET MULTI_USER;
+GO
+
+SET NOEXEC OFF;
 GO
